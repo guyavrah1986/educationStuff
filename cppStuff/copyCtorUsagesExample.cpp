@@ -5,12 +5,12 @@
 // 1) Has the signature that accept a const refernce to another (usually called "other") class type object. It is important to distinguish it from the assginment 
 //    operator in the fact that it is used to initiate a NEW object from an exsisting one. The assginment operator is used to initialize an already exisisting object
 //    from another object. So for example:
-//    MyStr myStr1;
+//    MyStr myStr1; --> defualt ctor
 //    MyStr myStr2 = myStr1; --> copy ctor
 //    MyStr myStr3(myStr1);  --> copy ctor
 //    MyStr myStr2 = myStr3; --> assginment operator= 
 // 2) The default copy ctor that the compiler produces perfroms shallow copy.
-//    BIG NOTE: In case our class has member that allocated dynamically memory , this could lead to undefined behaviour. 
+//    BIG NOTE: In case our class has a member(s) that allocated dynamically memory, this (shallow copying) could lead to undefined behaviour. 
 // 
 // 3) Upon performing a copy of an anonymous instance, usually the compiler optimizes this procedure and simply initiate the object without calling the copy ctor. It 
 //    refered usually as "elision optimization". Note that none of the code in the copy ctor body will be executated !!!
