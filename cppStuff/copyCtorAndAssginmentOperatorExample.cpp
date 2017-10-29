@@ -58,6 +58,11 @@ class A
 		cout << "A::~A" << endl; 
 	}
 
+	A(const A& other) : A(other.m_a, other.m_cstr)
+	{
+		cout << "A::A(other)" << endl;
+	}
+
 
 	private:
 	int m_a;
