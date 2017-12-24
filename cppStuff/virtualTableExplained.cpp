@@ -19,7 +19,6 @@ public:
 	Base1() : m_base1(17)
 	{
 		cout << "Base1::Base1 - setting m_base1 to:" << m_base1 << endl;
-		printf("Base1::Base1 - address of Base1::func1 is:%p \n", (&Base1::func1));
 	}
 
 	virtual ~Base1()
@@ -75,8 +74,8 @@ int main(int argc, char** argv)
 	Base2* b2 = new Base2;
 
 	{
-	void (Base1::*mfp)() = &Base1::func1;
-	printf("virtualTableExplained - address of Base1::func1 is: %p \n", (void*)(b1->*mfp));
+		void (Base1::*mfp)() = &Base1::func1;
+		printf("virtualTableExplained - address of Base1::func1 is: %p \n", (void*)(b1->*mfp));
 	}
 
 	{
