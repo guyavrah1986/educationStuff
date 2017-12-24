@@ -19,6 +19,7 @@ public:
 	Base1() : m_base1(17)
 	{
 		cout << "Base1::Base1 - setting m_base1 to:" << m_base1 << endl;
+		printf("Base1::Base1 - address of Base1::func1 is:%p \n", (&Base1::func1));
 	}
 
 	virtual ~Base1()
@@ -29,6 +30,11 @@ public:
 	virtual void func1()
 	{
 		cout << "Base1::func1 - m_base1 is:" << m_base1 << endl;
+	}
+
+	void foo()
+	{
+		cout << "Base1::foo" << endl;
 	}
 
 	int m_base1;
@@ -55,12 +61,6 @@ public:
 	int m_base2;
 };
 
-
-void printVirtualFunctionAddress(Base1* obj)
-{
-
-}
-
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 // main program:
@@ -70,11 +70,19 @@ void printVirtualFunctionAddress(Base1* obj)
 
 int main(int argc, char** argv)
 {
-	cout << "virtualTableExplained - start" << endl;
-
-	void (Base1::*mfp)() = &Base1::func1;
+	cout << "virtualTableExplained - start " << endl;
 	Base1* b1 = new Base1;
-	printf("virtualTableExplained - address of Base1::func1 is: %p", (void*)(b1->*mfp));
+	Base2* b2 = new Base2;
+
+	{
+	void (Base1::*mfp)() = &Base1::func1;
+	printf("virtualTableExplained - address of Base1::func1 is: %p \n", (void*)(b1->*mfp));
+	}
+
+	{
+		void (Base2::*mfp)() = &Base2::func1;
+		printf("virtualTableExplained - address of Base2::func1 is: %p \n", (void*)(b2->*mfp));
+	}
 
 	cout << "virtualTableExplained - end" << endl;
 	return 0;
