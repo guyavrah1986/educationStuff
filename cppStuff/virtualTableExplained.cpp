@@ -70,12 +70,12 @@ void printVirtualFunctionAddress(Base1* obj)
 
 int main(int argc, char** argv)
 {
-	cout << "main - start" << endl;
+	cout << "virtualTableExplained - start" << endl;
 
 	void (Base1::*mfp)() = &Base1::func1;
 	Base1* b1 = new Base1;
-	printf("address: %p", (void*)(b1->*mfp));
+	printf("virtualTableExplained - address of Base1::func1 is: %p", (void*)(b1->*mfp));
 
-	cout << "main - end" << endl;
+	cout << "virtualTableExplained - end" << endl;
 	return 0;
 }
