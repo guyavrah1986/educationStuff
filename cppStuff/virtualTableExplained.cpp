@@ -3,7 +3,8 @@
 //
 // virtual table under the hood:
 // -----------------------------
-// 
+// Some notes about virtual functions and virtual tables:
+// 1) A virtual table is created ONCE for each class. It is located
 // 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -31,9 +32,14 @@ public:
 		cout << "Base1::func1 - m_base1 is:" << m_base1 << endl;
 	}
 
-	void foo()
+	void printMyMembersAddresses(void* myself)
 	{
-		cout << "Base1::foo" << endl;
+		cout << "Base1::printMyMembersAddresses - size of Base1 is:" << sizeof(Base1) << " size of pointer object is:" << sizeof(void*) << endl;
+
+		for (size_t i = 0; i < sizeof(Base1) / sizeof(void *); ++i)
+		{
+
+		}
 	}
 
 	int m_base1;
@@ -44,7 +50,7 @@ class Base2
 public:
 	Base2() : m_base2(15)
 	{
-		cout << "Base2::Base2 - setting m_base1 to:" << m_base2 << endl;
+		cout << "Base2::Base2 - setting m_base2 to:" << m_base2 << endl;
 	}
 
 	virtual ~Base2()
@@ -52,12 +58,33 @@ public:
 		cout << "Base2::~Base2" << endl;
 	}
 
-	virtual void func1()
+	virtual void func2()
 	{
-		cout << "Base2::func1 - m_base2 is:" << m_base2 << endl;
+		cout << "Base2::func2 - m_base2 is:" << m_base2 << endl;
 	}
 
 	int m_base2;
+};
+
+class Derived : public Base1, public Base2
+{
+public:
+	Derived() : m_derived(12)
+	{
+		cout << "Derived::Derived - setting m_derived to:" << m_derived << endl;
+	}
+
+	virtual ~Derived()
+	{
+		cout << "Derived::~Derived" << endl;
+	}
+
+	virtual void func1()
+	{
+		cout << "Derived::func1 - m_derived is:" << m_derived << endl;
+	}
+
+	int m_derived;
 };
 
 // ===================================================================================================================================================================
@@ -79,9 +106,19 @@ int main(int argc, char** argv)
 	}
 
 	{
-		void (Base2::*mfp)() = &Base2::func1;
-		printf("virtualTableExplained - address of Base2::func1 is: %p \n", (void*)(b2->*mfp));
+		void (Base2::*mfp)() = &Base2::func2;
+		printf("virtualTableExplained - address of Base2::func2 is: %p \n", (void*)(b2->*mfp));
 	}
+
+	Derived* d = new Derived;
+	{
+		void (Derived::*mfp)() = &Derived::func1;
+		printf("virtualTableExplained - address of Derived::func1 is: %p \n", (void*)(d->*mfp));
+	}
+
+	delete b1;
+	delete b2;
+	delete d;
 
 	cout << "virtualTableExplained - end" << endl;
 	return 0;
