@@ -4,7 +4,9 @@
 // virtual table under the hood:
 // -----------------------------
 // Some notes about virtual functions and virtual tables:
-// 1) A virtual table is created ONCE for each class. It is located
+// 1) A virtual table is created ONCE for each class. It is located (implementation specific) somewhere (probably) in the BSS segment (all the data
+//    which is relevant for constructing the virtual table is known at compile time so it could be placed there).
+// 2) For a specific object - once it has AT lEAST one virtual function (or more) --> it will have (contain) also
 // 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -13,6 +15,16 @@
 #include <iostream>
 using namespace std;
 
+static void print_object(const char *name, void *this_, size_t size)
+{
+	void** tmp = reinterpret_cast<void**>(this_);
+	size_t i;
+	printf("created %s at address %p of size %zu\n", name, this_, size);
+	for(i = 0 ; i < size / sizeof(void*) ; ++i)
+	{
+		printf("  pointer[%zu] == %p\n", i, tmp[i]);
+	}
+}
 
 class Base1
 {
@@ -20,6 +32,7 @@ public:
 	Base1() : m_base1(17)
 	{
 		cout << "Base1::Base1 - setting m_base1 to:" << m_base1 << endl;
+		print_object(__FUNCTION__, this, sizeof(*this));
 	}
 
 	virtual ~Base1()
@@ -32,16 +45,6 @@ public:
 		cout << "Base1::func1 - m_base1 is:" << m_base1 << endl;
 	}
 
-	void printMyMembersAddresses(void* myself)
-	{
-		cout << "Base1::printMyMembersAddresses - size of Base1 is:" << sizeof(Base1) << " size of pointer object is:" << sizeof(void*) << endl;
-
-		for (size_t i = 0; i < sizeof(Base1) / sizeof(void *); ++i)
-		{
-
-		}
-	}
-
 	int m_base1;
 };
 
@@ -51,6 +54,7 @@ public:
 	Base2() : m_base2(15)
 	{
 		cout << "Base2::Base2 - setting m_base2 to:" << m_base2 << endl;
+		print_object(__FUNCTION__, this, sizeof(*this));
 	}
 
 	virtual ~Base2()
@@ -66,12 +70,13 @@ public:
 	int m_base2;
 };
 
-class Derived : public Base1, public Base2
+class Derived : public Base1 , public Base2
 {
 public:
 	Derived() : m_derived(12)
 	{
 		cout << "Derived::Derived - setting m_derived to:" << m_derived << endl;
+		print_object(__FUNCTION__, this, sizeof(*this));
 	}
 
 	virtual ~Derived()
@@ -97,6 +102,7 @@ public:
 int main(int argc, char** argv)
 {
 	cout << "virtualTableExplained - start " << endl;
+	/*
 	Base1* b1 = new Base1;
 	Base2* b2 = new Base2;
 
@@ -109,15 +115,16 @@ int main(int argc, char** argv)
 		void (Base2::*mfp)() = &Base2::func2;
 		printf("virtualTableExplained - address of Base2::func2 is: %p \n", (void*)(b2->*mfp));
 	}
-
+	*/
 	Derived* d = new Derived;
 	{
 		void (Derived::*mfp)() = &Derived::func1;
 		printf("virtualTableExplained - address of Derived::func1 is: %p \n", (void*)(d->*mfp));
 	}
 
-	delete b1;
-	delete b2;
+
+	//delete b1;
+	//delete b2;
 	delete d;
 
 	cout << "virtualTableExplained - end" << endl;
