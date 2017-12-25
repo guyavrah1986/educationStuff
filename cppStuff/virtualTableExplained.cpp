@@ -6,7 +6,9 @@
 // Some notes about virtual functions and virtual tables:
 // 1) A virtual table is created ONCE for each class. It is located (implementation specific) somewhere (probably) in the BSS segment (all the data
 //    which is relevant for constructing the virtual table is known at compile time so it could be placed there).
-// 2) For a specific object - once it has AT lEAST one virtual function (or more) --> it will have (contain) also
+// 2) For a specific object - once it has AT lEAST one virtual function (or more) --> it will have (contain) also an additional "virtual pointer".
+//    The objective of this pointer is to point to the virtual table.
+// 3) Virtual table is basically a structure that holds all the function pointers to all the VIRTUAL functions of an object.
 // 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
