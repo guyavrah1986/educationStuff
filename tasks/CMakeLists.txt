@@ -26,7 +26,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-pmf-conversions")
 # group all source files of the executable
 # ======================================================================================================================================
 
-# RESTfull sample sources
+# files relevant pre-interview preperation
 file(GLOB_RECURSE BLOOM_SRC
     "${CMAKE_CURRENT_LIST_DIR}/bloom/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/bloom/*.h")
@@ -42,7 +42,8 @@ file(GLOB_RECURSE BLOOM_SRC
 # create the main executable (and samples as well)
 # ======================================================================================================================================
    
-add_executable(bloomExe ${BLOOM_SRC})
+add_executable(bloomPreparationExe ${BLOOM_SRC})
+
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
