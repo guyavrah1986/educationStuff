@@ -3,8 +3,8 @@
 //
 // std::vector of the STL:
 // ----------------------
-// This short tutorial describes some important aspects that needs to be considered when using the STL contaniers. In this specific case the examples will be depicts 
-// with the std::vector container.
+// This short tutorial describes some important aspects that needs to be considered when using the STL containers. In this specific case the examples
+// will be depicts with the std::vector container.
 // 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
 
 class MyObj
 {
@@ -25,7 +26,7 @@ public:
 
 	MyObj() : m_a(17)
 	{
-		std::cout << "MyObj::MyObj (defualt) - setting m_a to:" << m_a << " this address is:" << this << std::endl;
+		std::cout << "MyObj::MyObj (default) - setting m_a to:" << m_a << " this address is:" << this << std::endl;
 	}
 
 	MyObj(const MyObj& other) : MyObj(other.m_a)
@@ -72,6 +73,47 @@ std::ostream& operator<<(std::ostream& out, const MyObj& obj)
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 
+/*
+ * 1) This example illustrates the difference (and benefits) when using vector (for int in this case) over the use of good old "C style" array of int's.
+ * a) The declaration of the static (automatic - on the stack) std::vector can take a non const value (vecSize = 5 in this case).
+ * b) The std::vector is cleared automatically once it is "out of scope" -- no need to call the delete method explicitly.
+ * c) It is possible to use the "C style" array like access syntax - YET for performance considerations the index is not checked to verify it is
+ * in bounds..
+ *
+*/
+
+void illustrateVectorDeclerationAndElementsAccess()
+{
+	cout << "illustrateVectorDeclerationAndElementsAccess - start" << endl;
+	// a)
+	size_t vecSize = 5;
+	vector<int> vec(vecSize);
+
+	for (size_t i = 0; i < vec.size(); ++i)
+	{
+		vec[i] = i;
+		cout << "vec[" << i << "]:" << vec[i] << endl;
+	}
+
+	// c)
+	size_t index = 4;
+	cout << "illustrateVectorDeclerationAndElementsAccess - access vec[" << index << "]" << " gives:" << vec[index] << endl;
+
+	// d)
+	try
+	{
+		index = 5;
+		cout << "illustrateVectorDeclerationAndElementsAccess - trying to access element which not in range of the vector with vec.at(" << index <<
+				")" << " gives:" << vec.at(index) << endl;
+	}
+	catch (exception e)
+	{
+		cout << "illustrateVectorDeclerationAndElementsAccess - caught exception when trying to access vec.at(" << index << ") which is not"
+				" in the vector range" << endl;
+	}
+
+	cout << "illustrateVectorDeclerationAndElementsAccess - end" << endl;
+} // b)
 
 void fillVectorWithObjects()
 {
@@ -104,11 +146,14 @@ void fillVectorWithObjects()
 int main(int argc, char** argv)
 {
 
-	std::cout << "main - start" << std::endl;
+	std::cout << "vectorExplained - start" << std::endl;
+	illustrateVectorDeclerationAndElementsAccess();
+
+
 	
-	fillVectorWithObjects();
+	//fillVectorWithObjects();
 	
-	std::cout << "main - end" << std::endl;
+	std::cout << "vectorExplained - end" << std::endl;
 	return 0;
 }
 

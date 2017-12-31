@@ -26,9 +26,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-pmf-conversions")
 # group all source files of the executable
 # ======================================================================================================================================
 
-# RESTfull sample sources
+# virtual table explantation sources
 file(GLOB_RECURSE VTABLE_EXPLANIED_SRC
     "${CMAKE_CURRENT_LIST_DIR}/virtualTableExplained.cpp")
+
+# std::vector explantation sources
+file(GLOB_RECURSE VECTOR_EXPLANIED_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/vectorExplained.cpp")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
@@ -41,7 +45,9 @@ file(GLOB_RECURSE VTABLE_EXPLANIED_SRC
 # create the main executable (and samples as well)
 # ======================================================================================================================================
    
-add_executable(vtableExplanied ${VTABLE_EXPLANIED_SRC})
+add_executable(vtableExplaniedExe ${VTABLE_EXPLANIED_SRC})
+
+add_executable(vectorExplainedExe ${VECTOR_EXPLANIED_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
