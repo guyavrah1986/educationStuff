@@ -16,7 +16,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # disable specific warnings
 # ======================================================================================================================================
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-pmf-conversions")
+set(CPP_STUFF_WARNINGS "-Werror -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+	set(CMAKE_CXX_FLAGS ${CPP_STUFF_WARNINGS}) #"${CMAKE_CXX_FLAGS} -Wno-pmf-conversions")
+endif()
+
 
 # ======================================================================================================================================
 # include directories

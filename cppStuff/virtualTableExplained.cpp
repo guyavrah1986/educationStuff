@@ -121,7 +121,7 @@ int main(int argc, char** argv)
 	Derived* d = new Derived;
 	{
 		void (Derived::*mfp)() = &Derived::func1;
-		printf("virtualTableExplained - address of Derived::func1 is: %p \n", (void*)(d->*mfp));
+		//printf("virtualTableExplained - address of Derived::func1 is: %p \n", (void*)(d->*mfp));
 	}
 
 

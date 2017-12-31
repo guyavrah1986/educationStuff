@@ -106,7 +106,7 @@ void illustrateVectorDeclerationAndElementsAccess()
 		cout << "illustrateVectorDeclerationAndElementsAccess - trying to access element which not in range of the vector with vec.at(" << index <<
 				")" << " gives:" << vec.at(index) << endl;
 	}
-	catch (exception e)
+	catch (exception& e)
 	{
 		cout << "illustrateVectorDeclerationAndElementsAccess - caught exception when trying to access vec.at(" << index << ") which is not"
 				" in the vector range" << endl;
