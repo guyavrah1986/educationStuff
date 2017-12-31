@@ -79,6 +79,8 @@ std::ostream& operator<<(std::ostream& out, const MyObj& obj)
  * b) The std::vector is cleared automatically once it is "out of scope" -- no need to call the delete method explicitly.
  * c) It is possible to use the "C style" array like access syntax - YET for performance considerations the index is not checked to verify it is
  * in bounds..
+ * d) It is also possible to access an element in a vector using the vec.at(index) method. In this case, bounds checking is taking place and upon
+ *    an access violation an exception in thrown.
  *
 */
 
@@ -119,7 +121,7 @@ void fillVectorWithObjects()
 {
 	std::vector<MyObj> vec;
 
-	std::cout << "fillVectorWithObjects::start- about to fill the vecotr with some objects, first lets create three of them:" << std::endl;
+	std::cout << "fillVectorWithObjects::start- about to fill the vector with some objects, first lets create three of them:" << std::endl;
 	MyObj obj1(12);
 	MyObj obj2(15);
 	MyObj obj3;
@@ -145,7 +147,6 @@ void fillVectorWithObjects()
 
 int main(int argc, char** argv)
 {
-
 	std::cout << "vectorExplained - start" << std::endl;
 	illustrateVectorDeclerationAndElementsAccess();
 
