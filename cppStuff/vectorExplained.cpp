@@ -149,7 +149,7 @@ void illustrateVectorDeclerationAndElementsAccess()
 
 /*
  * 2) This function illustrate the different approaches on how to declare a vector - with focus on its size.
- * a) This declaration will create an empty vector of int's.
+ * a) This declaration will create an empty vector of int's initialized to their default value (0 in this case).
  * b) This declaration will create an array of int's with size and capacity of 10. All int's will be initialized to their default value (0).
  * c) After adding an additional element to the vector --> the vector (automatically) will increase its size (double it). The space "left" until
  *    the next growth of the vector is when it will fill all its unused space (capacity - size). Basically this is (capacity - size) is the available
@@ -200,16 +200,23 @@ void illustrateFillVectorWithObjects()
 			<< " and its capacity is:" << vec3.capacity() << endl;
 
 	// e)
-	vector<MyObj> vec4(4);
+	size_t sizeOfVec4 = 4;
+	vector<MyObj> vec4(sizeOfVec4);
 	cout << "illustrateFillVectorWithObjects - the initial size of vec4 is:" << vec4.size()
 			<< " and its capacity is:" << vec4.capacity() << endl;
+	cout << "illustrateFillVectorWithObjects - displaying elements in vec4:" << endl;
+	for (size_t i = 0; i < vec4.size(); ++i)
+	{
+		cout << "vec4[" << i << "]:" << vec4[i] << endl;
+	}
 
 	// g)
 	//vector<MyObjNoDefualtCtor> vec5(3);
 
 	// h)
+	size_t sizeOfVec5 = 4;
 	vector<MyObjNoDefualtCtor> vec5;
-	vec5.reserve(3);
+	vec5.reserve(sizeOfVec5);
 	cout << "illustrateFillVectorWithObjects - the initial size of vec5 is:" << vec5.size()
 			<< " and its capacity is:" << vec5.capacity() << endl;
 
@@ -225,9 +232,74 @@ void illustrateFillVectorWithObjects()
 	cout << "illustrateFillVectorWithObjects - about to push obj3 into the vec5" << endl;
 	vec5.push_back(obj3);
 
+	cout << "illustrateFillVectorWithObjects - displaying elements in vec5:" << endl;
+	for (size_t i = 0; i < vec5.capacity(); ++i)
+	{
+		try
+		{
+			auto element = vec5.at(i);
+			cout << "vec5[" << i << "]:" << element << endl;
+		}
+		catch (out_of_range& e)
+		{
+			cout << "illustrateFillVectorWithObjects - caught an exception when trying to access vec[" << i << "]" << endl;
+		}
+	}
+
 	cout << "illustrateFillVectorWithObjects - end \n \n";
 } // f)
 
+
+/*
+ * 3) This example illustrate how the vector is growing when we insert elements into it.
+ * a) The most "common" (and naive) manner to insert elements into the vector. Note that for each element (MyObj) that is inserted,
+ *    two ctor's are invoked: The regular ctor that builds the temporary object, followed by the copy ctor that actually inserts a COPY
+ *    of the "original" (temporary) object into the vector.
+ * b) Same thing goes here as well: When adding the fourth element, two ctor's will be called.The more important notation here, is that due to the
+ *    fact that we reached the vector capacity --> we will have to increase the vector size (the vector will do it for us off course), causing
+ *    the capacity of the vector to increase by a factor of two (3 X 2 = 6) --> YET the last two elements WONT be initialized
+ *    Implicitly using the copy ctor --> so accessing them is undefined !!
+ *
+ *
+ */
+
+void illustrateVectorGrowth()
+{
+	vector<MyObj> vec1;
+	size_t initialCapacity = 3;
+	vec1.reserve(initialCapacity);
+
+	// a)
+	cout << " \n \n \n illustrateVectorGrowth - inserting  elements into vec1:" << endl;
+	for (size_t i = 0; i < initialCapacity; ++i)
+	{
+		vec1.push_back(MyObj(i + 1));
+	}
+
+	cout << "illustrateVectorGrowth - displaying elements in vec1:" << endl;
+	for (size_t i = 0; i < vec1.capacity(); ++i)
+	{
+		cout << "vec1[" << i << "]:" << vec1[i] << endl;
+	}
+
+	// b)
+	cout << "illustrateVectorGrowth - now, insert the capacity + 1 element into vec1:" << endl;
+	vec1.push_back(MyObj(4));
+
+	cout << "illustrateVectorGrowth - displaying elements in vec1 (after adding the fourth element before):" << endl;
+	for (size_t i = 0; i < vec1.capacity(); ++i)
+	{
+		try
+		{
+			auto tmp = vec1.at(i);
+			cout << "vec1[" << i << "]:" << tmp << endl;
+		}
+		catch (out_of_range& e)
+		{
+			cout << "illustrateVectorGrowth - trying to access vec1[" << i << "], which has not been initialized correctly" << endl;
+		}
+	}
+}
 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -247,6 +319,8 @@ int main(int argc, char** argv)
 	// 2)
 	illustrateFillVectorWithObjects();
 
+	// 3)
+	illustrateVectorGrowth();
 	
 	//fillVectorWithObjects();
 	
