@@ -83,7 +83,6 @@ std::ostream& operator<<(std::ostream& out, const MyObj& obj)
  *    an access violation an exception in thrown.
  *
 */
-
 void illustrateVectorDeclerationAndElementsAccess()
 {
 	cout << "illustrateVectorDeclerationAndElementsAccess - start" << endl;
@@ -117,25 +116,74 @@ void illustrateVectorDeclerationAndElementsAccess()
 	cout << "illustrateVectorDeclerationAndElementsAccess - end" << endl;
 } // b)
 
-void fillVectorWithObjects()
+/*
+ * 2) This function illustrate the different approaches on how to declare a vector - with focus on its size.
+ * a) This declaration will create an empty vector of int's.
+ * b) This declaration will create an array of int's with size and capacity of 10. All int's will be initialized to their default value (0).
+ * c) After adding an additional element to the vector --> the vector (automatically) will increase its size (double it). The space "left" until
+ *    the next growth of the vector is when it will fill all its unused space (capacity - size). Basically this is (capacity - size) is the available
+ *    space in every moment.
+ * d) As in the first example, in this case as well, the vector will be with size 0 and capacity 0 as well.
+ *    NOTE: Different implementation of the STL might implement it differently --> thus causing the default Ctor of vector to initialize it with a certain
+ *    size (although we used the default Ctor explicitly).
+ * e) As in the case of the int's vector, if we declare the vector with the initial size in the Ctor --> the default Ctor of the object type will be
+ *    called ("size" times - as the number of elements we initialed the vector with).
+ * f) When we reach the end of the function, due to the fact that the vec4 was declared automatically (on the stack), its Dtor will be invoked.
+ *    This will cause the invocation of each objet's Dtor within vec4 as well.
+ */
+void illustrateFillVectorWithObjects()
 {
-	std::vector<MyObj> vec;
+	cout << "illustrateFillVectorWithObjects - start" << endl;
 
-	std::cout << "fillVectorWithObjects::start- about to fill the vector with some objects, first lets create three of them:" << std::endl;
+	// a)
+	vector<int> vec1;
+	cout << "illustrateFillVectorWithObjects - the initial size of vec1 is:" << vec1.size()
+			<< " and its capacity is:" << vec1.capacity() << endl;
+	// b)
+	vector<int> vec2(10);
+	cout << "illustrateFillVectorWithObjects - the initial size of vec2 is:" << vec2.size()
+			<< " and its capacity is:" << vec2.capacity() << endl;
+	cout << "illustrateFillVectorWithObjects - the initial values of the integers in vec2 are:" << endl;
+	for (size_t i = 0; i < vec2.size(); ++i)
+	{
+		cout << "vec2[" << i << "]:" << vec2[i] << endl;
+	}
+
+	// c)
+	int firstValToAdd = 17;
+	vec1.push_back(firstValToAdd);
+	cout << "illustrateFillVectorWithObjects - after adding the first value to vec1 its size is:" << vec1.size()
+			<< " and its capacity is:" << vec1.capacity() << endl;
+
+	vec2.push_back(firstValToAdd);
+	cout << "illustrateFillVectorWithObjects - after adding the first value to vec2 its size is:" << vec2.size()
+			<< " and its capacity is:" << vec2.capacity() << endl;
+
+	// d)
+	vector<MyObj> vec3;
+	cout << "illustrateFillVectorWithObjects - the initial size of vec3 is:" << vec3.size()
+			<< " and its capacity is:" << vec3.capacity() << endl;
+
+	// e)
+	vector<MyObj> vec4(4);
+	cout << "illustrateFillVectorWithObjects - the initial size of vec4 is:" << vec4.size()
+			<< " and its capacity is:" << vec4.capacity() << endl;
+
+	/*
 	MyObj obj1(12);
 	MyObj obj2(15);
 	MyObj obj3;
 
 	// insert them to the vector using "old fashion" (prior to C++11 move semantics)
-	std::cout << "about to push obj1 into the vector" << std::endl;	
-	vec.push_back(obj1);
-	std::cout << "about to push obj2 into the vector" << std::endl;
-	vec.push_back(obj2);
-	std::cout << "about to push obj3 into the vector" << std::endl;
-	vec.push_back(obj3);
-
-	std::cout << "fillVectorWithObjects::end \n \n";
-}
+	cout << "illustrateFillVectorWithObjects - about to push obj1 into the vec3" << endl;
+	vec3.push_back(obj1);
+	cout << "illustrateFillVectorWithObjects - about to push obj2 into the vec3" << endl;
+	vec3.push_back(obj2);
+	cout << "about to push obj3 into the vec3" << endl;
+	vec3.push_back(obj3);
+	*/
+	cout << "illustrateFillVectorWithObjects - end \n \n";
+} // f)
 
 
 // ===================================================================================================================================================================
@@ -148,8 +196,13 @@ void fillVectorWithObjects()
 int main(int argc, char** argv)
 {
 	std::cout << "vectorExplained - start" << std::endl;
-	illustrateVectorDeclerationAndElementsAccess();
 
+
+	// 1)
+	// illustrateVectorDeclerationAndElementsAccess();
+
+	// 2)
+	illustrateFillVectorWithObjects();
 
 	
 	//fillVectorWithObjects();
