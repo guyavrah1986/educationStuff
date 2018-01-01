@@ -15,6 +15,30 @@
 
 using namespace std;
 
+class MyObjNoDefualtCtor
+{
+public:
+	MyObjNoDefualtCtor(int a) : m_a(a)
+	{
+		cout << "MyObjNoDefualtCtor::MyObjNoDefualtCtor - setting m_a to:" << m_a << endl;
+	}
+
+	MyObjNoDefualtCtor(const MyObjNoDefualtCtor& other) : m_a(other.m_a)
+	{
+		cout << "MyObjNoDefualtCtor::copy_ctor - setting m_a to:" << m_a << endl;
+	}
+
+	~MyObjNoDefualtCtor()
+	{
+		cout << "MyObjNoDefualtCtor::~MyObjNoDefualtCtor - address is" << this << endl;
+	}
+
+	MyObjNoDefualtCtor() = delete;
+
+	friend ostream& operator<<(ostream& out, const MyObjNoDefualtCtor& obj);
+	int m_a;
+};
+
 class MyObj
 {
 
@@ -59,11 +83,18 @@ public:
 	int m_a;
 };
 
-std::ostream& operator<<(std::ostream& out, const MyObj& obj)
+ostream& operator<<(ostream& out, const MyObj& obj)
 {
-	std::cout << "MyObj (" << &obj << "," << obj.m_a << ")" << std::endl;
+	cout << "MyObj (" << &obj << "," << obj.m_a << ")" << endl;
 	return out;
 }
+
+ostream& operator<<(ostream& out, const MyObjNoDefualtCtor& obj)
+{
+	cout << "MyObjNoDefualtCtor (" << &obj << "," << obj.m_a << ")" << endl;
+	return out;
+}
+
 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -130,6 +161,10 @@ void illustrateVectorDeclerationAndElementsAccess()
  *    called ("size" times - as the number of elements we initialed the vector with).
  * f) When we reach the end of the function, due to the fact that the vec4 was declared automatically (on the stack), its Dtor will be invoked.
  *    This will cause the invocation of each objet's Dtor within vec4 as well.
+ * g) If the object that is contained within the vector has no default Ctor -- than declaring an array if its type without explicitly initialize the
+ *    elements of the vector is not possible.
+ * h) Declaring an empty array of this type is possible.Also, combining the usage (directly after the declaration) of the reserve method, is basically
+ *    the best practice of how to create a vector (assuming we know in advance, more or less, the desired size of it).
  */
 void illustrateFillVectorWithObjects()
 {
@@ -169,19 +204,27 @@ void illustrateFillVectorWithObjects()
 	cout << "illustrateFillVectorWithObjects - the initial size of vec4 is:" << vec4.size()
 			<< " and its capacity is:" << vec4.capacity() << endl;
 
-	/*
-	MyObj obj1(12);
-	MyObj obj2(15);
-	MyObj obj3;
+	// g)
+	//vector<MyObjNoDefualtCtor> vec5(3);
+
+	// h)
+	vector<MyObjNoDefualtCtor> vec5;
+	vec5.reserve(3);
+	cout << "illustrateFillVectorWithObjects - the initial size of vec5 is:" << vec5.size()
+			<< " and its capacity is:" << vec5.capacity() << endl;
+
+	MyObjNoDefualtCtor obj1(12);
+	MyObjNoDefualtCtor obj2(15);
+	MyObjNoDefualtCtor obj3(17);
 
 	// insert them to the vector using "old fashion" (prior to C++11 move semantics)
-	cout << "illustrateFillVectorWithObjects - about to push obj1 into the vec3" << endl;
-	vec3.push_back(obj1);
-	cout << "illustrateFillVectorWithObjects - about to push obj2 into the vec3" << endl;
-	vec3.push_back(obj2);
-	cout << "about to push obj3 into the vec3" << endl;
-	vec3.push_back(obj3);
-	*/
+	cout << "illustrateFillVectorWithObjects - about to push obj1 into the vec5" << endl;
+	vec5.push_back(obj1);
+	cout << "illustrateFillVectorWithObjects - about to push obj2 into the vec5" << endl;
+	vec5.push_back(obj2);
+	cout << "illustrateFillVectorWithObjects - about to push obj3 into the vec5" << endl;
+	vec5.push_back(obj3);
+
 	cout << "illustrateFillVectorWithObjects - end \n \n";
 } // f)
 
