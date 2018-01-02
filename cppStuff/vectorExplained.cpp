@@ -265,7 +265,7 @@ void illustrateFillVectorWithObjects()
  *    # int val = 14;
  *    # vec.emplace_back(val);		GOOD
  *    # and NOT
- *    # vec.emplace_back(MyObj(val));	NOT SO GOOD...
+ *    # vec.emplace_back(MyObj(val));	NOT SO GOOD --> wont invoke the emplace_back method
  */
 void illustrateVectorGrowth()
 {
