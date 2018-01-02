@@ -249,7 +249,6 @@ void illustrateFillVectorWithObjects()
 	cout << "illustrateFillVectorWithObjects - end \n \n";
 } // f)
 
-
 /*
  * 3) This example illustrate how the vector is growing when we insert elements into it.
  * a) The most "common" (and naive) manner to insert elements into the vector. Note that for each element (MyObj) that is inserted,
@@ -259,10 +258,15 @@ void illustrateFillVectorWithObjects()
  *    fact that we reached the vector capacity --> we will have to increase the vector size (the vector will do it for us off course), causing
  *    the capacity of the vector to increase by a factor of two (3 X 2 = 6) --> YET the last two elements WONT be initialized
  *    Implicitly using the copy ctor --> so accessing them is undefined !!
- *
- *
+ * c) In this example we use the C++11 feature of "move semantics" by inserting (adding) the elements to the vector using the emplace_back() method.
+ *    In this case, no "redundant" temporary is constructed when inserting the element into the vector.
+ *    NOTE: The proper syntax states that the argument sent to the emplace_back DOES NOT contain the name of the Ctor of the object , ONLY the
+ *    argument(s) needed for the desired ctor:
+ *    # int val = 14;
+ *    # vec.emplace_back(val);		GOOD
+ *    # and NOT
+ *    # vec.emplace_back(MyObj(val));	NOT SO GOOD...
  */
-
 void illustrateVectorGrowth()
 {
 	vector<MyObj> vec1;
@@ -298,6 +302,22 @@ void illustrateVectorGrowth()
 		{
 			cout << "illustrateVectorGrowth - trying to access vec1[" << i << "], which has not been initialized correctly" << endl;
 		}
+	}
+
+	// c)
+	vector<MyObj> vec2;
+	initialCapacity = 3;
+	vec2.reserve(initialCapacity);
+	cout << " \n \n \n illustrateVectorGrowth - inserting  elements into vec2 using the C++11 emplace_back method:" << endl;
+	for (size_t i = 0; i < initialCapacity; ++i)
+	{
+		vec2.emplace_back(i + 1);
+	}
+
+	cout << "illustrateVectorGrowth - displaying elements in vec2:" << endl;
+	for (size_t i = 0; i < vec2.capacity(); ++i)
+	{
+		cout << "vec2[" << i << "]:" << vec2[i] << endl;
 	}
 }
 
