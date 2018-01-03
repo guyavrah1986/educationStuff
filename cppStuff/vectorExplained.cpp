@@ -43,7 +43,7 @@ class MyObj
 {
 
 public:
-	MyObj(int a) : m_a(a) 
+	explicit MyObj(int a) : m_a(a)
 	{
 		std::cout <<"MyObj::MyObj - setting m_a to:" << m_a << " this address is:" << this << std::endl;
 	}
@@ -56,6 +56,12 @@ public:
 	MyObj(const MyObj& other) : MyObj(other.m_a)
 	{
 		std::cout << "MyObj::MyObj (copy) - setting m_a to:" << m_a << " this address is:" << this << std::endl;
+	}
+
+	MyObj(MyObj&& other): m_a(0)
+	{
+		this->m_a = other.m_a;
+		cout << "MyObj::(MyObj&&) - setting m_a to:" << m_a << " for object with address:" << this << endl;
 	}
 
 	~MyObj()
@@ -259,13 +265,11 @@ void illustrateFillVectorWithObjects()
  *    the capacity of the vector to increase by a factor of two (3 X 2 = 6) --> YET the last two elements WONT be initialized
  *    Implicitly using the copy ctor --> so accessing them is undefined !!
  * c) In this example we use the C++11 feature of "move semantics" by inserting (adding) the elements to the vector using the emplace_back() method.
- *    In this case, no "redundant" temporary is constructed when inserting the element into the vector.
- *    NOTE: The proper syntax states that the argument sent to the emplace_back DOES NOT contain the name of the Ctor of the object , ONLY the
- *    argument(s) needed for the desired ctor:
- *    # int val = 14;
- *    # vec.emplace_back(val);		GOOD
- *    # and NOT
- *    # vec.emplace_back(MyObj(val));	NOT SO GOOD --> wont invoke the emplace_back method
+ *    In this case, the "flow" is as follows:
+ *    - A temporary object is constructed via the "regular" ctor.
+ *    - It is being "moved" to a different object using the "move copy ctor", i.e.- a "new" object is created and the contents (state) of the previous
+ *      object are being moved (NOT copied as a good copy ctor would have done) into the state of the newly created object.
+ *    - A destructor is called for the first object that was created.
  */
 void illustrateVectorGrowth()
 {
@@ -311,7 +315,7 @@ void illustrateVectorGrowth()
 	cout << " \n \n \n illustrateVectorGrowth - inserting  elements into vec2 using the C++11 emplace_back method:" << endl;
 	for (size_t i = 0; i < initialCapacity; ++i)
 	{
-		vec2.emplace_back(i + 1);
+		vec2.emplace_back(MyObj(i + 1));
 	}
 
 	cout << "illustrateVectorGrowth - displaying elements in vec2:" << endl;
