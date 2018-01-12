@@ -31,6 +31,10 @@ file(GLOB_RECURSE BLOOM_SRC
     "${CMAKE_CURRENT_LIST_DIR}/bloom/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/bloom/*.h")
 
+file(GLOB_RECURSE CYBER_REASON_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/cyberreason/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/cyberreason/*.h")
+
 # files relevant interview questions (in general)
 file(GLOB_RECURSE JOB_HUNT_QUESTIONS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/jobHuntQuestions/*.cpp"
@@ -51,6 +55,8 @@ file(GLOB_RECURSE JOB_HUNT_QUESTIONS_SRC
 add_executable(bloomPreparationExe ${BLOOM_SRC})
 
 add_executable(jobHuntQuestionsExe ${JOB_HUNT_QUESTIONS_SRC})
+
+add_executable(cyberreasonExe ${CYBER_REASON_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
