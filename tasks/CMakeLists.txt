@@ -41,6 +41,11 @@ file(GLOB_RECURSE JOB_HUNT_QUESTIONS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/jobHuntQuestions/*.c"
     "${CMAKE_CURRENT_LIST_DIR}/jobHuntQuestions/*.h")
 
+file(GLOB_RECURSE CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.h")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -58,8 +63,11 @@ add_executable(jobHuntQuestionsExe ${JOB_HUNT_QUESTIONS_SRC})
 
 add_executable(cyberreasonExe ${CYBER_REASON_SRC})
 
+add_executable(crackingTheCodingInterviewQuestionsExe ${CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC})
+
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
 # ======================================================================================================================================
                  
+target_link_libraries(crackingTheCodingInterviewQuestionsExe pthread)
 
