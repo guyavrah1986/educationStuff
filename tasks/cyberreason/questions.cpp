@@ -9,6 +9,7 @@
 // =======================================================================================================================================
 
 #include <iostream>
+#include <algorithm>
 
 #define NUM_OF_ROWS 8
 
@@ -53,11 +54,51 @@ size_t naiveSolution(const uint8_t arr[NUM_OF_ROWS][2])
 	cout << "naiveSolution - end" << endl;
 }
 
+
+void betterSolution(const uint8_t arr[NUM_OF_ROWS][2])
+{
+	uint8_t startTimeArr [NUM_OF_ROWS];
+	uint8_t endTimeArr [NUM_OF_ROWS];
+
+	for (size_t i = 0; i < NUM_OF_ROWS; ++i)
+	{
+		startTimeArr[i] = arr[i][0];
+		endTimeArr[i] = arr[i][1];
+	}
+
+	// sort the arrays
+	sort(startTimeArr, startTimeArr + NUM_OF_ROWS);
+	sort(endTimeArr, endTimeArr + NUM_OF_ROWS);
+
+	// for debug
+	cout << "betterSolution - startTimeArr after sorting is:" << endl;
+	for (size_t i = 0; i < NUM_OF_ROWS; ++i)
+	{
+		cout << static_cast<unsigned int>(startTimeArr[i]) << " ";
+	}
+
+	cout << "\n \n betterSolution - endTimeArr after sorting is:" << endl;
+	for (size_t i = 0; i < NUM_OF_ROWS; ++i)
+	{
+		cout << static_cast<unsigned int>(endTimeArr[i]) << " ";
+	}
+
+	size_t max = 0;
+	size_t currMax = 0;
+	for (size_t i = 0; i < NUM_OF_ROWS; ++i)
+	{
+		max++;
+		// find first end time of a task that was finsihed after current task started
+		
+	}
+}
+
 int main(int argc, char** argv)
 {
 	cout << "main - start \n \n " << endl;
 
-	naiveSolution(g_arr);
+	//naiveSolution(g_arr);
+	betterSolution(g_arr);
 	cout << "\n \n main - end" << endl;
 	return 0;
 }
