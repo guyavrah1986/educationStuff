@@ -31,6 +31,12 @@ file(GLOB_RECURSE BLOOM_SRC
     "${CMAKE_CURRENT_LIST_DIR}/bloom/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/bloom/*.h")
 
+file(GLOB_RECURSE IMPERVA_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/imperva/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/imperva/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/imperva/*.h")
+
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -43,6 +49,8 @@ file(GLOB_RECURSE BLOOM_SRC
 # ======================================================================================================================================
    
 add_executable(bloomPreparationExe ${BLOOM_SRC})
+
+add_executable(impervaPreparationExe ${IMPERVA_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
