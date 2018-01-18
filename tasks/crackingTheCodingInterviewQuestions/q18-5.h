@@ -102,12 +102,9 @@ class Q1
 };
 
 
-
-
-
-int main(int argc, char** argv)
+void q18_5()
 {
-	cout << "main - start \n \n" << endl;
+	cout << "q18_5 - start \n \n" << endl;
 
 	Q1 q1;
 	q1.func1();
@@ -116,6 +113,5 @@ int main(int argc, char** argv)
 
 
 	sleep(1);
-	cout << "\n \n main - end" << endl;
-	return 0;
+	cout << "\n \n q18_5 - end" << endl;
 }

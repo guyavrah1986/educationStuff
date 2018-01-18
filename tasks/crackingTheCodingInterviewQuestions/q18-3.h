@@ -38,16 +38,3 @@ class SingleTone
 SingleTone* SingleTone::m_instance = NULL;
 
 
-
-
-int main(int argc, char** argv)
-{
-	cout << "main - start" << endl;
-	SingleTone* firstInstance = SingleTone::GetInstance();
-
-
-	
-	
-	cout << "\n \n main - end" << endl;
-	return 0;
-}
