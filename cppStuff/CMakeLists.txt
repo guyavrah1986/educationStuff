@@ -39,6 +39,10 @@ file(GLOB_RECURSE VTABLE_EXPLANIED_SRC
 file(GLOB_RECURSE VECTOR_EXPLANIED_SRC
     "${CMAKE_CURRENT_LIST_DIR}/vectorExplained.cpp")
 
+# invoking virtual function within the ctor sources
+file(GLOB_RECURSE INVOKE_VIRTUAL_FUNCTION_INSIDE_CTOR_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/invokingVirtualFunctionFromCtor.cpp")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -53,6 +57,8 @@ file(GLOB_RECURSE VECTOR_EXPLANIED_SRC
 add_executable(vtableExplaniedExe ${VTABLE_EXPLANIED_SRC})
 
 add_executable(vectorExplainedExe ${VECTOR_EXPLANIED_SRC})
+
+add_executable(invokingVirtualFunctionFromCtorExe ${INVOKE_VIRTUAL_FUNCTION_INSIDE_CTOR_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries

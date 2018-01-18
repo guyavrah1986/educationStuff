@@ -26,7 +26,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-pmf-conversions")
 # group all source files of the executable
 # ======================================================================================================================================
 
-# files relevant pre-interview preperation
+# files relevant interview preperation for a specific company
 file(GLOB_RECURSE BLOOM_SRC
     "${CMAKE_CURRENT_LIST_DIR}/bloom/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/bloom/*.h")
@@ -36,6 +36,20 @@ file(GLOB_RECURSE IMPERVA_SRC
     "${CMAKE_CURRENT_LIST_DIR}/imperva/*.c"
     "${CMAKE_CURRENT_LIST_DIR}/imperva/*.h")
 
+file(GLOB_RECURSE CYBER_REASON_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/cyberreason/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/cyberreason/*.h")
+
+# files relevant interview questions (in general)
+file(GLOB_RECURSE JOB_HUNT_QUESTIONS_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/jobHuntQuestions/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/jobHuntQuestions/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/jobHuntQuestions/*.h")
+
+file(GLOB_RECURSE CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.h")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
@@ -52,8 +66,16 @@ add_executable(bloomPreparationExe ${BLOOM_SRC})
 
 add_executable(impervaPreparationExe ${IMPERVA_SRC})
 
+add_executable(jobHuntQuestionsExe ${JOB_HUNT_QUESTIONS_SRC})
+
+add_executable(cyberreasonExe ${CYBER_REASON_SRC})
+
+add_executable(crackingTheCodingInterviewQuestionsExe ${CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC})
+
+
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
 # ======================================================================================================================================
                  
+target_link_libraries(crackingTheCodingInterviewQuestionsExe pthread)
 
