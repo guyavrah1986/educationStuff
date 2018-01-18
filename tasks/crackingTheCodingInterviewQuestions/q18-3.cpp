@@ -43,7 +43,7 @@ SingleTone* SingleTone::m_instance = NULL;
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
-	SingleTone* firstInstance = GetInstance();
+	SingleTone* firstInstance = SingleTone::GetInstance();
 
 
 	

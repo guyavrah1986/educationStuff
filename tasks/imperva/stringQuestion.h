@@ -58,20 +58,20 @@ int findFirstCharThatAppearsOnlyOnce(const char* str)
 		charArr[currCharVal - 97].numOfAppearences++;
 		if (charArr[currCharVal - 97].numOfAppearences == 1 && charArr[currCharVal - 97].firstAppearIndex == -1)
 		{
-			printf("findFirstCharThatAppearsOnlyOnce - current char value is:%d appeared for the first time\n ", currCharVal);
+			printf("findFirstCharThatAppearsOnlyOnce - current char value is:%d appeared for the first time at index:%d\n ", currCharVal, i);
 			charArr[currCharVal - 97].firstAppearIndex = i;		
 		}
 	}
 	
 	// due to the fact that we need to provide the FIRST (!!) character that appears only once, 
 	// we will return the index of a cell that has the minimum value (which is not -1)
-	int min = charArr[0].firstAppearIndex;	
-	for (size_t i = 1; i < strLen; ++i)
+	int min = 999;	
+	for (size_t i = 0; i < strLen; ++i)
 	{
-		if (charArr[i].firstAppearIndex < min && charArr[i].numOfAppearences == 1)
+		if (charArr[i].numOfAppearences == 1 && min > charArr[i].firstAppearIndex)
 		{
-			charArr[i].firstAppearIndex = min;
-		}
+			min = charArr[i].firstAppearIndex;
+		}	
 	}
 
 	return min;
