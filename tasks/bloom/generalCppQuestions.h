@@ -39,7 +39,7 @@ void segfault_sigaction(int signal, siginfo_t* si, void* arg)
 char* foo()
 {
 	char s1 [] = "abcd";
-	char* s2 = "abcd";
+	char* s2 = (char*)"abcd";
 	return s1;
 }
 
