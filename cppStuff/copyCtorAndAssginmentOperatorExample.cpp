@@ -3,6 +3,19 @@
 // copy Ctor and assignment operator:
 // ---------------------------------
 //
+// Copy ctor MAY be called upon each one of the following cases:
+// a) Returning an object by value from a function. Note: This case might be optimized by the compiler (see RVO = return value optimization).
+// b) Sending an object as an arguemnt by value to a function.
+// c) Whenever a compiler generates a temporary object, for example inserting an object into an std::vector.
+// d) When constructing a new object from an exisiting one.
+// 
+// Assignment operator will be called upon assiging an object to AN ALREADY EXISITING OBJECT.
+// 
+// Some general notes:
+// ------------------
+// # Usually, if you need to implement one of them in your custom class --> you automatically need to implement the second one as well (and also the dtor
+//   see "Rule of three").
+// 
 //
 //
 // ===================================================================================================================================================================
@@ -77,8 +90,16 @@ A& A::operator=(const A& rhs)
 	strcpy(this->m_cstr, rhs.m_cstr);
 	this->m_a = rhs.m_a;
 	cout << "A::operator= - done assgining rhs (address):" << &rhs << " to this object(address):" << this << endl;
+	return *this;
 }
 
+
+// #######################################################################################################################################################################
+
+void func1(A a)
+{
+	cout << "func1 - got a copy of the original A object from the callee function, a:" << &(a.m_a) << endl;
+}
 
 size_t A::getStrLen(const char* str) const 
 {
@@ -129,9 +150,9 @@ int main(int argc, char** argv)
 	cout << "main - after assgining a2 = a1 , a2 detailes:";
 	cout << a2;
 
-
-
-
+	cout << "main - calling func1 that gets an A object by value, current a2.m_a is at:" << &(a2.m_a) << endl;
+	func1(a2);
+	
 	cout << "\n \n main - end" << endl;
 	return 0;
 }

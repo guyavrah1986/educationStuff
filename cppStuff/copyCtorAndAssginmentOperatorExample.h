@@ -19,7 +19,7 @@ public:
 private:
 	size_t getStrLen(const char* str) const;
 
-private:
+public:
 	int m_a;
 	char* m_cstr;
 };
