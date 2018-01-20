@@ -101,10 +101,8 @@ public:
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 
-
-int main(int argc, char** argv)
+void example1()
 {
-	cout << "virtualTableExplained - start " << endl;
 	/*
 	Base1* b1 = new Base1;
 	Base2* b2 = new Base2;
@@ -129,6 +127,12 @@ int main(int argc, char** argv)
 	//delete b1;
 	//delete b2;
 	delete d;
+}
+
+int main(int argc, char** argv)
+{
+	cout << "virtualTableExplained - start " << endl;
+
 
 	cout << "virtualTableExplained - end" << endl;
 	return 0;
