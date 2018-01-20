@@ -28,8 +28,8 @@
 //    - We assume "theoretically" there is no padding.
 //    - Size of int and pointer is 4 bytes.
 // 
-//    bytes |            data
-//    -------------------------------   
+//    bytes |           data
+//    ---------------------------------  
 //    0-3   |  vptr for Base1 v-table.
 //    4-7   |  Base1 member (int)
 //    8-11  |  vptr for Base2 v-table.
@@ -44,6 +44,8 @@
 //  6) Some impacts of using v-table:
 //     a) Calling a virtual function costs us in an extra read of the address of the actual function to be invoked during run-time (not so bad).
 //        The exact arithmetic being done is pointer read + offset manipulation. 
+//     b) Virtual functions CAN NOT be inline !!
+//     
 // 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -170,10 +172,14 @@ void example1()
 int main(int argc, char** argv)
 {
 	cout << "virtualTableExplained - start " << endl;
-
 	cout << "virtualTableExplained - sizeof(int) is:" << sizeof(int) << " bytes " << endl;
 	cout << "virtualTableExplained - creating Derived object on the heap" << endl;
 	Derived* d = new Derived;
+
+	cout << "virtualTableExplained - calling d->func1()" << endl;
+	d->func1();
+	cout << "virtualTableExplained - deleting the Derived object" << endl;
+	delete (d);
 	cout << "virtualTableExplained - end" << endl;
 	return 0;
 }
