@@ -1,5 +1,5 @@
-// Answer: The this pointer in poiting to the "first" member of C which is the memeber of the base class A. Regarindg the usage of this, you can access every public/protected function of every
-// "base class along the way" of your derived class...
+// Answer: The this pointer in poiting to the "first" member of C which is the memeber of the base class A. Regarindg the usage of this, you can access every 
+// public/protected function of every "base class along the way" of your derived class...
 
 
 #include <iostream>

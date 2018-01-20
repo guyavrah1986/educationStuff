@@ -43,6 +43,10 @@ file(GLOB_RECURSE VECTOR_EXPLANIED_SRC
 file(GLOB_RECURSE INVOKE_VIRTUAL_FUNCTION_INSIDE_CTOR_SRC
     "${CMAKE_CURRENT_LIST_DIR}/invokingVirtualFunctionFromCtor.cpp")
 
+# this pointer location (address)
+file(GLOB_RECURSE THIS_POINTER_LOCATION_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/thisPointerLocationExample.cpp")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -59,6 +63,8 @@ add_executable(vtableExplaniedExe ${VTABLE_EXPLANIED_SRC})
 add_executable(vectorExplainedExe ${VECTOR_EXPLANIED_SRC})
 
 add_executable(invokingVirtualFunctionFromCtorExe ${INVOKE_VIRTUAL_FUNCTION_INSIDE_CTOR_SRC})
+
+add_executable(thisPointerLocationExe ${THIS_POINTER_LOCATION_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
