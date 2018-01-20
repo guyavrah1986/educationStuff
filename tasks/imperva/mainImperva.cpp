@@ -5,6 +5,7 @@
 #include "structQuestion.h"
 #include "stringQuestion2.h"
 #include "decoratorExample.h"
+#include "reverseString.h"
 
 using namespace std;
 
@@ -23,6 +24,17 @@ void secondStringQuestion()
 	char* res = removeLettersFromString(str1, str2);
 	cout << "main - removeLettersFromString(" << str1 << ", " << str2 << ") returned:" << res << endl;
 	free(res);
+}
+
+void reverseStringQuestion()
+{
+	char str1[] = "abcde";
+	reverseString(str1);
+	cout << "main - after reversing string:" << str1 << endl;
+
+	char str2[] = "guya";
+	reverseString(str2);
+	cout << "main - after reversing string:" << str2 << endl;
 }
 
 int main(int argc, char** argv)
@@ -44,6 +56,10 @@ int main(int argc, char** argv)
 	
 	// 4)
 	decoratorExample();
+
+	// 5) 
+	reverseStringQuestion();
+
 
 	cout << "\n \n main - end" << endl;
 	return 0;
