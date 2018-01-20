@@ -1,3 +1,7 @@
+// 
+// This pointer location within a class (with inheritence):
+// --------------------------------------------------------
+// 
 // Answer: The this pointer in poiting to the "first" member of C which is the memeber of the base class A. Regarindg the usage of this, you can access every 
 // public/protected function of every "base class along the way" of your derived class...
 
@@ -23,9 +27,9 @@ class B : public A
 {
 
 public:
-	B(int a, int b) : m_b(b) , A(a)
+	B(int a, int b) :  A(a) ,m_b(b)
 	{
-		std::cout << "B::B - setting m_b to:" << m_b << " this is:" << this << std::endl;
+		std::cout << "B::B - setting m_b to:" << m_b << " this is:" << this << " address of m_b is:" << &m_b << std::endl;
 	}
 
 	int m_b;
@@ -36,9 +40,9 @@ class C : public B
 {
 
 public:
-	C(int a, int b, int c) : m_c(c) , B(a, b)
+	C(int a, int b, int c) : B(a, b), m_c(c) 
 	{
-		std::cout << "C::C - setting m_c to:" << m_c << " this is:" << this << std::endl;
+		std::cout << "C::C - setting m_c to:" << m_c << " this is:" << this << " address of m_c is:" << &m_c << std::endl;
 	}
 
 	int m_c;
@@ -48,9 +52,9 @@ public:
 int main(int argc, char** argv)
 {
 
-	std::cout << "main - start" << std::endl;
+	std::cout << "thisPointerLocationExample - start" << std::endl;
 
 	C c(1,2,3);
-	std::cout << "main - end" << std::endl;
+	std::cout << "thisPointerLocationExample - end" << std::endl;
 	return 0;
 }
