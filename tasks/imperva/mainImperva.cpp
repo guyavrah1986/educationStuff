@@ -15,6 +15,8 @@ void firstStringQuestion()
 	cout << str << " returned:"  << findFirstCharThatAppearsOnlyOnce(str.c_str()) << endl;
 	str = "aabcd";
 	cout << str << " returned:"  << findFirstCharThatAppearsOnlyOnce(str.c_str()) << endl;
+	str = "aabbcc";
+	cout << str << " returned:"  << findFirstCharThatAppearsOnlyOnce(str.c_str()) << endl;
 }
 
 void secondStringQuestion()

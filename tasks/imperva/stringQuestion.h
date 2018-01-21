@@ -65,13 +65,18 @@ int findFirstCharThatAppearsOnlyOnce(const char* str)
 	
 	// due to the fact that we need to provide the FIRST (!!) character that appears only once, 
 	// we will return the index of a cell that has the minimum value (which is not -1)
-	int min = 999;	
+	int min = strLen;	
 	for (size_t i = 0; i < strLen; ++i)
 	{
 		if (charArr[i].numOfAppearences == 1 && min > charArr[i].firstAppearIndex)
 		{
 			min = charArr[i].firstAppearIndex;
 		}	
+	}
+
+	if (min >= strLen)
+	{
+		return -1;
 	}
 
 	return min;
