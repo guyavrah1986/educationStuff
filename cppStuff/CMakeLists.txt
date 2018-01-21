@@ -52,6 +52,10 @@ file(GLOB_RECURSE COPY_CTOR_AND_ASSGINMENT_OPERATOR_SRC
     "${CMAKE_CURRENT_LIST_DIR}/copyCtorAndAssginmentOperatorExample.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/copyCtorAndAssginmentOperatorExample.h")
 
+# struct pointer example sources
+file(GLOB_RECURSE STRUCT_POINTER_EXAMPLE_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/structPointerExample.c")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -72,6 +76,8 @@ add_executable(thisPointerLocationExe ${THIS_POINTER_LOCATION_SRC})
 add_executable(nameHidingExe ${NAME_HIDING_SRC})
 
 add_executable(copyCtorAndAssginmentOperatorExe ${COPY_CTOR_AND_ASSGINMENT_OPERATOR_SRC})
+
+add_executable(structPointerExe ${STRUCT_POINTER_EXAMPLE_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
