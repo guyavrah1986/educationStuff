@@ -51,6 +51,10 @@ file(GLOB_RECURSE CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.c"
     "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.h")
 
+file(GLOB_RECURSE SPIRENT_STATISTICS_MODULE_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/spirentCode/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/spirentCode/*.h")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -72,6 +76,7 @@ add_executable(cyberreasonExe ${CYBER_REASON_SRC})
 
 add_executable(crackingTheCodingInterviewQuestionsExe ${CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC})
 
+add_executable(spirentStatsModuleExe ${SPIRENT_STATISTICS_MODULE_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
