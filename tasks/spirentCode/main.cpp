@@ -1,3 +1,6 @@
+#include <iostream>
+
+#include "cStatsCollectedBase.h"
 
 using namespace std;
 

@@ -3,7 +3,7 @@
 class CStatsCollectedBase
 {
 	public:
-		CStatsCollectedBase();
+		CStatsCollectedBase(const char* pName, bool bIsEnabled, bool isOutputEnabled);
 		virtual ~CStatsCollectedBase();
 
 		virtual bool Update() = 0;
