@@ -17,3 +17,5 @@ CStatsCollectedBase::~CStatsCollectedBase()
 {
 	cout << "CStatsCollectedBase::~CStatsCollectedBase" << endl; 
 }
+
+

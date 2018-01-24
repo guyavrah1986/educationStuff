@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 
 class CStatsCollectedBase
@@ -7,7 +9,7 @@ class CStatsCollectedBase
 		virtual ~CStatsCollectedBase();
 
 		virtual bool Update() = 0;
-		virtual bool ostream() = 0;
+		virtual bool output() = 0;
 
 	protected:
 		std::string m_pObjectName;
