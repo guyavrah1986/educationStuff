@@ -65,7 +65,7 @@ file(GLOB_RECURSE COMMON_SRC
 # ======================================================================================================================================
 
 # common library
-# add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/common ${CMAKE_CURRENT_LIST_DIR}/build/common)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../playGround/common ${CMAKE_CURRENT_LIST_DIR}/build/common)
 
 # ======================================================================================================================================
 # create the main executable (and samples as well)

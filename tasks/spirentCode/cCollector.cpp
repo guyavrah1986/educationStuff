@@ -30,7 +30,6 @@ bool CCollector::Register(CStatsCollectedBase* observer)
 
 bool CCollector::UnRegister(CStatsCollectedBase* observer)
 {
-
 	if (observer == nullptr)
 	{
 		cout << "CCollector::UnRegister - trying to remove a NULL observer, aborting" << endl;
@@ -38,11 +37,22 @@ bool CCollector::UnRegister(CStatsCollectedBase* observer)
 	}
 
 	cout << "CCollector::UnRegister - removeing observer" << observer->GetName() << endl;
-	
-	vector<CStatsCollectedBase*>::iterator position = std::find(myVector.begin(), myVector.end(), 8);
-	if (position != myVector.end()) // == myVector.end() means the element was not found
-    	myVector.erase(position);
-	return true;
+	for (vector<CStatsCollectedBase*>::iterator it = m_observers.begin(); it != m_observers.end(); )
+	{
+		if (*it == observer)
+		{
+      			it = m_observers.erase(it);
+			cout << "CCollector::UnRegister - found observer with address:" << observer << endl;
+			return true;		
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+	cout << "CCollector::UnRegister - DID not find observer with address:" << observer << endl;
+	return false;
 }
 
 
