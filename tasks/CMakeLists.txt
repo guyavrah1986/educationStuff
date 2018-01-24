@@ -55,6 +55,11 @@ file(GLOB_RECURSE SPIRENT_STATISTICS_MODULE_SRC
     "${CMAKE_CURRENT_LIST_DIR}/spirentCode/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/spirentCode/*.h")
 
+file(GLOB_RECURSE COMMON_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/common/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/common/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/common/*.h")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
