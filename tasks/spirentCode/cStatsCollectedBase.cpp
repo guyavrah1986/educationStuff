@@ -18,4 +18,9 @@ CStatsCollectedBase::~CStatsCollectedBase()
 	cout << "CStatsCollectedBase::~CStatsCollectedBase" << endl; 
 }
 
+std::string CStatsCollectedBase::GetName() const
+{
+	return this->m_pObjectName;
+}	
+
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cStatsCollectedBase.h"
+
 #include <vector>
 
 class CCollector
