@@ -36,9 +36,7 @@ bool removeNode(Node* toRemove)
 	if (toRemove == NULL)
 	{
 		return false;
-	}
-
-	
+	}	
 }
 
 void displayList(Node* root)
