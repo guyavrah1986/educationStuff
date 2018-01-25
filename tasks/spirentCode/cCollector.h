@@ -14,6 +14,6 @@ class CCollector
 	bool UnRegister(CStatsCollectedBase* observer);
 
 	private:
-	std::vector<CStatsCollectedBase*> m_observers;
-	
+	std::vector<CStatsCollectedBase*> m_observers;	
+	static const size_t m_maxNumOfObservers = 10;
 };

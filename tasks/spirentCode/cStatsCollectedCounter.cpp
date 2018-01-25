@@ -18,12 +18,19 @@ CStatsCollectedCounter::~CStatsCollectedCounter()
 bool CStatsCollectedCounter::Update()
 {
 	cout << "CStatsCollectedCounter::Update" << endl;
+	if (m_bIsEnabled != true)
+	{
+		cout << "CStatsCollectedCounter::Update - collectedCounter:" << m_pObjectName << " is not enabled" << endl;
+		return false;
+	}
+
+	++m_counter;
 	return true;
 }
 
 bool CStatsCollectedCounter::output()
 {
-	cout << "CStatsCollectedCounter::ostream" << endl;
+	cout << "CStatsCollectedCounter::output" << endl;
 	return true;
 }
 

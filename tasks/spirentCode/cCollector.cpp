@@ -8,6 +8,7 @@ using namespace std;
 CCollector::CCollector()
 {
 	cout << "CCollector::CCollector" << endl;
+	m_observers.reserve(m_maxNumOfObservers);
 }
 
 CCollector::~CCollector()
