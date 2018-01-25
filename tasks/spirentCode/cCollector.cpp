@@ -56,4 +56,30 @@ bool CCollector::UnRegister(CStatsCollectedBase* observer)
 	return false;
 }
 
+void CCollector::NotifyObservers(CStatsCollectedBase* observer)
+{
+	cout << "CCollector::NotifyObservers" << endl;
+
+	// if the argument is NULL - call notify ALL the observers
+	if (observer == nullptr)
+	{
+		for (vector<CStatsCollectedBase*>::iterator it = m_observers.begin(); it != m_observers.end(); ++it)
+		{
+			if (it != nullptr)
+			{
+				(*it)->Update();
+			}
+		}	
+	}
+	else
+	{
+		for (vector<CStatsCollectedBase*>::iterator it = m_observers.begin(); it != m_observers.end(); ++it)
+		{
+			if (it != nullptr)
+			{
+				(*it)->Update();
+			}
+		}	
+	}
+}
 

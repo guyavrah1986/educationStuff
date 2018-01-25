@@ -12,6 +12,7 @@ class CCollector
 
 	bool Register(CStatsCollectedBase* observer);
 	bool UnRegister(CStatsCollectedBase* observer);
+	void NotifyObservers(CStatsCollectedBase* observer);
 
 	private:
 	std::vector<CStatsCollectedBase*> m_observers;	
