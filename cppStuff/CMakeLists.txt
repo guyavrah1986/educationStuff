@@ -56,6 +56,10 @@ file(GLOB_RECURSE COPY_CTOR_AND_ASSGINMENT_OPERATOR_SRC
 file(GLOB_RECURSE STRUCT_POINTER_EXAMPLE_SRC
     "${CMAKE_CURRENT_LIST_DIR}/structPointerExample.c")
 
+# function templates example sources
+file(GLOB_RECURSE FUNCTION_TEMPLATE_EXAMPLE_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/functionTemplateExample.h")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -78,6 +82,8 @@ add_executable(nameHidingExe ${NAME_HIDING_SRC})
 add_executable(copyCtorAndAssginmentOperatorExe ${COPY_CTOR_AND_ASSGINMENT_OPERATOR_SRC})
 
 add_executable(structPointerExe ${STRUCT_POINTER_EXAMPLE_SRC})
+
+add_executable(functionTemplateExe ${FUNCTION_TEMPLATE_EXAMPLE_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
