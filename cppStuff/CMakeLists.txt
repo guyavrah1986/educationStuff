@@ -58,7 +58,8 @@ file(GLOB_RECURSE STRUCT_POINTER_EXAMPLE_SRC
 
 # function templates example sources
 file(GLOB_RECURSE FUNCTION_TEMPLATE_EXAMPLE_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/functionTemplateExample.h")
+    "${CMAKE_CURRENT_LIST_DIR}/functionTemplateExample.h"
+    "${CMAKE_CURRENT_LIST_DIR}/functionTemplateExample.cpp")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
