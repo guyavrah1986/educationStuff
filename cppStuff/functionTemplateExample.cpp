@@ -12,8 +12,6 @@
 */
 // ======================================================================================================================================================================================
 
-#include <iostream>
-
 #include "functionTemplateExample.h"
 
 using namespace std;
@@ -26,14 +24,14 @@ int main(int argc, char** argv)
 	int b = 19;
 	cout << "main - BEFORE calling foo, a and b are:<" << a << ", " << b << ">" << endl; 
 	// 1) 
-	foo(a, b);
+	mySwap(a, b);
 	cout << "main - AFTER calling foo, a and b are:<" << a << ", " << b << ">" << endl; 
 
 	double c = 7.6;
 	double d = 88.7;
 	cout << "main - BEFORE calling foo, c and d are:<" << c << ", " << d << ">" << endl; 
 	// 2) 
-	foo(c, d);
+	mySwap(c, d);
 	cout << "main - AFTER calling foo, c and d are:<" << c << ", " << d << ">" << endl; 
 
 
