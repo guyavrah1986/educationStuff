@@ -34,7 +34,11 @@ int main(int argc, char** argv)
 	mySwap(c, d);
 	cout << "main - AFTER calling foo, c and d are:<" << c << ", " << d << ">" << endl; 
 
-
+	// 3) 
+	A a1(3);
+	A a2(4);
+	cout << "main -	myComapre(a2(4), a1(3)) returned:" << std::boolalpha << myComapre(a2, a1) << endl;
+ 
 	cout << "\n \n main - end" << endl;
 	return 0;
 }
