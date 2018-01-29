@@ -16,6 +16,7 @@
 #include <stdlib.h>
 
 #include "linkedList.h"
+#include "q30.h"
 
 // for documenataion
 #define IN 
@@ -166,13 +167,42 @@ void q1()
 void q2()
 {
 	printf("q2 - start \n");
-	struct node* head = createList();
-	displayList(head);
+	struct node* head1 = createList();
+	printf("q2 - display list originaly \n");
+	displayList(head1);
 
-	//clearListRecursive(head);
-	clearListLinear(head);
+	printf("q2 - display list after reversing it \n");
+	struct node* head2 = reverseLinkedListRecursive(head1);
+	displayList(head2);
+
+	
+	clearListLinear(head2);
 
 	printf("\n \nq2 - end \n");	
+}
+
+void question30()
+{
+	printf("question30 - start \n");
+	const char str1 [] = "abcde";
+	const char str2 [] = "abcde";
+	printf("question 30 - called strCmp for str1:%s and str2:%s -- which returned:%d \n",str1, str2, strCmp(str1, str2));
+	
+	const char str3 [] = "abcd";
+	const char str4 [] = "abcde";
+	printf("question 30 - called strCmp for str1:%s and str2:%s -- which returned:%d \n",str3, str4, strCmp(str3, str4));
+
+	const char str5 [] = {'\0'};
+	const char str6 [] = "e";
+	printf("question 30 - called strCmp for str1:%s and str2:%s -- which returned:%d \n",str5, str6, strCmp(str5, str6));
+	
+	const char str7 [] = "abcdd";
+	const char str8 [] = "abcde";
+	printf("question 30 - called strCmp for str1:%s and str2:%s -- which returned:%d \n",str7, str8, strCmp(str7, str8));
+
+	const char str9 [] = "ac";
+	const char str10 [] = "ab";
+	printf("question 30 - called strCmp for str1:%s and str2:%s -- which returned:%d \n",str9, str10, strCmp(str9, str10));
 }
 
 int main(int argc, char** argv)
@@ -180,7 +210,9 @@ int main(int argc, char** argv)
 	printf("main - start \n");
 	//q1();
 
-	q2();
+	//q2();
+		
+	question30();
 
 	printf("\n \n main - end \n");
 	return 0;

@@ -85,4 +85,29 @@ void clearListLinear(const struct node* head)
 	}
 }
 
+// for debug: 1-->2-->3-->4-->5-->NULL
+//				NULL<--5
+struct node* reverseLinkedListRecursive(const struct node* head)
+{
+	printf("reverseLinkedListRecursive - start \n");
+	if (head == NULL)
+	{
+		return NULL;
+	}
+	
+	if (head->next == NULL)
+	{	
+		printf("reverseLinkedListRecursive - got to the end of the list with head->val:%d \n", head->val);
+		// head->next = head;
+		return head->next;
+	}
+
+	// still have elements in the list
+	struct node* ret = reverseLinkedListRecursive(head->next);
+	ret->next = head;
+	ret->next->next = NULL;
+	return ret;
+}
+
+
 
