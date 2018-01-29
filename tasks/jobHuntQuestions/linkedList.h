@@ -2,6 +2,7 @@
 
 #include "node.h"
 
-void displayList(const node* head);
-void clearList(const node* head);
+struct node* createList();
+void displayList(const struct node* head);
+void clearList(const struct node* head);
 

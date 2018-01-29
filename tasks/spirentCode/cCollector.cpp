@@ -59,7 +59,8 @@ bool CCollector::UnRegister(CStatsCollectedBase* observer)
 void CCollector::NotifyObservers(CStatsCollectedBase* observer)
 {
 	cout << "CCollector::NotifyObservers" << endl;
-
+	
+	/*
 	// if the argument is NULL - call notify ALL the observers
 	if (observer == nullptr)
 	{
@@ -81,5 +82,6 @@ void CCollector::NotifyObservers(CStatsCollectedBase* observer)
 			}
 		}	
 	}
+	*/
 }
 

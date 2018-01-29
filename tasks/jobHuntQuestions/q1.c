@@ -8,10 +8,14 @@
 * NOTES:
 * a) 
 */
+// ===========================================================================================================================================================
+// ===========================================================================================================================================================
 
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+
+#include "linkedList.h"
 
 // for documenataion
 #define IN 
@@ -139,22 +143,44 @@ void reorderArray(uint8_t* arr, size_t size)
 	}
 }
 
-int main(int argc, char** argv)
+
+void q1()
 {
-	printf("main - start \n");
+	printf("q1 - start \n");
 	uint8_t* arr = createRandomArray(NUM_OF_ELEMENTS_IN_ARRAY);
-	printf("main - after creating the array it is: \n");	
+	printf("q1 - after creating the array it is: \n");	
 	displayArray(arr, NUM_OF_ELEMENTS_IN_ARRAY);
 
 	reorderArray(arr, NUM_OF_ELEMENTS_IN_ARRAY);
-	printf("main - after reordering the array it is: \n");	
+	printf("q1 - after reordering the array it is: \n");	
 	displayArray(arr, NUM_OF_ELEMENTS_IN_ARRAY);
 
 	if (arr != 0)
 	{
-		printf("main - freeing arr \n");
+		printf("q1 - freeing arr \n");
 		free(arr);
 	}
+	printf("\n \nq1 - end \n");
+}
+
+void q2()
+{
+	printf("q2 - start \n");
+	struct node* head = createList();
+	displayList(head);
+
+	clearListRecursive(head);
+
+	printf("\n \nq2 - end \n");	
+}
+
+int main(int argc, char** argv)
+{
+	printf("main - start \n");
+	//q1();
+
+	q2();
+
 	printf("\n \n main - end \n");
 	return 0;
 }

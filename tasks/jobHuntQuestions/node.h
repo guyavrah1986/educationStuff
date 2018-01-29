@@ -6,5 +6,5 @@ struct node
 	struct node* next;
 };
 
-node* createNode(int val);
-
+struct node* createNode(int val);
+void deleteNode(struct node* n);
