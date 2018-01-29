@@ -2,7 +2,7 @@
 /*
 *  Function templates:
 *  -------------------
-* 1) When we define a function template we define a "blue print" for a potential function instantiartion. Nothing is being "created" (compiled) yet.
+* 1) When we define a function template we define a "blue print" for a potential function instantiation. Nothing is being "created" (compiled) yet.
 *
 *
 *
@@ -25,15 +25,9 @@ class A
 	{
 		return lhs.m_a > rhs.m_a;
 	}
-
-	int GetA() const 
-	{
-		return this->m_a;
-	}
 	
 	private:
 	int m_a;
-
 };
 
 
@@ -48,7 +42,7 @@ template <typename T> void mySwap(T& a, T& b)
 //2)
 template <typename T> bool myComapre(const T& lhs, const T& rhs)
 {
-	return lhs.GetA() > rhs.GetA();
+	return lhs > rhs;
 }
 
 
