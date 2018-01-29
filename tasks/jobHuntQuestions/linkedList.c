@@ -72,4 +72,17 @@ void clearListRecursive(const struct node* head)
 	}
 }
 
+void clearListLinear(const struct node* head)
+{
+	printf("clearListLinear - start \n");
+
+	struct node* tmp;
+	while (head != NULL)
+	{
+		tmp = head->next;
+		free(head);
+		head = tmp;
+	}
+}
+
 

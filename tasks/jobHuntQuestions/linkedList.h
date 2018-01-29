@@ -4,5 +4,5 @@
 
 struct node* createList();
 void displayList(const struct node* head);
-void clearList(const struct node* head);
-
+void clearListRecursive(const struct node* head);
+void clearListLinear(const struct node* head);

@@ -169,7 +169,8 @@ void q2()
 	struct node* head = createList();
 	displayList(head);
 
-	clearListRecursive(head);
+	//clearListRecursive(head);
+	clearListLinear(head);
 
 	printf("\n \nq2 - end \n");	
 }
