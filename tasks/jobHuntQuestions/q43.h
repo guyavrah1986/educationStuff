@@ -18,7 +18,7 @@
 #define NUM_OF_BLOCKS 8
 
 static char pool [(BLOCK_SIZE_IN_BYTES) * (NUM_OF_BLOCKS)];
-static char* nextFreeBlock = &(pool[0]);
+static size_t nextFreeBlock = 0;
 
 void initPoolOfBlock()
 {
@@ -47,13 +47,15 @@ void disaplyPool()
 void* poolMalloc()
 {
 	printf("poolMalloc - start \n");
-	if (nextFreeBlock == 0)
+	if (pool[nextFreeBlock] == 0)
 	{
 		printf("poolMalloc - no free block, returning NULL \n");
 		return NULL;
 	}
 
-	
+	printf("poolMalloc - next free block is block %lu with address:%p \n", nextFreeBlock, &(pool[nextFreeBlock]));
+	void* ret = pool[nextFreeBlock];
+	return ret;
 }
 
 void q43()
