@@ -211,6 +211,13 @@ void question43()
 {
 	printf("question43 - start \n");
 	q43();
+	void* pArr[8];
+	size_t i = 0, numOfMallocs = 8;
+	for (; i < numOfMallocs; ++i)
+	{
+		pArr[i] = poolMalloc();
+	}
+
 	printf("\n \n question43 - end \n");
 }
 
