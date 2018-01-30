@@ -17,6 +17,8 @@
 
 #include "linkedList.h"
 #include "q30.h"
+#include "q43.h"
+#include "q79.h"
 
 // for documenataion
 #define IN 
@@ -205,6 +207,19 @@ void question30()
 	printf("question 30 - called strCmp for str1:%s and str2:%s -- which returned:%d \n",str9, str10, strCmp(str9, str10));
 }
 
+void question43()
+{
+	printf("question43 - start \n");
+	q43();
+	printf("\n \n question43 - end \n");
+}
+
+void question79()
+{
+	printf("question79 - start \n");
+	
+}
+
 int main(int argc, char** argv)
 {
 	printf("main - start \n");
@@ -212,7 +227,11 @@ int main(int argc, char** argv)
 
 	//q2();
 		
-	question30();
+	//question30();
+
+	question43();	
+	
+	//question79();
 
 	printf("\n \n main - end \n");
 	return 0;
