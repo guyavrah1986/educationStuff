@@ -1,3 +1,5 @@
+// ===========================================================================================================================================================
+// ===========================================================================================================================================================
 /*
 * question 1:
 * -----------
@@ -21,7 +23,7 @@
 #include "q53.h"
 #include "q79.h"
 
-// for documenataion
+// for documentaion
 #define IN 
 #define OUT
 #define INOUT 
@@ -53,7 +55,6 @@ uint8_t* createRandomArray(size_t size)
 
 void displayArray(uint8_t* arr, size_t size)
 {
-
 	printf("displayArray - start \n");
 	for (size_t i = 0; i < size; ++i)
 	{
@@ -211,13 +212,19 @@ void question30()
 void question43()
 {
 	printf("question43 - start \n");
+
+	// initialization required
 	q43();
 	void* pArr[8];
 	size_t i = 0, numOfMallocs = 8;
+	printf("question43 - about to call myMalloc for %d times in a row \n", numOfMallocs);
 	for (; i < numOfMallocs; ++i)
 	{
 		pArr[i] = poolMalloc();
 	}
+
+	printf("question43 - about to call myMalloc after all blocks were allocated \n");
+	void* pUnAllocated = poolMalloc();
 
 	printf("\n \n question43 - end \n");
 }

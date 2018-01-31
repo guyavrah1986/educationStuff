@@ -18,21 +18,22 @@
 #define NUM_OF_BLOCKS 8
 
 static char pool [(BLOCK_SIZE_IN_BYTES) * (NUM_OF_BLOCKS)];
-static size_t nextFreeBlock = 0;
+static size_t numOfFreeBlocks = NUM_OF_BLOCKS;
+static void* nextFreeBlock = NULL;
 
 void initPoolOfBlock()
 {
 	size_t i = 0;
 	for (; i < NUM_OF_BLOCKS - 1; ++i)
 	{
-		printf("initPoolOfBlock - setting pool block [%lu]:%p \n", i, i + 1); 
-		pool[i] = i + 1;
+		printf("initPoolOfBlock - setting pool block [%lu]:%p \n", i, &(pool[(i + 1) * (BLOCK_SIZE_IN_BYTES)])); 
+		pool[i] = &(pool[(i + 1) * (BLOCK_SIZE_IN_BYTES)]);
 	}
 
 	// last cell will be set to point to "NULL" (zero)
-	printf("initPoolOfBlock - setting the LAST pool block [%lu]:-1 \n", i); 
-	pool[i] = -1;
-	nextFreeBlock = 0;
+	printf("initPoolOfBlock - setting the LAST pool block [%lu]:NULL \n", i); 
+	pool[i] = 0;
+	nextFreeBlock = &(pool[0]);
 	printf("initPoolBlock - setting nextFreeBlock to:%p \n", nextFreeBlock);
 }
 
@@ -47,17 +48,17 @@ void disaplyPool()
 
 void* poolMalloc()
 {
-	printf("poolMalloc - start \n");
-	if (nextFreeBlock == -1)
+	if (numOfFreeBlocks == 0)
 	{
-		printf("poolMalloc - no free block, returning NULL \n");
+		printf("poolMalloc - no free blocks, returning NULL \n");
 		return NULL;
 	}
 
-	printf("poolMalloc - next free block is block[%lu] \n", nextFreeBlock);
-	size_t prevFreeBlock = pool[nextFreeBlock];
-	void* ret = &(pool[nextFreeBlock * BLOCK_SIZE_IN_BYTES]);
-	nextFreeBlock = prevFreeBlock;
+	printf("poolMalloc - the current free block is block at address:%p \n", nextFreeBlock);
+	void* nextNextFreeBlock = *((*)nextFreeBlock);
+	printf("poolMalloc - the address of the next free block (after using the current free block) is:%p \n", nextNextFreeBlock); 
+	void* ret = nextFreeBlock;
+	nextFreeBlock = nextNextFreeBlock;
 	return ret;
 }
 
