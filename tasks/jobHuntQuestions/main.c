@@ -18,6 +18,7 @@
 #include "linkedList.h"
 #include "q30.h"
 #include "q43.h"
+#include "q53.h"
 #include "q79.h"
 
 // for documenataion
@@ -219,6 +220,17 @@ void question43()
 	}
 
 	printf("\n \n question43 - end \n");
+}
+
+
+void question53()
+{
+	printf("question53 - start \n");	
+	char* p = myMalloc(17);
+	printf("question53 - got address:%p from myMalloc \n", p);
+	myFree(p);
+
+	printf("\n \n question53 - end \n");	
 }
 
 void question79()
