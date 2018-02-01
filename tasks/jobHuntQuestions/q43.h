@@ -19,22 +19,22 @@
 
 static char pool [(BLOCK_SIZE_IN_BYTES) * (NUM_OF_BLOCKS)];
 static size_t numOfFreeBlocks = NUM_OF_BLOCKS;
-static void* nextFreeBlock = NULL;
+static size_t nextFreeBlock = 0;
 
 void initPoolOfBlock()
 {
 	size_t i = 0;
 	for (; i < NUM_OF_BLOCKS - 1; ++i)
 	{
-		printf("initPoolOfBlock - setting pool block [%lu]:%p \n", i, &(pool[(i + 1) * (BLOCK_SIZE_IN_BYTES)])); 
-		pool[i] = &(pool[(i + 1) * (BLOCK_SIZE_IN_BYTES)]);
+		printf("initPoolOfBlock - setting pool next free block for block [%lu]: \n", i, (i + 1)); 
+		pool[i] = (i + 1);
 	}
 
-	// last cell will be set to point to "NULL" (zero)
-	printf("initPoolOfBlock - setting the LAST pool block [%lu]:NULL \n", i); 
-	pool[i] = 0;
-	nextFreeBlock = &(pool[0]);
-	printf("initPoolBlock - setting nextFreeBlock to:%p \n", nextFreeBlock);
+	// last cell will be set to point to "NULL" (-1)
+	pool[i] = -1;
+	printf("initPoolOfBlock - setting the LAST pool block [%lu]:%lu \n", i); 
+	nextFreeBlock = 0;
+	printf("initPoolBlock - setting nextFreeBlock to:%lu \n", nextFreeBlock);
 }
 
 void disaplyPool()
