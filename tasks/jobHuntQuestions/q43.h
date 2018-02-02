@@ -1,4 +1,4 @@
-// =========================================================================================================================================
+// =========================================================================================================================================================
 /*
 * Question 43:
 * ------------
@@ -9,7 +9,7 @@
 *
 *
 */
-// =========================================================================================================================================
+// =========================================================================================================================================================
 
 #include <stdio.h>
 
@@ -19,22 +19,22 @@
 
 static char pool [(BLOCK_SIZE_IN_BYTES) * (NUM_OF_BLOCKS)];
 static size_t numOfFreeBlocks = NUM_OF_BLOCKS;
-static size_t nextFreeBlock = 0;
+static int nextFreeBlock = 0;
 
 void initPoolOfBlock()
 {
 	size_t i = 0;
 	for (; i < NUM_OF_BLOCKS - 1; ++i)
 	{
-		printf("initPoolOfBlock - setting pool next free block for block [%lu]: \n", i, (i + 1)); 
-		pool[i] = (i + 1);
+		printf("initPoolOfBlock - setting next free block for block [%lu]:%lu at address:%p \n", i, (i + 1), &(pool[(i * BLOCK_SIZE_IN_BYTES)])); 
+		pool[(i * BLOCK_SIZE_IN_BYTES)] = (i + 1);
 	}
 
 	// last cell will be set to point to "NULL" (-1)
-	pool[i] = -1;
-	printf("initPoolOfBlock - setting the LAST pool block [%lu]:%lu \n", i); 
+	pool[(i * BLOCK_SIZE_IN_BYTES)] = NUM_OF_BLOCKS;
+	printf("initPoolOfBlock - setting the LAST pool block [%lu]:%lu at address:%p \n", i, pool[(i * BLOCK_SIZE_IN_BYTES)], NUM_OF_BLOCKS, &(pool[(i * BLOCK_SIZE_IN_BYTES)])); 
 	nextFreeBlock = 0;
-	printf("initPoolBlock - setting nextFreeBlock to:%lu \n", nextFreeBlock);
+	printf("initPoolBlock - setting nextFreeBlock to:%lu , start of the pool is at address:%p \n", nextFreeBlock, &(pool[0]));
 }
 
 void disaplyPool()
@@ -54,12 +54,39 @@ void* poolMalloc()
 		return NULL;
 	}
 
-	printf("poolMalloc - the current free block is block at address:%p \n", nextFreeBlock);
-	void* nextNextFreeBlock = *((*)nextFreeBlock);
-	printf("poolMalloc - the address of the next free block (after using the current free block) is:%p \n", nextNextFreeBlock); 
-	void* ret = nextFreeBlock;
-	nextFreeBlock = nextNextFreeBlock;
+	printf("poolMalloc - current free block is:%lu with an offset of %lu bytes from the start of the pool \n", nextFreeBlock, (nextFreeBlock * BLOCK_SIZE_IN_BYTES));
+
+	// calculate the offset of the current free block - and return its address
+	void* ret = &(pool[(nextFreeBlock * BLOCK_SIZE_IN_BYTES)]);
+	printf("poolMalloc - returning address:%p \n", &(pool[(nextFreeBlock * BLOCK_SIZE_IN_BYTES)]));
+
+	// get the number of the "next" free block - by extracting the block number from this block
+	nextFreeBlock = *((int*)ret);
+	numOfFreeBlocks--;
+	printf("poolMalloc - the next free block is block:%d \n", nextFreeBlock); 
 	return ret;
+}
+
+void poolFree(void* block)
+{
+	printf("poolFree - got block at address:%p \n", block);
+	
+	// calculate the offset of the block from the start of the pool	
+	size_t offset = (char*)block - (char*)&(pool[0]);
+	size_t numOfBlockToFree = offset / BLOCK_SIZE_IN_BYTES;
+
+	if (numOfFreeBlocks == 0)
+	{
+		printf("poolFree - there are no free block untill now, so we set the NEXT free block to be NULL (-1). current (only) free block is at address:%p \n", &(pool[(numOfBlockToFree * BLOCK_SIZE_IN_BYTES)]));
+		pool[(numOfBlockToFree * BLOCK_SIZE_IN_BYTES)] = -1;
+	}
+	else
+	{
+		printf("poolFree - there were %d free blocks untill now, so we set the NEXT free block to be block number:%lu at address:%p \n", numOfFreeBlocks,  numOfBlockToFree,  &(pool[(nextFreeBlock * BLOCK_SIZE_IN_BYTES)]));
+		*((size_t*)pool[(nextFreeBlock * BLOCK_SIZE_IN_BYTES)]) = numOfBlockToFree;
+	}
+	printf("poolFree - block to free is at offset of:%lu from the start of the pool , which is block:%d \n", offset, numOfBlockToFree);
+	numOfFreeBlocks++;
 }
 
 void q43()

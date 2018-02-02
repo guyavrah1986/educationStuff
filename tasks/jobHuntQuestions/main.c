@@ -217,14 +217,21 @@ void question43()
 	q43();
 	void* pArr[8];
 	size_t i = 0, numOfMallocs = 8;
-	printf("question43 - about to call myMalloc for %d times in a row \n", numOfMallocs);
+	printf("question43 - about to call poolMalloc for %d times in a row \n", numOfMallocs);
 	for (; i < numOfMallocs; ++i)
 	{
 		pArr[i] = poolMalloc();
 	}
 
-	printf("question43 - about to call myMalloc after all blocks were allocated \n");
+	printf("question43 - about to call poolMalloc after all blocks were allocated \n");
 	void* pUnAllocated = poolMalloc();
+
+	int blockToFree = 5;
+	printf("question43 - about to call poolFree for the %d block at address:%p after all blocks were allocated \n", blockToFree, &(pArr[blockToFree]));
+	poolFree(pArr[blockToFree]);
+
+	pArr[blockToFree] = poolMalloc();
+	printf("question43 -  after call to poolMalloc the block which we got is at address:%p \n", pArr[blockToFree]);
 
 	printf("\n \n question43 - end \n");
 }
