@@ -18,6 +18,7 @@
 #include <stdlib.h>
 
 #include "linkedList.h"
+#include "q7.h"
 #include "q30.h"
 #include "q43.h"
 #include "q53.h"
@@ -185,6 +186,24 @@ void q2()
 	printf("\n \nq2 - end \n");	
 }
 
+question7()
+{
+	printf("question7 - start \n");
+
+	const size_t sizeOfArray = 6;
+	int* pArr1 = (int*)malloc(sizeof(int) * sizeOfArray);
+
+	q7(pArr1, sizeOfArray);
+	printf("question7 - FIRST random array generated is: \n");
+	size_t i = 0;
+	for (; i < sizeOfArray; ++i)
+	{
+		printf("[%d]", pArr1[i]);
+	}
+
+	printf("\n \n question7 - end \n");
+}
+
 void question30()
 {
 	printf("question30 - start \n");
@@ -259,10 +278,12 @@ int main(int argc, char** argv)
 	//q1();
 
 	//q2();
+
+	question7();
 		
 	//question30();
 
-	question43();	
+	//question43();	
 	
 	//question79();
 
