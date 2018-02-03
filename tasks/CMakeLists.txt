@@ -40,6 +40,10 @@ file(GLOB_RECURSE CYBER_REASON_SRC
     "${CMAKE_CURRENT_LIST_DIR}/cyberreason/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/cyberreason/*.h")
 
+file(GLOB_RECURSE CYREN_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/cyren/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/cyren/*.h")
+
 # files relevant interview questions (in general)
 file(GLOB_RECURSE JOB_HUNT_QUESTIONS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/jobHuntQuestions/*.cpp"
@@ -82,6 +86,8 @@ add_executable(cyberreasonExe ${CYBER_REASON_SRC})
 add_executable(crackingTheCodingInterviewQuestionsExe ${CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC})
 
 add_executable(spirentStatsModuleExe ${SPIRENT_STATISTICS_MODULE_SRC})
+
+add_executable(cyrenExe ${CYREN_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
