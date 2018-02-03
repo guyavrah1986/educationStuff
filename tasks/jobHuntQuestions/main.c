@@ -186,7 +186,7 @@ void q2()
 	printf("\n \nq2 - end \n");	
 }
 
-question7()
+void question7()
 {
 	printf("question7 - start \n");
 

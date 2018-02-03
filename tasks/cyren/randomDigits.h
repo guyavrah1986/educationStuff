@@ -1,14 +1,3 @@
-
-
-
-
-#include <iostream>
-
-using namespace std;
-
-void displayDigits()
-{
-	cout << "displayDigits - start" << endl;
-
-	cout << "displayDigits - end" << endl;		
-}
+/*
+*	See job_hunt question 7.
+*/

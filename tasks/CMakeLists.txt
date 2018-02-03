@@ -44,6 +44,9 @@ file(GLOB_RECURSE CYREN_SRC
     "${CMAKE_CURRENT_LIST_DIR}/cyren/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/cyren/*.h")
 
+file(GLOB_RECURSE BUFFER_OVERFLOW_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/bufferOverflowExample/bufferOverflowQuestion.c")
+
 # files relevant interview questions (in general)
 file(GLOB_RECURSE JOB_HUNT_QUESTIONS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/jobHuntQuestions/*.cpp"
@@ -88,6 +91,8 @@ add_executable(crackingTheCodingInterviewQuestionsExe ${CRACKING_THE_CODING_INTE
 add_executable(spirentStatsModuleExe ${SPIRENT_STATISTICS_MODULE_SRC})
 
 add_executable(cyrenExe ${CYREN_SRC})
+
+add_executable(bufferOverflowExe ${BUFFER_OVERFLOW_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
