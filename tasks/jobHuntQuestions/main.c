@@ -22,6 +22,7 @@
 #include "q30.h"
 #include "q43.h"
 #include "q53.h"
+#include "q54.h"
 #include "q79.h"
 
 // for documentaion
@@ -266,6 +267,14 @@ void question53()
 	printf("\n \n question53 - end \n");	
 }
 
+void question54()
+{
+	printf("question54 - start \n");	
+	q54Usage();
+
+	printf("\n \n question54 - end \n");
+}
+
 void question79()
 {
 	printf("question79 - start \n");
@@ -275,15 +284,18 @@ void question79()
 int main(int argc, char** argv)
 {
 	printf("main - start \n");
+
 	//q1();
 
 	//q2();
 
-	question7();
+	//question7();
 		
 	//question30();
 
-	//question43();	
+	//question43();
+
+	question54();	
 	
 	//question79();
 
