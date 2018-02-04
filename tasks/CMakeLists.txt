@@ -58,7 +58,7 @@ file(GLOB_RECURSE CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.c"
     "${CMAKE_CURRENT_LIST_DIR}/crackingTheCodingInterviewQuestions/*.h")
 
-file(GLOB_RECURSE SPIRENT_STATISTICS_MODULE_SRC
+file(GLOB_RECURSE SPIRENT_SAMPLE_SRC
     "${CMAKE_CURRENT_LIST_DIR}/spirentCode/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/spirentCode/*.h")
 
@@ -88,7 +88,7 @@ add_executable(cyberreasonExe ${CYBER_REASON_SRC})
 
 add_executable(crackingTheCodingInterviewQuestionsExe ${CRACKING_THE_CODING_INTERVIEW_QUESTIONS_SRC})
 
-add_executable(spirentStatsModuleExe ${SPIRENT_STATISTICS_MODULE_SRC})
+add_executable(spirentSampleExe ${SPIRENT_SAMPLE_SRC})
 
 add_executable(cyrenExe ${CYREN_SRC})
 
