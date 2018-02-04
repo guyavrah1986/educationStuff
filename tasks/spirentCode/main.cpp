@@ -8,6 +8,15 @@
 
 using namespace std;
 
+void mainLoop()
+{
+	cout << "mainLoop - please enter any key to terminate" << endl;
+	int x;	
+	cin >> x;
+	
+	return;
+}
+
 int main(int argc, char** argv)
 {
 	cout << "main spirent - start" << endl;
@@ -28,8 +37,13 @@ int main(int argc, char** argv)
 
 
 	const list<EnProtocolType> protocolList = { SP_M2M_PROTOCOL_TYPE_LWM2M, SP_M2M_PROTOCOL_TYPE_MQTT };
-		
+	CCoreClient* client = coreMgr->CreateClient(protocolList);	
 	
+
+	mainLoop();
+	
+	// manually delete the singleTone object
+	delete client;
 	cout << "\n \n main spirent - end" << endl;
 	return 0;
 }
