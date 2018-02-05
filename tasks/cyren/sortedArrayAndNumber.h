@@ -10,6 +10,7 @@
 using namespace std;
 
 int arr [] = {1,3,5,6,9,10,45,67};
+int num = 16;
 
 void sortedArrAndNumberQuestion()
 {
