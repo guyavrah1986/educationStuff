@@ -1,10 +1,8 @@
-
+#include "sortedArrayAndNumber.h"
 #include "basicClassInheritence.h"
 
-int main(int argc, char** argv)
+void virtualAnNonVirtualFunc()
 {
-	cout << "main - start \n" << endl;
-
 	const char str [] = "rotem"; 
 	Derived d(str);
 	Base* pb = &d;
@@ -41,6 +39,14 @@ int main(int argc, char** argv)
 
 	cout << "main - calling PureVirtualFunc DIRECTLY from a Derived object" << endl;
 	d.PureVirtualFunc();
+}
+
+
+int main(int argc, char** argv)
+{
+	cout << "main - start \n" << endl;
+
+	sortedArrAndNumberQuestion();
 
 	cout << "\n \n main - end \n" << endl;
 	return 0;
