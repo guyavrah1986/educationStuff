@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstring>
 #include <functional>
 #include <string>
 
@@ -7,8 +8,25 @@
 
 struct MessageInfo
 {
-	MessageInfo(uint64_t id, const char* d);
-	~MessageInfo();
+	MessageInfo(uint64_t id, const char* d, size_t numBytes)
+		: msgId(id)
+		, data(nullptr)
+	{
+		if (d != nullptr)
+		{
+			data = new char [numBytes];
+			memcpy(data, d, numBytes);
+			std::cout << "MessageInfo::MessageInfo - setting msgId:" << msgId << " and buff with size of:" << numBytes << std::endl;
+		}
+	}
+	~MessageInfo()
+	{
+		std::cout << "MessageInfo::~MessageInfo" << std::endl;
+		if (data != nullptr)
+		{
+			delete [] data;
+		}
+	}
 
 
 	uint64_t msgId;
