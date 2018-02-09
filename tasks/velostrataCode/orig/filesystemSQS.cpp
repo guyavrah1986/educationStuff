@@ -17,7 +17,7 @@ namespace cloud
 		, m_visibilityTimeout(visibilityTimeout)
 	{
         LOG4CPLUS_INFO(logger, "Creating FilesystemSQS with path: " << m_path << " visibility timeout: " << m_visibilityTimeout.count() << " sec");
-    }
+    	}
 
 	std::string FilesystemSQS::buildQueueUrl(const std::string& name)
 	{
