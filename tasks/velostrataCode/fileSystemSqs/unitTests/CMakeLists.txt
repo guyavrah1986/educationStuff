@@ -26,10 +26,10 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # group all source files of the executable
 # ======================================================================================================================================
 
-# JSON unit tests
-file(GLOB_RECURSE FILE_SYSTEM_SQS_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/*.h")
+# MessageInfo unit tests
+file(GLOB_RECURSE MESSAGE_INFO_UNIT_TESTS_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/messageInfoTest.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/messageInfoTest.h")
 
 
 # ======================================================================================================================================
@@ -43,18 +43,18 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/memoryLeakDetector ${CMAKE_CURRENT_LI
 # create the unit tests executables
 # ======================================================================================================================================
 
-add_executable(fileSystemSqsUnitTests ${FILE_SYSTEM_SQS_SRC})
+add_executable(messageInfoUnitTests ${MESSAGE_INFO_UNIT_TESTS_SRC})
 
 # ======================================================================================================================================
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
 
-target_link_libraries(fileSystemSqsUnitTests gtest gtest_main memoryLeakDetectorLib)
+target_link_libraries(messageInfoUnitTests gtest gtest_main memoryLeakDetectorLib)
 
 # ======================================================================================================================================
 # GTest realted settings
 # ======================================================================================================================================
 
-add_test(fileSystemSqsUnitTests fileSystemSqsUnitTests)
+add_test(messageInfoUnitTests messageInfoUnitTests)
 
 
