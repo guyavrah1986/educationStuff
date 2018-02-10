@@ -27,10 +27,9 @@ void AsyncFileAccess::WriteFile(void* fileHandle, const char* buffToWrite, size_
 
 	// NOTE: implementation specific - cast to int
 	int handle = *(static_cast<int*>(fileHandle));
-	//cout << "AsyncFileAccess::WriteFile - got file handle:" << handle << endl;
     size_t bytesWritten = write(handle, buffToWrite, numBytesToWrite);
 	cout << "AsyncFileAccess::WriteFile - written successfully " << bytesWritten << " bytes into file handle:" << handle << endl;
-	callback(Result(ErrorCode::FS_SQS_ERROR_CODE_SUCCESS));\
+	callback(Result(ErrorCode::FS_SQS_ERROR_CODE_SUCCESS));
 }
 
 void AsyncFileAccess::OpenFile(const string& fileName, const std::function<void(const Result& res, int fileDes)>& callback)
@@ -75,5 +74,31 @@ void AsyncFileAccess::ExistsFile(const string& fileName, const function<void(con
 		callback(Result(ErrorCode::FS_SQS_ERROR_CODE_FILE_DOES_NOT_EXIST));
 	}
 }
+
+void AsyncFileAccess::RemoveFolder(const string& folderName, const function<void(const Result& res)>& callback)
+{
+	 if (nftw(folderName.c_str(), removeFiles, 10, FTW_DEPTH | FTW_MOUNT | FTW_PHYS) < 0)
+	 {
+		 cerr << "AsyncFileAccess::RemoveFolder - was unable to remove folder:" << folderName << endl;
+		 callback(Result(ErrorCode::FS_SQS_ERROR_CODE_GENERAL_FAUILRE));
+		 return;
+	 }
+
+	 cout << "AsyncFileAccess::RemoveFolder - removed folder:" << folderName << endl;
+	 callback(Result(ErrorCode::FS_SQS_ERROR_CODE_SUCCESS));
+}
+
+int AsyncFileAccess::removeFiles(const char *pathname, const struct stat *sbuf, int type, struct FTW *ftwb)
+{
+    if(remove(pathname) < 0)
+    {
+        cerr << "AsyncFileAccess::removeFiles - was unable to remove:" << pathname << endl;
+        return -1;
+    }
+
+    return 0;
+}
+
+
 
 

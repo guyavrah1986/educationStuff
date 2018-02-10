@@ -12,7 +12,8 @@ static int display_mallinfo_and_return_uordblks()
 	mi = mallinfo();
 	std::cout << "========================================" << std::endl;
 	std::cout << "========================================" << std::endl;
-    std::cout << "Total non-mmapped bytes (arena):" << mi.arena << std::endl;
+    /*
+	std::cout << "Total non-mmapped bytes (arena):" << mi.arena << std::endl;
     std::cout << "# of free chunks (ordblks):" << mi.ordblks << std::endl;
     std::cout << "# of free fastbin blocks (smblks):" << mi.smblks << std::endl;
     std::cout << "# of mapped regions (hblks):" << mi.hblks << std::endl;
@@ -22,7 +23,9 @@ static int display_mallinfo_and_return_uordblks()
     std::cout << "Total allocated space (uordblks):"<< mi.uordblks << std::endl;
     std::cout << "Total free space (fordblks):"<< mi.fordblks << std::endl;
     std::cout << "Topmost releasable block (keepcost):" << mi.keepcost << std::endl;
-	std::cout << "========================================" << std::endl;
+	*/
+    std::cout << "Total allocated space (uordblks):"<< mi.uordblks << std::endl;
+    std::cout << "========================================" << std::endl;
 	std::cout << "========================================" << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;

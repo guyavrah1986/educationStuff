@@ -12,6 +12,7 @@ class IFileAccess
 	virtual void OpenFile(const std::string& fileName, const std::function<void(const Result& res, int fileDes)>& callback) = 0;
 	virtual void RemoveFile(void* fileHandle, const std::function<void(const Result& res)>& callback) = 0;
 	virtual void ExistsFile(const std::string& fileName, const std::function<void(const Result& res)>& callback) = 0;
+	virtual void RemoveFolder(const std::string& folderName, const std::function<void(const Result& res)>& callback) = 0;
 
 	virtual ~IFileAccess() {}
 }; 
