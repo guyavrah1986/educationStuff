@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "twoStringsQuestion.h"
+
 using namespace std;
 
 
