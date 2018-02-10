@@ -14,7 +14,7 @@ class AsyncFileAccess : public IFileAccess
 
 	virtual void WriteFile(void* fileHandle, const char* buffToWrite, size_t numBytesToWrite, const std::function<void(const Result& res)>& callback) override;
 	virtual void OpenFile(const std::string& fileName, const std::function<void(const Result& res, int fileDes)>& callback) override;
-	virtual void RemoveFile(void* fileHandle, const std::function<void(const Result& res)>& callback) override;
+	virtual void RemoveFile(const std::string& fileName, const std::function<void(const Result& res)>& callback) override;
 	virtual void ExistsFile(const std::string& fileName, const std::function<void(const Result& res)>& callback) override;
 	virtual void RemoveFolder(const std::string& folderName, const std::function<void(const Result& res)>& callback) override;
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
- #include <sys/stat.h>
- #include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "asyncFileAccessTest.h"
 
@@ -82,7 +82,26 @@ TEST_F(AsyncFileAccessTest, openFileThatDoesNotExist)
 	});
 
 	EXPECT_EQ(called, true);
+}
 
+TEST_F(AsyncFileAccessTest, lookForFileWhichExsist)
+{
+	cout << "AsyncFileAccessTest::lookForFileWhichExsist" << endl;
+	string fileNameWhichExist(m_workingDir + "/fileThatExsits");
+	int fd;
+	tested.OpenFile(fileNameWhichExist, [this, &fd](const Result& res, int fileDes)
+	{
+		fd = fileDes;
+		EXPECT_EQ(res.GetErrorCode(), ErrorCode::FS_SQS_ERROR_CODE_SUCCESS);
+	});
+
+	bool called = false;
+	tested.ExistsFile(fileNameWhichExist, [this, &called](const Result& result)
+	{
+		called = true;
+		EXPECT_EQ(result.GetErrorCode(), ErrorCode::FS_SQS_ERROR_CODE_FILE_EXISTS);
+	});
+	EXPECT_EQ(called, true);
 }
 
 TEST_F(AsyncFileAccessTest, writeToNewFile)
@@ -108,3 +127,31 @@ TEST_F(AsyncFileAccessTest, writeToNewFile)
 
 	EXPECT_EQ(called, true);
 }
+
+TEST_F(AsyncFileAccessTest, removeFile)
+{
+	cout << "AsyncFileAccessTest::removeFile" << endl;
+	string fileName(m_workingDir + "/fileToRemove");
+	int fd;
+	tested.OpenFile(fileName, [this, &fd](const Result& res, int fileDes)
+	{
+		fd = fileDes;
+	});
+
+	void* handle = static_cast<void*>(&fd);
+	char buff [] = "abcde";
+	size_t numBytesToWrite = strlen(buff);
+	tested.WriteFile(handle, buff, numBytesToWrite, [this](const Result& res)
+	{
+		EXPECT_EQ(res.IsSuccess(), true);
+	});
+
+	bool called = false;
+	tested.RemoveFile(fileName, [this, &called](const Result& res)
+	{
+		called = true;
+		EXPECT_EQ(res.IsSuccess(), true);
+	});
+	EXPECT_EQ(called, true);
+}
+

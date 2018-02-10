@@ -51,13 +51,17 @@ void AsyncFileAccess::OpenFile(const string& fileName, const std::function<void(
 	callback(res, fd);
 }
 
-void AsyncFileAccess::RemoveFile(void* fileHandle, const function<void(const Result& res)>& callback)
+void AsyncFileAccess::RemoveFile(const string& fileName, const function<void(const Result& res)>& callback)
 {
-	if (fileHandle == nullptr)
+	if (unlink(fileName.c_str()) != 0)
 	{
-		cerr << "AsyncFileAccess::RemoveFile - got NULL file handle, terminating..." << endl;
+		cerr << "AsyncFileAccess::RemoveFile - was unable to remove file:" << fileName << ", terminating..." << endl;
 		callback(Result(ErrorCode::FS_SQS_ERROR_CODE_GENERAL_FAUILRE));
-		return;
+	}
+	else
+	{
+		cout << "AsyncFileAccess::RemoveFile - remove file:" << fileName << " successfully" << endl;
+		callback(Result(ErrorCode::FS_SQS_ERROR_CODE_SUCCESS));
 	}
 }
 
