@@ -7,6 +7,5 @@ int main(int argc, char** argv)
 	cout << "main - start" << endl;
 
 
-
 	cout << "\n \n main - end" << endl;
 }

@@ -62,5 +62,18 @@ void AsyncFileAccess::RemoveFile(void* fileHandle, const function<void(const Res
 	}
 }
 
+void AsyncFileAccess::ExistsFile(const string& fileName, const function<void(const Result& res)>& callback)
+{
+	if(access(fileName.c_str(), F_OK) != -1)
+	{
+		cout << "AsyncFileAccess::ExistsFile - file:" << fileName << " already exists" << endl;
+		callback(Result(ErrorCode::FS_SQS_ERROR_CODE_FILE_EXISTS));
+	}
+	else
+	{
+		cout << "AsyncFileAccess::ExistsFile - file:" << fileName << " DOES NOT exist" << endl;
+		callback(Result(ErrorCode::FS_SQS_ERROR_CODE_FILE_DOES_NOT_EXIST));
+	}
+}
 
 

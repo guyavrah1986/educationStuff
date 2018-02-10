@@ -26,22 +26,36 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # group all source files of the executable
 # ======================================================================================================================================
 
-file(GLOB_RECURSE VELOSTRATA_FILE_SYSTEM_SQS_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/src/*.h")
+# executable files
+file(GLOB_RECURSE VELOSTRATA_FILE_SYSTEM_SQS_EXE_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/samples/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/samples/*.h")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
 
-# unitTests
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/unitTests ${CMAKE_CURRENT_LIST_DIR}/build/unitTests)
 
 # disable specific warnings (intentionally stated AFTER the unitTest --> GTests framework ahs TONS of warnings which slows the compilation process)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option -Wno-pmf-conversions")
+
+# "internal" libraries 
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src ${CMAKE_CURRENT_LIST_DIR}/build/src)
+
+set(CMAKE_CXX_FLAGS "")
+
+# unitTests
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/unitTests ${CMAKE_CURRENT_LIST_DIR}/build/unitTests)
 
 # ======================================================================================================================================
 # create the main executable (and samples as well)
 # ======================================================================================================================================
    
-add_executable(velostrataFileSystemSqsExe ${VELOSTRATA_FILE_SYSTEM_SQS_SRC})
+add_executable(velostrataFileSystemSqsExe ${VELOSTRATA_FILE_SYSTEM_SQS_EXE_SRC})
+
+# ======================================================================================================================================
+# link the executable with all relevant libraries
+# ======================================================================================================================================
+                 
+target_link_libraries(velostrataFileSystemSqsExe sqsFsLib)
+
