@@ -11,10 +11,13 @@ class LruCache
 	~LruCache();
 
 	bool insertElement(int key, int val);
-	bool getElement(int key) const;
+	int Get(int key);
+	void Set(int key, int val);
 
 	// utilities
 	void addNode(LruCacheNode* node);
+	void removeNode(LruCacheNode* node);
+	void moveNode(LruCacheNode* node);
 	void displayCache() const;
 
 	size_t m_capacity;
