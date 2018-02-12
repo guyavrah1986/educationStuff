@@ -61,6 +61,10 @@ file(GLOB_RECURSE FUNCTION_TEMPLATE_EXAMPLE_SRC
     "${CMAKE_CURRENT_LIST_DIR}/functionTemplateExample.h"
     "${CMAKE_CURRENT_LIST_DIR}/functionTemplateExample.cpp")
 
+# Composition and Aggragation example sources
+file(GLOB_RECURSE COMPOSITION_AND_AGGRAGATION_EXAMPLE_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/objectCompositionAndAggragation.cpp")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -85,6 +89,8 @@ add_executable(copyCtorAndAssginmentOperatorExe ${COPY_CTOR_AND_ASSGINMENT_OPERA
 add_executable(structPointerExe ${STRUCT_POINTER_EXAMPLE_SRC})
 
 add_executable(functionTemplateExe ${FUNCTION_TEMPLATE_EXAMPLE_SRC})
+
+add_executable(objectCompositionAndAggragationExe ${COMPOSITION_AND_AGGRAGATION_EXAMPLE_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries

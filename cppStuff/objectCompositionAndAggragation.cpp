@@ -16,12 +16,13 @@
 // 2) Object Aggragation:
 // ---------------------
 // Defined similarly to object composition , but different from it in the following aspects:
-// a) The conatiner object IS NOT responsible for the creatin NOR the deletion of the aggarate object.
+// a) The conatiner object IS NOT responsible for the creation NOR the deletion of the aggarate object, for example when the parent class 
+//    recived in the Ctor a pointer to an object, and also, it DOES NOT delete this object in non of its functions NOR in the Dtor.
 // b) The aggragate object CAN be used in several container objects. 
 
 //
 // NOTES:
-// a) Usually the aggragte object will be a pointer or a reference to the part object that was created earlier and AS WELL will be destried later on by another object.
+// a) Usually the aggragte object will be a pointer or a reference to the part object that was created earlier and AS WELL will be destroied later on by another object.
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 
@@ -30,7 +31,6 @@
 
 class Inner 
 {
-
 	public:
 		Inner(int a) : m_a(a)
 		{
@@ -53,9 +53,7 @@ class Inner
 			std::cout << "Inner::~Inner" << std::endl;
 		}
 
-
 	int m_a;
-
 };
 
 
@@ -76,7 +74,8 @@ class Container
 	Inner m_inner;
 };
 
-
+// This class implies the composition while the contained object is being kept by pointer.
+// Note that the container object DOES delete the contained object in its Dtor.
 class ContainerByAddress
 {
 
@@ -98,6 +97,9 @@ class ContainerByAddress
 		int m_c;
 		const Inner* m_inner;
 };
+
+
+
 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
