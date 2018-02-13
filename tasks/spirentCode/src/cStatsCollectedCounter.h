@@ -13,5 +13,5 @@ class CStatsCollectedCounter : public CStatsCollectedBase
 	virtual bool output();
 
 	private:
-	uint64_t m_counter;
+	unsigned int m_counter;
 };
