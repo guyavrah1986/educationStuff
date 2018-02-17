@@ -10,7 +10,7 @@
 //
 // c) In this example we created the argument Ctor --> so we also defined the defualt Ctor (it is not always neccssary).
 //
-// d) In case our class holds class members which are class as well, their defualt ctor will be called BEFORE the body of the ctor of our class will be executetd. 
+// d) In case our class holds class members which are classes as well, their defualt ctor will be called BEFORE the body of the ctor of our class will be executetd. 
 // 
 // e) SEE NOTE IN THE CODE - This will invoke the defualt ctor we have implemented for our container object.
 // Some additioanl notes here:
