@@ -16,7 +16,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # disable specific warnings
 # ======================================================================================================================================
 
-set(CPP_STUFF_WARNINGS "-Werror -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
+set(CPP_STUFF_WARNINGS "-Werror -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wold-style-cast -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option")
+
+# TODO: was removed for item9: -Wnoexcept -Woverloaded-virtual
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS ${CPP_STUFF_WARNINGS}) # use this setting in order to disable a certain warning: -Wno-pmf-conversions
@@ -38,6 +40,9 @@ file(GLOB_RECURSE ITEM1_SRC
 file(GLOB_RECURSE ITEM3_SRC
     "${CMAKE_CURRENT_LIST_DIR}/item3.cpp")
 
+# item9
+file(GLOB_RECURSE ITEM9_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/item9.cpp")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
@@ -53,6 +58,8 @@ file(GLOB_RECURSE ITEM3_SRC
 add_executable(item1Exe ${ITEM1_SRC})
 
 add_executable(item3Exe ${ITEM3_SRC})
+
+add_executable(item9Exe ${ITEM9_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
