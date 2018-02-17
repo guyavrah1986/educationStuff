@@ -78,14 +78,6 @@ void item3Usage()
 	const size_t size = 3;
 	Derived arr[size];	
 
-	// fill the Base* array with pointer to Derived objects !!
-	/*	
-	for (size_t i = 0; i < size; ++i)
-	{
-		arr[i] = new Derived(i + 1, i + 1);
-	}
-	*/
-
 	// call the virtual function of the Derived objects with the "original" array
 	cout << "item3Usage - invoking foo function for the original objects array" << endl;
 	for (size_t i = 0; i < size; ++i)
@@ -94,14 +86,6 @@ void item3Usage()
 	}
 
 	passArrAsBaseArray(arr, size);
-
-	// finally, clean up
-	/*	
-	for (int i = size - 1; i >= 0; --i)
-	{	
-		delete arr[i];
-	}
-	*/
 	cout << "\n \n item3Usage - end" << endl;
 }
 
