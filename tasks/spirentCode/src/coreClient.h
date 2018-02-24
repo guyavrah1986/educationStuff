@@ -15,5 +15,5 @@ class CCoreClient
 	
 	private:
 	CAdapterMgr m_adapMgr;
-	/* CRsrcMgr* m_rsrcMgr;*/	
+	/* CRsrcMgr* m_rsrcMgr;*/
 };

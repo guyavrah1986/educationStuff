@@ -40,13 +40,12 @@ file(GLOB_RECURSE SPIRENT_CODE_EXE_SRC
 # disable specific warnings (intentionally stated AFTER the unitTest --> GTests framework ahs TONS of warnings which slows the compilation process)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option -Wno-pmf-conversions")
 
-# "internal" libraries 
+# the "main" SDK library (spirentLib)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src ${CMAKE_CURRENT_LIST_DIR}/build/src)
 
-# TODO: enable if we wish to add unit test
-# set(CMAKE_CXX_FLAGS "")
 # unitTests
-#add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/unitTests ${CMAKE_CURRENT_LIST_DIR}/build/unitTests)
+set(CMAKE_CXX_FLAGS "") # disable all the warnings that were set earlier -- otherwise GTest will produce TONS of errors
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/unitTests ${CMAKE_CURRENT_LIST_DIR}/build/unitTests)
 
 # ======================================================================================================================================
 # create the main executable (and samples as well)
