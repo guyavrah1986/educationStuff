@@ -9,12 +9,12 @@ class CAdapterMgr
 {
 	public:
 	CAdapterMgr(const std::list<EnProtocolType>& protocolsList);
-	~CAdapterMgr();
+	virtual ~CAdapterMgr();
 
 	// class specific "interface"
 	virtual IAdapProtocol* GetAdapByProtocolType(EnProtocolType protocolType) const;
 	virtual SdkConnection* GetConnectionByProtocolType(EnProtocolType protocolType) const;
 
 	private:
-	std::map<EnProtocolType, IAdapProtocol*> m_protocolAdapters;	
+	std::map<EnProtocolType, IAdapProtocol*> m_protocolAdaptersMap;
 };

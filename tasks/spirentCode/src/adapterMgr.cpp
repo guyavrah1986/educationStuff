@@ -13,11 +13,11 @@ CAdapterMgr::CAdapterMgr(const list<EnProtocolType>& protocolsList)
 	{
 		switch (*it)
 		{
-			case SP_M2M_PROTOCOL_TYPE_LWM2M: m_protocolAdapters.insert(pair < EnProtocolType, IAdapProtocol* > (*it, new CAdapterLwm2m()));
+			case SP_M2M_PROTOCOL_TYPE_LWM2M: m_protocolAdaptersMap.insert(pair < EnProtocolType, IAdapProtocol* > (*it, new CAdapterLwm2m()));
 							 cout << "CAdapterMgr::CAdapterMgr - adding LWM2M protocol adapter" << endl;
 							 break;
 
-			case SP_M2M_PROTOCOL_TYPE_MQTT:  m_protocolAdapters.insert(pair<EnProtocolType, IAdapProtocol*>(*it, new CAdapterMqtt()));
+			case SP_M2M_PROTOCOL_TYPE_MQTT:  m_protocolAdaptersMap.insert(pair<EnProtocolType, IAdapProtocol*>(*it, new CAdapterMqtt()));
 							 cout << "CAdapterMgr::CAdapterMgr - adding MQTT protocol adapter" << endl;
 							 break;
 			default:  cout << "CAdapterMgr::CAdapterMgr - unsupported protocol adapter" << endl;
@@ -25,18 +25,18 @@ CAdapterMgr::CAdapterMgr(const list<EnProtocolType>& protocolsList)
 		}
 	}
 
-	cout << "CAdapterMgr::CAdapterMgr - done initialize protocol adapters, with total of " << m_protocolAdapters.size() << " protocols added" << endl;
+	cout << "CAdapterMgr::CAdapterMgr - done initialize protocol adapters, with total of " << m_protocolAdaptersMap.size() << " protocols added" << endl;
 }
 
 CAdapterMgr::~CAdapterMgr()
 {
 	cout << "CAdapterMgr::~CAdapterMgr" << endl;
-	for (auto current = m_protocolAdapters.begin(); current != m_protocolAdapters.end(); ++current)
+	for (auto current = m_protocolAdaptersMap.begin(); current != m_protocolAdaptersMap.end(); ++current)
 	{
     		delete current->second;
 	}
 
-	m_protocolAdapters.clear();
+	m_protocolAdaptersMap.clear();
 }
 
 
