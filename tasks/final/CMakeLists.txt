@@ -31,6 +31,11 @@ file(GLOB_RECURSE FINAL_SRC
     "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/*.h")
 
+# ONLY question 1 main
+file(GLOB_RECURSE FINAL_Q1_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/q1/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/q1/*.h")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -44,6 +49,7 @@ file(GLOB_RECURSE FINAL_SRC
    
 add_executable(finalPreparationExe ${FINAL_SRC})
 
+add_executable(finalPreparationExeQuestion1 ${FINAL_Q1_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries

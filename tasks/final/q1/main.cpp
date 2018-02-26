@@ -1,11 +1,14 @@
+// ================================================================================================================================
 /*
 * What will be the output of the program ?
 */
+// ================================================================================================================================
 #include <iostream>
+
+using namespace std;
 
 class A 
 {
-	
 	public:
 		A() { std::cout << "A Ctor " << std::endl; }
 		~A() { std::cout << "A Dtor " << std::endl; }
@@ -37,15 +40,15 @@ class D : public C
 	public:
 	D() { std::cout << "D Ctor " << std::endl; }
 	~D() { std::cout << "D Dtor " << std::endl; }
-	void p1() { std::cout << "D : p1" << std::endl; }
-	void p2() { std::cout << "D : p2 " << std::endl; }
+	//void p1() { std::cout << "D : p1" << std::endl; }
+	//void p2() { std::cout << "D : p2 " << std::endl; }
 };
 
 B b;
 
-void q1()
-{
-	std::cout << "q1 - start" << std::endl;
+int main(int argc, char** argv)
+{	
+	cout << "main question 1 - start" << endl;
 	C* pc = new D;
 	A* pa1 = pc;
 	A* pa2 = &b;
@@ -60,5 +63,6 @@ void q1()
 	d.p2();
 	
 	delete pa1;
-	std::cout << "\n \n q1 - end" <<std::endl;
+	cout << "\n \n main question 1 - end" << endl;
+	return 0;
 }
