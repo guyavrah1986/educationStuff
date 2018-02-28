@@ -4,7 +4,7 @@
 * 2) Once we derived from std::exception, we can override the what method that returns a const char* string that describes the exception.NOTE: Do not use this string 
 *   for comparsion - any compiler might implement it, thus return a different value. 
 * 3) When we have several classes of excptions in an inheritence chain, we need to place the different excptions types from the most derived "downwards", otherwise 
-*    the first match will be the one that will catch the excption. 
+*    the first match will be the one that will catch the excption.
 *
 */
 // ======================================================================================================================================================================

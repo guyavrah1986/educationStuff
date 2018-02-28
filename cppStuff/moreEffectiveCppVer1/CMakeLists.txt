@@ -44,6 +44,10 @@ file(GLOB_RECURSE ITEM3_SRC
 file(GLOB_RECURSE ITEM9_SRC
     "${CMAKE_CURRENT_LIST_DIR}/item9.cpp")
 
+# item19
+file(GLOB_RECURSE ITEM19_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/item19.cpp")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -60,6 +64,8 @@ add_executable(item1Exe ${ITEM1_SRC})
 add_executable(item3Exe ${ITEM3_SRC})
 
 add_executable(item9Exe ${ITEM9_SRC})
+
+add_executable(item19Exe ${ITEM19_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
