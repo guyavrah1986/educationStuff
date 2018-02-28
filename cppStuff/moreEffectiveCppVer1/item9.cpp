@@ -1,3 +1,14 @@
+// ========================================================================================================================================================================
+/*
+* 1) One can create its own class and derive from the std::exception class. 
+* 2) Once we derived from std::exception, we can override the what method that returns a const char* string that describes the exception.NOTE: Do not use this string 
+*   for comparsion - any compiler might implement it, thus return a different value. 
+* 3) When we have several classes of excptions in an inheritence chain, we need to place the different excptions types from the most derived "downwards", otherwise 
+*    the first match will be the one that will catch the excption. 
+*
+*/
+// ======================================================================================================================================================================
+
 #include <iostream>
 #include <exception>	// for std::exception
 #include <cstring>	// for strcpy
@@ -5,7 +16,7 @@
 
 using namespace std;
 
-class MyException : public exception
+class MyException : public exception // 1)
 {
 	public:
 	MyException(const char* str) 
@@ -19,7 +30,7 @@ class MyException : public exception
 		cout << "MyException::~MyException" << endl;
 	}
 
-	virtual const char* what() const throw () 
+	virtual const char* what() const throw ()  // 2) 
 	{
 		return m_str.c_str();
 	}
@@ -70,7 +81,7 @@ int main(int argc, char** argv)
 		cout << "main - start of try block, about to call item9usage method" << endl;
 		item9Usage();
 	}
-	catch (const MyException& e)
+	catch (const MyException& e) // 3) 
 	{
 		cout << "main - within const MyExcpetion& e catch block, e.what is:" << e.what() << endl;
 	}
