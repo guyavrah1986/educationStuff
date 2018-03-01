@@ -37,7 +37,7 @@ bool CCollector::UnRegister(CStatsCollectedBase* observer)
 		return false;
 	}
 
-	cout << "CCollector::UnRegister - removing observer" << observer->GetName() << endl;
+	cout << "CCollector::UnRegister -  observer" << observer->GetName() << endl;
 	for (vector<CStatsCollectedBase*>::iterator it = m_observers.begin(); it != m_observers.end(); )
 	{
 		if (*it == observer)
