@@ -9,6 +9,25 @@
 
 using namespace std;
 
+
+class A
+{
+	public:
+	A(int a) : m_a(a)
+	{
+		cout << "A::A - setting m_a to:" << m_a << endl;
+	}
+
+	~A()
+	{
+		cout << "A::~A" << endl;
+	}
+
+	
+	
+
+};
+
 void item19Usage()
 {
 	cout << "item19Usage - start" << endl;
