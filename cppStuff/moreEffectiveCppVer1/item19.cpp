@@ -23,8 +23,17 @@ class A
 		cout << "A::~A" << endl;
 	}
 
+	A(const A& other) : A(other.m_a)
+	{
+		cout << "A::A(copy)" << endl;
+	}
 	
-	
+	A& operator=(const A& rhs)
+	{
+
+	}
+
+	int m_a;
 
 };
 
