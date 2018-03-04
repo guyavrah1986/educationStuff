@@ -31,6 +31,11 @@ file(GLOB_RECURSE FLOAT_RSRC_BASE_UNIT_TESTS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/floatRsrcBaseTests.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/floatRsrcBaseTests.h")
 
+# CRsrcMgr unit tests
+file(GLOB_RECURSE RSRC_MGR_UNIT_TESTS_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/rsrcMgrTests.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/rsrcMgrTests.h")
+
 # ======================================================================================================================================
 # Create dependencies libraries
 # ======================================================================================================================================
@@ -44,11 +49,15 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/memoryLeakDetector ${CMAKE_CURRENT_LI
 
 add_executable(floatRsrcBaseTestsUnitTestsExe ${FLOAT_RSRC_BASE_UNIT_TESTS_SRC})
 
+add_executable(rsrcMgrTestsUnitTestsExe ${RSRC_MGR_UNIT_TESTS_SRC})
+
 # ======================================================================================================================================
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
 
 target_link_libraries(floatRsrcBaseTestsUnitTestsExe gtest gtest_main memoryLeakDetectorLib spirentLib)
+
+target_link_libraries(rsrcMgrTestsUnitTestsExe gtest gtest_main memoryLeakDetectorLib spirentLib)
 
 # ======================================================================================================================================
 # GTest realted settings
@@ -56,5 +65,5 @@ target_link_libraries(floatRsrcBaseTestsUnitTestsExe gtest gtest_main memoryLeak
 
 add_test(floatRsrcBaseTestsUnitTestsExe floatRsrcBaseTestsUnitTestsExe)
 
-
+add_test(rsrcMgrTestsUnitTestsExe rsrcMgrTestsUnitTestsExe)
 
