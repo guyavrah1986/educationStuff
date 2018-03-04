@@ -4,7 +4,7 @@
 
 #include "adapRsrcValue.h"
 
-class CRsrcBase : public IAdapRsrcValue
+class CRsrcBase
 {
 public:
 		CRsrcBase(IN const char* rsrcUri, IN const EnRsrcType rsrcType, IN bool internalCreated);

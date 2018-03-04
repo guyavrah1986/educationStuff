@@ -2,7 +2,7 @@
 
 #include "memoryLeakDetector/memoryLeakDetectorBase.h"
 
-class CRsrcMgrTests : public MemoryLeakDetectorBase
+class CRsrcMgrTests : public ::testing::Test
 {
 protected:
 

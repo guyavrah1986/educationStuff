@@ -18,11 +18,14 @@ public:
 	virtual Result GetRsrcById(IN const char* strUri, OUT CRsrcBase** ppRsrc);
 	virtual Result NewAppRsrcCreated(IN const char* uri, IN SpM2mRsrcValue* pValue);
 
+	// for unit testing and debug
+	const std::unordered_map<std::string, CRsrcBase*>& GetRsrcMap() const;
+
 private:
-	Result createLwm2mRsrc(IN const char* uri);
-	Result addLwm2mRsrsc(IN const char* arr[]);
+	Result createLwm2mRsrc(IN const char* uri, IN bool bInternalCreated, IN EnRsrcType rsrcType);
+	Result addLwm2mRsrsc(IN const std::string& uri, IN const char* arr[], IN bool bInternalCreated, IN EnRsrcType rsrcType);
 
 private:
 	std::unordered_map<std::string, CStatsCollectedBase*> m_rsrcNameToCollectedObjMap;
-	std::unordered_map<const char*, CRsrcBase*> m_rsrcMap;
+	std::unordered_map<std::string, CRsrcBase*> m_rsrcMap;
 };

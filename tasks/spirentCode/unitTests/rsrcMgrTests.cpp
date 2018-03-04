@@ -68,3 +68,18 @@ TEST_F(CRsrcMgrTests, createTwoLevelLwm2mResource)
 
 	EXPECT_EQ(res.IsSuccess(), false);
 }
+
+TEST_F(CRsrcMgrTests, createThreeLevelLwm2mResource)
+{
+	cout << "CRsrcMgrTests::createThreeLevelLwm2mResource - start" << endl;
+	const char uri [] = "/home/kitchen/tmp1";
+	CRsrcMgr rsrcMgr;
+	const size_t numOfRsrcLevel = 3;
+
+	CFloatRsrc rsrc(NULL, false);
+	CRsrcBase* pRsrc = &rsrc;
+	Result res = rsrcMgr.CreateRsrc(uri, SP_M2M_RSRC_TYPE_FLOAT, SP_M2M_PROTOCOL_TYPE_LWM2M, false, pRsrc);
+
+	EXPECT_EQ(res.IsSuccess(), true);
+	EXPECT_EQ(rsrcMgr.GetRsrcMap().size(), numOfRsrcLevel);
+}

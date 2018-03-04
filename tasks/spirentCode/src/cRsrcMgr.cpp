@@ -2,6 +2,7 @@
 #include <cstring>
 
 #include "cRsrcMgr.h"
+#include "floatRsrc.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ Result CRsrcMgr::CreateRsrc(IN const char* strUri, IN EnRsrcType rsrcType, IN En
 
 	switch (protocolType)
 	{
-	case SP_M2M_PROTOCOL_TYPE_LWM2M: return createLwm2mRsrc(strUri);
+	case SP_M2M_PROTOCOL_TYPE_LWM2M: return createLwm2mRsrc(strUri, bInternalCreated, rsrcType);
 
 	case SP_M2M_PROTOCOL_TYPE_MQTT: // TODO: add it !!
 
@@ -54,13 +55,14 @@ Result CRsrcMgr::NewAppRsrcCreated(IN const char* uri, IN SpM2mRsrcValue* pValue
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
 }
 
-Result CRsrcMgr::createLwm2mRsrc(IN const char* uri)
+Result CRsrcMgr::createLwm2mRsrc(IN const char* uri, IN bool bInternalCreated, IN EnRsrcType rsrcType)
 {
 	cout << "CRsrcMgr::createLwm2mRsrc - got uri:" << uri << endl;
 	const size_t numOfLevelsLwm2m = 3;
 	const char* arr [numOfLevelsLwm2m] = {'\0'};
 
 	// remove the constness of uri
+	const string origUri(uri);
 	arr[0] = strtok(const_cast<char*>(uri),"/");
 	if (arr[0] == NULL)
 	{
@@ -83,19 +85,57 @@ Result CRsrcMgr::createLwm2mRsrc(IN const char* uri)
 	}
 
 	// there are 3 valid "levels" of resource URI - add them
-	return addLwm2mRsrsc(arr);
+	return addLwm2mRsrsc(origUri, arr, bInternalCreated, rsrcType);
 }
 
-Result CRsrcMgr::addLwm2mRsrsc(IN const char* arr[])
+Result CRsrcMgr::addLwm2mRsrsc(IN const string& uri, IN const char* arr[], IN bool bInternalCreated, IN EnRsrcType rsrcType)
 {
-	cout << "CRsrcMgr::addLwm2mRsrsc - about to create Lwm2m resources" << endl;
+	cout << "CRsrcMgr::addLwm2mRsrsc - about to create Lwm2m resources for resource:" << uri << endl;
 	const size_t numOfLevelsLwm2m = 3;
 
 	cout << "1st level resource uri is:" << arr[0] << endl;
 	cout << "2nd level resource uri is:" << arr[1] << endl;
 	cout << "3rd level resource uri is:" << arr[2] << endl;
 
+	// 1st level resource is a "grandfather" resource
+	CRsrcBase* firstLevelRsrc = new CRsrcBase(arr[0], SP_M2M_RSRC_TYPE_PARENT_RSRC, true);
+	m_rsrcMap.insert(pair<string, CRsrcBase*>(arr[0], firstLevelRsrc));
+
+	// 2nd level resource is a "father" resource
+	CRsrcBase* secondLevelRsrc = new CRsrcBase(arr[1], SP_M2M_RSRC_TYPE_PARENT_RSRC, true);
+	m_rsrcMap.insert(pair<string, CRsrcBase*>(arr[1], secondLevelRsrc));
+
+	// 3rd level resource is a concrete resource
+	switch (rsrcType)
+	{
+	case SP_M2M_RSRC_TYPE_FLOAT:
+								{
+									cout << "CRsrcMgr::addLwm2mRsrsc - adding float resource" << endl;
+									CRsrcBase* thirdLevelRsrc = new CFloatRsrc(uri.c_str(), false);
+									m_rsrcMap.insert(pair<string, CRsrcBase*>(uri.c_str(), thirdLevelRsrc));
+									break;
+								}
+
+	case SP_M2M_RSRC_TYPE_INT: cout << "CRsrcMgr::addLwm2mRsrsc - adding int resource" << endl;
+								// TODO !!
+								break;
+
+	case SP_M2M_RSRC_TYPE_STRING: cout << "CRsrcMgr::addLwm2mRsrsc - adding string resource" << endl;
+									// TODO !!
+									break;
+
+	case SP_M2M_RSRC_TYPE_PARENT_RSRC:
+	default: cerr << "CRsrcMgr::addLwm2mRsrsc - got unsupported resource type" << endl;
+			 break;
+	}
+
+
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
+}
+
+const unordered_map<string, CRsrcBase*>& CRsrcMgr::GetRsrcMap() const
+{
+	return m_rsrcMap;
 }
 
 
