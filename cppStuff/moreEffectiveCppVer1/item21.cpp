@@ -1,6 +1,6 @@
 // ========================================================================================================================================================================
 /*
-* Return value optimization:
+* :
 * --------------------------
 * 
 *
@@ -11,19 +11,40 @@
 
 using namespace std;
 
-
-
-void item20Usage()
+class UpInt 
 {
-	cout << "item20Usage - start" << endl;
+	public:
+	UpInt() : UpInt(0)
+	{	
+		cout << "UpInt::UpInt(default)" << endl;
+	}
 
-	cout << "\n \n item20Usage - end" << endl;
+	UpInt(int val) : m_int(val)
+	{
+		cout << "UpInt::UpInt - setting m_int to:" << m_int << endl; 
+	}
+	
+	const UpInt operator+(const UpInt& lhs, const UpInt& rhs)
+	{
+		return UpInt(lhs.m_int + rhs.m_int);
+	}
+
+	
+	int m_int;
+};
+
+void item21Usage()
+{
+	cout << "item21Usage - start" << endl;
+
+	UpInt ui1, ui(3);
+	cout << "\n \n item21Usage - end" << endl;
 }
 
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
-	item20Usage();
+	item21Usage();
 	
 	cout << "\n \n main - end" << endl;
 	return 0;
