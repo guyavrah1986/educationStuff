@@ -24,14 +24,15 @@ class UpInt
 		cout << "UpInt::UpInt - setting m_int to:" << m_int << endl; 
 	}
 	
-	const UpInt operator+(const UpInt& lhs, const UpInt& rhs)
-	{
-		return UpInt(lhs.m_int + rhs.m_int);
-	}
+	friend const UpInt operator+(const UpInt& lhs, const UpInt& rhs);
 
-	
 	int m_int;
 };
+
+const UpInt operator+(const UpInt& lhs, const UpInt& rhs)
+{
+	return UpInt(lhs.m_int + rhs.m_int);
+}
 
 void item21Usage()
 {
