@@ -65,6 +65,10 @@ file(GLOB_RECURSE FUNCTION_TEMPLATE_EXAMPLE_SRC
 file(GLOB_RECURSE COMPOSITION_AND_AGGRAGATION_EXAMPLE_SRC
     "${CMAKE_CURRENT_LIST_DIR}/objectCompositionAndAggragation.cpp")
 
+# pointer to ampersand example sources
+file(GLOB_RECURSE POINTER_TO_AMPERSAND_EXAMPLE_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/pointerToAmpersand.cpp")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -91,6 +95,8 @@ add_executable(structPointerExe ${STRUCT_POINTER_EXAMPLE_SRC})
 add_executable(functionTemplateExe ${FUNCTION_TEMPLATE_EXAMPLE_SRC})
 
 add_executable(objectCompositionAndAggragationExe ${COMPOSITION_AND_AGGRAGATION_EXAMPLE_SRC})
+
+add_executable(pointerToAmpersandExe ${POINTER_TO_AMPERSAND_EXAMPLE_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
