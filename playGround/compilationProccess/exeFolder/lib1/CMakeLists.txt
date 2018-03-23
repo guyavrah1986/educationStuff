@@ -12,38 +12,25 @@ message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within fo
 # include directories
 # ======================================================================================================================================
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/lib1
-					${CMAKE_CURRENT_LIST_DIR}/lib2)
-
 # ======================================================================================================================================
 # group all source files of the executable
 # ======================================================================================================================================
 
-file(GLOB COMPILATION_PROCCESS_EXE_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/exeFolder/*.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/exeFolder/*.h")
+file(GLOB LIB1_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/*.h")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
-
-# lib1 
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/exeFolder/lib1 /${CMAKE_CURRENT_LIST_DIR}/build/lib1)
-
-# lib2
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/exeFolder/lib2 /${CMAKE_CURRENT_LIST_DIR}/build/lib2)
 
 
 # ======================================================================================================================================
 # create the main executable
 # ======================================================================================================================================
 
-add_executable(cppCompilationProcessExe ${COMPILATION_PROCCESS_EXE_SRC})
+add_library(lib1 ${LIB1_SRC})
 
 # ======================================================================================================================================
 # link the main executable with all relevant libraries
-# ======================================================================================================================================
-
-target_link_libraries(cppCompilationProcessExe lib2)
-
-                    
+# ======================================================================================================================================                 
