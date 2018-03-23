@@ -5,7 +5,7 @@ will try to illustrate them briefly under the assumption that we are buidling th
 In order to invoke the different utilities we will need from the Visual C++ "tools set" we need to run the commands from the Visual Studio Command Prompt
 Go to: Start->All Programs->Visual Studio 2017->Visual Studio Tools->Visual Studio Command Prompt (2017)
 
-NOTE: In this command line prompt all the PATH to the different visual studio tools are already configured and set properly.
+NOTE: In this command line prompt all the PATHs to the different visual studio tools are already configured and set properly.
 
 1) Preproccessor stage:
 -----------------------
