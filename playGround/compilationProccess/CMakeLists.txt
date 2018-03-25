@@ -8,6 +8,9 @@ project("compilationProccess")
 
 message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within folder:${CMAKE_CURRENT_LIST_DIR}")
 
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIBRARY_OUTPUT_DIR})
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIBRARY_OUTPUT_DIR})
+
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
@@ -28,10 +31,10 @@ file(GLOB COMPILATION_PROCCESS_EXE_SRC
 # ======================================================================================================================================
 
 # lib1 
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/exeFolder/lib1 /${CMAKE_CURRENT_LIST_DIR}/build/lib1)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/exeFolder/lib1 /${CMAKE_CURRENT_LIST_DIR}/build)
 
 # lib2
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/exeFolder/lib2 /${CMAKE_CURRENT_LIST_DIR}/build/lib2)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/exeFolder/lib2 /${CMAKE_CURRENT_LIST_DIR}/build)
 
 
 # ======================================================================================================================================
