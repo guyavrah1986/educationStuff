@@ -1,18 +1,24 @@
 // ====================================================================================================================================================================
 /*
-* const pointer and pointer to const:
-* ----------------------------------- 
-* 1) When declaring a pointer we have two options: 
+* 1) const pointer and pointer to const for primitive data types:
+* --------------------------------------------------------------- 
+* When declaring a pointer we have two options: 
 * a) Non const pointer to non const data.
 * b) In this specific case, although it seems that the pointer is both data and location non const -- this is NOT the case. In this type of declration, the content
 *    that the pointer is poiting to is located in the TEXT segment of the process - thus it is invalid operation modifying (writing) to this location. 
 * c) Declaring the pointer as a const, meaning we can NOT modify the location we are pointing to --> the const keyword is on the RIGHT side of the astrik (*).
-* ) Declraing the pointer to point to a const "object", meaning we can NOT modifiy the content that the pointer is pointing to.
+* d) Declraing the pointer to point to a const "object", meaning we can NOT modifiy the content that the pointer is pointing to --> the const keyword is on the LEFT
+*    side of the astrik (*).
+*
+* 2) const iterator and iterator_const of STL containers:
+* -------------------------------------------------------
+* The same goes for STL iterators.
+* a) 
 *
 */
 // ====================================================================================================================================================================
-
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -39,15 +45,35 @@ void pointerToPrimitiveTypeUsageExample()
 	cout << "pointerToPrimitiveTypeUsageExample - BEFORE modifying the first char that p4 points to:" << p4 << endl;
 	*p4 = 'H';
 	cout << "pointerToPrimitiveTypeUsageExample - AFTER modifying the first char that p4 points to:" << p4 << endl;
-	// p4 = str5; --> This line will NOT compile 
+	//p4 = str5; --> This line will NOT compile 
 	
+	// d) 
+	const char* p5 = str4;
+	cout << "pointerToPrimitiveTypeUsageExample - BEFORE modifying the location that p5 points to:" << p5 << endl;
+	p5 = str5;
+	cout << "pointerToPrimitiveTypeUsageExample - AFTER modifying the location that p5 points to:" << p5 << endl;
+	//*p5 = 'K'; --> This line does NOT compile
 	
 	cout << "\n \n pointerToPrimitiveTypeUsageExample - end" << endl;
+}
+
+void iteratorsUsageExample()
+{
+	cout << "iteratorsUsageExample - start" << endl;
+	vector<int> vec = {1,2,3};
+	size_t index = 0;
+	vector<int>::iterator it1 = vec.begin();
+	cout << "iteratorsUsageExample - BEFORE modifying the first element of the vector, vec[" << index << "] is:" << *it1 << endl;
+	*it1 = 4;
+	cout << "iteratorsUsageExample - AFTER modifying the first element of the vector, vec[" << index << "] is:" << *it1 << endl;
+
+	cout << "\n \n iteratorsUsageExample - end" << endl;
 }
 
 void item3Usage()
 {
 	pointerToPrimitiveTypeUsageExample();
+	iteratorsUsageExample();
 	cout << "\n \n item3Usage - end" << endl;
 }
 
