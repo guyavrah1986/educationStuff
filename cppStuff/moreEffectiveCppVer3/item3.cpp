@@ -13,7 +13,8 @@
 * 2) const iterator and iterator_const of STL containers:
 * -------------------------------------------------------
 * The same goes for STL iterators.
-* a) 
+* a) If we declare the iterator as const, it acts like a T* const --> the location it is poiting to can NOT be modified.
+* b) If we declare the iterator as const_iterator, it acts like const T* --> the value (content) it is poiting to can NOT be modified. 
 *
 */
 // ====================================================================================================================================================================
@@ -66,6 +67,19 @@ void iteratorsUsageExample()
 	cout << "iteratorsUsageExample - BEFORE modifying the first element of the vector, vec[" << index << "] is:" << *it1 << endl;
 	*it1 = 4;
 	cout << "iteratorsUsageExample - AFTER modifying the first element of the vector, vec[" << index << "] is:" << *it1 << endl;
+
+	// a)
+	const vector<int>::iterator it2 = vec.begin();
+	*it2 = 5;
+	cout << "iteratorsUsageExample - AFTER modifying the first element of the vector, vec[" << index << "] is:" << *it2 << endl;
+	//++it2; --> This line won't compile !!
+	
+	// b)
+	vector<int>::const_iterator it3 = vec.begin();
+	//*it3 = 9; --> This line won't compile !!
+	cout << "iteratorsUsageExample - when assgining it to vec.begin() it points to:" << *it3 << endl;
+	++it3;
+	cout << "iteratorsUsageExample - after moving it forward by one location (it3++), it points to:" << *it3 << endl;
 
 	cout << "\n \n iteratorsUsageExample - end" << endl;
 }
