@@ -10,7 +10,9 @@
 *  b) Once the reference is assgined to an object, it will always refer to this object, so if we set the reference to refer to another object
 *     the "old value" will be modified, yet the pointer will point to the same address.
 *
-*
+*  2) For conclusion, you should use:
+*  a) pointer - if you wish to have the ability NOT to point to an object (set the pointer to NULL) OR point to a different object.
+*  b) reference - if you know in advance that you will always refer to an (valid) object (it can not be NULL) and ONLY to that object.  
 *
 */
 // =============================================================================================================================================
@@ -27,7 +29,7 @@ class A
 	A(B& b) : m_b(b) // 1a)
 	{
 		cout << "A::A" << endl;
-		// m_b = b; 1a) this is not initialize !!
+		// m_b = b; 1a) this is not initialization !!
 	}
 	
 	~A()
