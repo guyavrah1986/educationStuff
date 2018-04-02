@@ -1,9 +1,63 @@
+// =============================================================================================================================================
+/*
+*  Item 1: Pointers and references
+*  -------------------------------
+*  1) Refernce Must always refer to an object which it will always refer to, so:
+*  a) We can not declare a refernce without initialize it.
+*  1a) # One exception is when we declare a class member as a reference - in this case, in the line where the reference is declared, indeed 
+*      we aren't initialize it, YET we MUST do it in the ctor.
+*      # Note that assgining is NOT initializing.
+*  b) Once the reference is assgined to an object, it will always refer to this object, so if we set the reference to refer to another object
+*     the "old value" will be modified, yet the pointer will point to the same address.
+*
+*
+*
+*/
+// =============================================================================================================================================
 #include <iostream>
+#include <string>
 
 using namespace std;
 
+class B;
+
+class A
+{
+	public:
+	A(B& b) : m_b(b) // 1a)
+	{
+		cout << "A::A" << endl;
+		// m_b = b; 1a) this is not initialize !!
+	}
+	
+	~A()
+	{
+		cout << "A::~A" << endl;
+	}
+	
+	B& m_b; // 1a)
+};
+
+class B
+{
+	public:
+	B()
+	{
+		cout << "B::B" << endl;
+	}
+	
+	~B()
+	{
+		cout << "B::~B" << endl;
+	}
+};
+
 void item1Usage()
 {
+	cout << "item1Usage - start" << endl;
+	
+	// 1a)
+	//string& str; //--> won't compile
 	string str1("first string");
 	string str2("second string");
 	cout << "item1Usage - address of str1:" << &str1 << " its content:" << str1 << endl;
@@ -16,6 +70,7 @@ void item1Usage()
 	ptr1 = &str2;
 	cout << "item1Usge - after re-assgin ptr1 = &str2,  *ptr1 is:" << *ptr1 << " and it points to address" << ptr1 << endl;
 	
+	// 1b) 
 	ref1 = str2;
 	cout << "item1Usge - after re-assgin ref1 = str2, str1 is:" << str1 << " it address is still:" << &str1 << endl;
 }
