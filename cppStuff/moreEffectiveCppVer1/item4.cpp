@@ -2,7 +2,10 @@
 /*
 * item 4:
 * ------
-* 
+* C++ compilers automatically creates several functions to any user defined class. One of them is the default constructor. 
+*
+* 1) First, let us see some "issues" we might suffer in case we WON'T have a default constructor to our class. 
+* a) In this case, we can see that it is impossible to declare (create) a "stack-based" array of objects with no default Ctor.
 *
 */
 // =============================================================================================================================================
@@ -39,6 +42,10 @@ class Base
 void noDefaultCtorIssueWithArraysInitializationExample()
 {
 	cout << "noDefaultCtorIssueWithArraysInitializationExample - start" << endl;
+	
+	// 1a) 
+	const size_t size = 3;
+	//Base arr [size]; --> Won't compile: "no appropriate default constructor avialble
 }
 
 void item4Usage()
