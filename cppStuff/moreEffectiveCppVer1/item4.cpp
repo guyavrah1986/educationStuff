@@ -15,6 +15,8 @@
 * 3) Third, a case worth mention is with base classes. In case a base class, say, in a long "inheritence chain" DOES NOT have a default ctor,
 *    it implies that ALL derived classes will supply the base class values for its members (assuming there are). That is not such a "good constranit"
 *    to imply on the developers of a derived class.
+* a) In this case, the vase class DOES have a default ctor, so no "need" to know (send) arguemnts from the derived class ctor to the base class ctor.
+* b) In case the base class DOES NOT have a default ctor, then the derived class MUST provide ALL arguemnts to the NON default ctor in its ctor. 
 */
 // ================================================================================================================================================================
 #include <iostream>
@@ -96,12 +98,45 @@ class Derived3 : public Base3
 
 	virtual ~Derived3()
 	{
-		cout << "Derived3::Derived3" << endl;
+		cout << "Derived3::~Derived3" << endl;
 	}
 			
 	int m_b;
 };
 
+class Base4
+{
+	public:
+	Base4(int a) 
+		: m_a(a)
+	{
+		cout << "Base4::Base4 - setting m_a to:" << m_a << endl;
+	}
+
+	virtual ~Base4()
+	{
+		cout << "Base4::~Base4" << endl;
+	}
+
+	int m_a;
+};
+
+class Derived4 : public Base4
+{
+	public:
+	Derived4(int b) : Base4(4) // 3b) hard coded value for Base4 argument
+		, m_b(b)
+	{
+		cout << "Derived4::Derived4 - setting m_b to:" << m_b << endl;
+	}
+
+	virtual ~Derived4()
+	{
+		cout << "Derived4::~Derived4" << endl;
+	}
+			
+	int m_b;
+};
 
 void noDefaultCtorIssueWithArraysInitializationExample()
 {
@@ -127,7 +162,13 @@ void noDefaultCtorIssueWithArraysInitializationExample()
 void noDefaultCtorInBaseClassExample()
 {
 	cout << "noDefaultCtorInBaseClassExample - start" << endl;
+	
+	// 3a)
 	Derived3(12);
+	
+	// 3b) 
+	Derived4(9);
+	
 	cout << "\n \n noDefaultCtorInBaseClassExample - end" << endl;
 }
 
