@@ -50,22 +50,27 @@ class B
 		}
 		return ret;
 	}
-	
-	B* CreateObjectInBuffer(void* buff, int a)
-	{
-		//cout << "B::CreateObjectInBuffer - got buff in address:" << buff << " with size of:" << size << endl;
-		return new (buff) B(a);
-	}
 
 	int m_a;
 };
+
+B* CreateObjectInBuffer(void* buff, int a)
+{
+	cout << "CreateObjectInBuffer - got buff in address:" << buff << endl;
+	return ::new (buff) B(a);
+}
 
 void item8Usage()
 {
 	cout << "item8Usage - start" << endl;
 
 	// 1)
-	B* pb = new B(17);
+	B* pb1 = new B(17);
+	
+	cout << "item8Usage - about to create obejct using placement new, first lets allocate memory for a B object using malloc" << endl;
+	void* p = malloc(sizeof(B));
+	cout << "item8Usage - allocated memory in address:" << p << endl;
+	B* pb2 = CreateObjectInBuffer(p, 8);
 	
 	cout << "\n \n item8Usage - end" << endl;
 }
