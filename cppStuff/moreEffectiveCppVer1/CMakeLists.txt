@@ -40,6 +40,14 @@ file(GLOB_RECURSE ITEM1_SRC
 file(GLOB_RECURSE ITEM3_SRC
     "${CMAKE_CURRENT_LIST_DIR}/item3.cpp")
 
+# item4
+file(GLOB_RECURSE ITEM4_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/item4.cpp")
+
+# item8
+file(GLOB_RECURSE ITEM8_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/item8.cpp")
+	
 # item9
 file(GLOB_RECURSE ITEM9_SRC
     "${CMAKE_CURRENT_LIST_DIR}/item9.cpp")
@@ -66,6 +74,10 @@ file(GLOB_RECURSE ITEM21_SRC
 add_executable(item1Exe ${ITEM1_SRC})
 
 add_executable(item3Exe ${ITEM3_SRC})
+
+add_executable(item4Exe ${ITEM4_SRC})
+
+add_executable(item8Exe ${ITEM8_SRC})
 
 add_executable(item9Exe ${ITEM9_SRC})
 
