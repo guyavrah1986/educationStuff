@@ -22,6 +22,10 @@
 *
 */
 // ================================================================================================================================================================
+
+#define _CRTDBG_MAP_ALLOC  // NOTE: the order of the includes that FOLLOWS this define is important !!!
+#include <stdlib.h>  
+#include <crtdbg.h> 
 #include <iostream>
 
 using namespace std;
@@ -85,5 +89,6 @@ int main(int argc, char** argv)
 	char c;
 	cin >> c;
 	cout << "\n \n main - end" << endl;
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
