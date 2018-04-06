@@ -23,7 +23,7 @@ message("cxx Flags:" ${CMAKE_CXX_FLAGS})
 # Sub-directories where more CMakeLists.txt exist
 add_subdirectory(main)
 add_subdirectory(lib1)
-
+add_subdirectory(lib2)
 
 
 

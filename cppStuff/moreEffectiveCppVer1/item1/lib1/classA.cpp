@@ -22,7 +22,7 @@
 
 using namespace std;
 
-A::A(/*B& b*/) //: m_b(b) // 1a)
+A::A(B& b) : m_b(b) // 1a)
 {
 	cout << "A::A" << endl;
 	// m_b = b; 1a) this is not initialization !!

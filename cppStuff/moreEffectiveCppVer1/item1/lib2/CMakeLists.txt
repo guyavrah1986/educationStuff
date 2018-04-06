@@ -11,23 +11,23 @@ file (GLOB LIB2_SOURCES
       "*.cpp")
  
 # The recommended way to collect sources in variable 
-# ADVANCED_FUNCTION_SOURCES by explicitly specifying the source files
-#set(ADVANCED_FUNCTION_SOURCES
+# LIB2_SOURCES by explicitly specifying the source files
+#set(LIB2_SOURCES
 #      "classB.h"
 #      "classB.cpp")
  
 # Create named folders for the sources within the .vcproj
 # Empty name lists them directly under the .vcproj
-# source_group("" FILES ${MATH_SOURCES})
+# source_group("" FILES ${GENERAL_SOURCES})
 source_group("lib2" FILES ${LIB2_SOURCES})
  
 # Properties->C/C++->General->Additional Include Directories
 include_directories (.)
  
-# Set Properties->General->Configuration Type to Dynamic Library(.dll)
-# Creates lib1.dll with the listed sources collected in the variables
+# Set Properties->General->Configuration Type to Static (.lib)
+# Creates lib2.lib with the listed sources collected in the variables
 # Also adds sources to the Solution Explorer
-add_library(lib2 SHARED ${LIB2_SOURCES})
+add_library(lib2 STATIC ${LIB2_SOURCES})
  
 # Creates folder "libraries" and adds target project (lib1.vcproj)
 set_property(TARGET lib2 PROPERTY FOLDER "libs")
@@ -37,5 +37,6 @@ set_target_properties(lib2 PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_
  
 # Adds logic to INSTALL.vcproj to copy lib1.dll to the destination directory
 install (TARGETS lib2
+		 ARCHIVE DESTINATION lib2
          RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/_install
          LIBRARY DESTINATION ${PROJECT_SOURCE_DIR}/_install)

@@ -22,10 +22,11 @@ file (GLOB LIB1_SOURCES
 source_group("lib1" FILES ${LIB1_SOURCES})
  
 # Properties->C/C++->General->Additional Include Directories
-include_directories (.)
+include_directories (.
+					 "{CMAKE_CURRENT_LIST_DIR}/../lib2")
  
-# Set Properties->General->Configuration Type to Dynamic Library(.dll)
-# Creates lib1.dll with the listed sources collected in the variables
+# Set Properties->General->Configuration Type to Static Library(.lib)
+# Creates lib1.lib with the listed sources collected in the variables
 # Also adds sources to the Solution Explorer
 add_library(lib1 STATIC ${LIB1_SOURCES})
  
