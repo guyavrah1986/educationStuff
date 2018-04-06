@@ -27,7 +27,7 @@ include_directories (.)
 # Set Properties->General->Configuration Type to Dynamic Library(.dll)
 # Creates lib1.dll with the listed sources collected in the variables
 # Also adds sources to the Solution Explorer
-add_library(lib1 SHARED ${LIB1_SOURCES})
+add_library(lib1 STATIC ${LIB1_SOURCES})
  
 # Creates folder "libraries" and adds target project (lib1.vcproj)
 set_property(TARGET lib1 PROPERTY FOLDER "libs")
@@ -40,6 +40,7 @@ set_target_properties(lib1 PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_
 #target_link_libraries(lib1 lib2)
  
 # Adds logic to INSTALL.vcproj to copy lib1.dll to the destination directory
-install (TARGETS lib1
-         RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/_install
-         LIBRARY DESTINATION ${PROJECT_SOURCE_DIR}/_install)
+install(TARGETS lib1
+		ARCHIVE DESTINATION lib1
+        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/_install
+        LIBRARY DESTINATION ${PROJECT_SOURCE_DIR}/_install)
