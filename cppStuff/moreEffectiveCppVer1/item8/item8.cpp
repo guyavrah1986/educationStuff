@@ -20,6 +20,20 @@
 *    of the object.
 *    NOTE: Other than the buffer in which the object will be created, this fucntion ALSO MUST get all the neccessary arguments for the object.
 *
+* 4) Each call to operator new MUST have its corresponding call to operator delete. Similarly to the way operator new works, operator delete does the 
+*    opposite actions in the following order:
+* a) The delete operator calls the object's destructor.
+* b) The delete operator de-allocates the memory that was used by this object.
+*
+* 5) Similarly to the case where we used operator new instead of the new operator, we need to call operator delete on the pointer that holds the 
+*    data (object) that was allocated via the operator new.
+* a) Note that it DOES NOT matter whether we invoke the operator delete on the pointer that holds the object OR on the pointer points to the "buffer"
+*    that was passed to the operator new.
+*
+* 6) When "combinign" the usage of operator new with operator delete, we are basically performing memory managment like malloc & free works.
+* a) Note that, the same as malloc works, the memory that was allocated via operator new, IS NOT initialized to a certain value --> it might contain garbage 
+*    values.
+*
 */
 // ================================================================================================================================================================
 
@@ -70,6 +84,23 @@ B* CreateObjectInBuffer(void* buff, int a)
 	return ::new (buff) B(a); // 3) placement new usage
 }
 
+void operatorNewAndOperatorDeleteCombined()
+{
+	cout << "operatorNewAndOperatorDeleteCombined - start" << endl;
+	const size_t size = 10;
+	
+	// 6a)  
+	char* buff = static_cast<char*>(operator new (sizeof(char) * size));
+	cout << "operatorNewAndOperatorDeleteCombined - after allocating " << size << " bytes using operator new, their initial value is:" << endl;
+	for (size_t i = 0; i < size; ++i)
+	{
+		cout << buff[i] << " ";
+	}
+
+	// 6b) 
+	operator delete (static_cast<void*>(buff));
+}
+
 void item8Usage()
 {
 	cout << "item8Usage - start" << endl;
@@ -81,6 +112,15 @@ void item8Usage()
 	void* p = malloc(sizeof(B));
 	cout << "item8Usage - allocated memory in address:" << p << endl;
 	B* pb2 = CreateObjectInBuffer(p, 8);
+
+	// 4) delete the B object pb1 points to (was created "normally" using the new operator)
+	delete pb1;
+
+	// 5) INTENTIOALLY DO NOT delete the other B object that pb2 points to (was allocated using placement new).
+	// This will generate a memory leak 
+	//delete pb2 OR delete p;
+
+	operatorNewAndOperatorDeleteCombined();
 	
 	cout << "\n \n item8Usage - end" << endl;
 }
