@@ -1,15 +1,15 @@
 cmake_minimum_required (VERSION 3.10)
- 
-# Maps to Visual Studio solution file (item1.sln)
+
+# Maps to Visual Studio solution file (staticLibraryExample.sln)
 # The solution will have all targets (exe, lib, dll) 
 # as Visual Studio projects (.vcproj)
-project(item1)
+project(staticLibraryExample)
 
 message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within folder:${CMAKE_CURRENT_LIST_DIR}")
 
 # Turn on the ability to create folders to organize projects (.vcproj)
-# It creates "CMakePredefinedTargets" folder by default and adds CMake
-# defined projects like INSTALL.vcproj and ZERO_CHECK.vcproj
+# It creates automatically the "CMakePredefinedTargets" folder and adds CMake
+# defined projects like INSTALL.vcproj and ZERO_CHECK.vcproj into this folder
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
  
 # Set compiler flags and options. 
@@ -21,9 +21,5 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 message("cxx Flags:" ${CMAKE_CXX_FLAGS})
 
 # Sub-directories where more CMakeLists.txt exist
-add_subdirectory(main)
+add_subdirectory(app)
 add_subdirectory(lib1)
-add_subdirectory(lib2)
-
-
-
