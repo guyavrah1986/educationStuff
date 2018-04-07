@@ -67,7 +67,7 @@ class B
 B* CreateObjectInBuffer(void* buff, int a)
 {
 	cout << "CreateObjectInBuffer - got buff in address:" << buff << endl;
-	return ::new (buff) B(a);
+	return ::new (buff) B(a); // 3) placement new usage
 }
 
 void item8Usage()
