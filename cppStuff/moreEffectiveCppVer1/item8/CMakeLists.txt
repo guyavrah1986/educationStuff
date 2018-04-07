@@ -29,6 +29,10 @@ set_property(TARGET item8Exe PROPERTY FOLDER "executables")
 set_target_properties(item8Exe PROPERTIES
                       RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
  
+# Solution Properties->Startup Project->Single Startup project 
+# Set this executable to be the startup project of the item8 solution (availble from cmake 3.6)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT item8Exe)
+ 
 # Adds logic to INSTALL.vcproj to copy app.exe to destination directory
 install (TARGETS item8Exe
          RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/_install)

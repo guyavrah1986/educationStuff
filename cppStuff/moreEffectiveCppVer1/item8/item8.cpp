@@ -4,12 +4,12 @@
 * ------
 * The differences between new operator and operator new.
 * 
-* 1) When we create a new object (on the heap) using the mentioned statment, what actually happens "under the hood" is two actions:
+* 1) When we create a new object (on the heap) using the mentioned statment (new operator), what actually happens "under the hood" is two actions:
 * a) The new operator allocates "raw memory" in a size that is suffiecnt to hold the allocated object.
 * b) The new operator calls the (respective) ctor of the object, WITH the allocated memory from the previous step.
 * --> This operator is a BUILT-IN operator of the langudge -- it CAN NOT be modified !!
 * 
-* 2) The second "function" in this context is the operator new, which is inherintly part of every user defined object.
+* 2) The second "function" in this context is the operator new, which is inherintly part of every user defined object (class function).
 *    The ONLY task of this function (operator) is to allocate (enough) memory to hold the object in memory. This function CAN be override/overload. 
 * a) In case we would have want to add a different "allocation logic" than the "simple" malloc, this function is the place to put it into.
 * 
@@ -26,6 +26,7 @@
 #define _CRTDBG_MAP_ALLOC  // NOTE: the order of the includes that FOLLOWS this define is important !!!
 #include <stdlib.h>  
 #include <crtdbg.h> 
+
 #include <iostream>
 
 using namespace std;
@@ -51,8 +52,13 @@ class B
 		if (ret != NULL)
 		{
 			cout << "B::operator new - allocated address:" << ret << endl;
+			return ret;
 		}
-		return ret;
+		else
+		{
+			cerr << "B::operator new - malloc was NOT abel to allocate memory, returning NULL pointer" << endl;
+			return NULL;
+		}
 	}
 
 	int m_a;
