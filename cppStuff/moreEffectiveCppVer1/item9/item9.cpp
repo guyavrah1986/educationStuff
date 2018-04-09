@@ -1,5 +1,10 @@
 // ========================================================================================================================================================================
 /*
+* Item 9:
+* ------
+* One note worth mention in the first place is - Why should we use exceptions in the first place ? 
+* The answer is simple: Exceptions can NOT be ignored !!
+* 
 * 1) One can create its own class and derive from the std::exception class. 
 * 2) Once we derived from std::exception, we can override the what method that returns a const char* string that describes the exception.NOTE: Do not use this string 
 *   for comparsion - any compiler might implement it, thus return a different value. 
