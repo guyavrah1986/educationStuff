@@ -2,7 +2,16 @@
 /*
 * Item 10:
 * --------
-* Long story short - if a class's ctor does not "run to completion" (for instance by throwing an exception during its run) 
+* Long story short - if a class's ctor does not "run to completion" (for instance by throwing an exception during its run) its dtor WILL
+* NOT be invoked, no matter how we "called" the ctor (i.e.- for a stack object/heap object).
+* --> this situation might casue resource leaks or the like (that were prevented if the dtor WAS invoked normally).
+* So far we have understood the PROBLEM and it causes.
+*
+* 1) In this case - all good, no "worries".
+* 2) In this case, when intentioally we "simulate" an exception throw form the C class's ctor. It is important no note here, that, even
+*    if we manually (explictly) call the dtor of class C AFTER the exception was thrown and caught - it won't help, cause a dtor of
+*    a class is relevant ONLY if the ctor of that class was run completly --> so we will have a memory leak (in the size of class A, cause
+*    it's ctor did run completly, YET its dtor did not...).
 *
 * Notes:
 * ) No need to check for NULL pointer before deleting the pointers of class C in the dtor (C++ permits to delete NULL pointers).
@@ -55,18 +64,18 @@ class C
 {
 public:
 	C(int a, int b)
+		: m_a(nullptr)
+		, m_b(nullptr)
 	{
-		if (a != 0)
+		m_a = new A(a);
+		cout << "C::C - setting m_a to a newly A object created on the heap (address):" << m_a << endl;
+		if (b == 0)
 		{
-			m_a = new A(a);
-			cout << "C::C - setting m_a to a newly A object created on the heap (address):" << m_a << endl;
+			throw exception("sample exception to simulate situation where m_b was not fully initialized");
 		}
 
-		if (b != 0)
-		{
-			m_b = new B(b);
-			cout << "C::C - setting m_b to a newly B object created on the heap (address):" << m_b << endl;
-		}
+		m_b = new B(b);
+		cout << "C::C - setting m_b to a newly B object created on the heap (address):" << m_b << endl;
 	}
 
 	~C()
@@ -84,9 +93,21 @@ void item10Usage()
 {
 	cout << "item10Usage - start" << endl;
 
-	// invoke a normal creation of a C object - on the stack
+	// 1) invoke a normal creation of a C object - on the stack
 	{
 		C c(1, 2);
+	}
+
+	// 2)
+	C* pc = 0;
+	try
+	{
+		pc = new C(1, 0);
+	}
+	catch (const exception& e)
+	{
+		cout << "item10Usage - caught an exception while trying to create a new C object on the heap:" << e.what() << endl;
+		delete pc;
 	}
 
 	cout << "\n \n item10Usage - " << endl;
@@ -97,7 +118,7 @@ int main(int argc, char** argv)
 	cout << "main - start" << endl;
 
 	item10Usage();
-	
+
 	char c = 0;
 	cout << "main - enter any key to terminate (and press enter)" << endl;
 	cin >> c;
