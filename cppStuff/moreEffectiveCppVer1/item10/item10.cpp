@@ -17,6 +17,8 @@
 *    being deleted ANYWAY !!
 * 3) On the other hand, if we do wish to be able to delete the pointer of the object that was not initizlied completly, we can throw
 *    the exception form the Init method -- and than the call to the dtor indeed will work.
+* 4) Here, no matter what will happen, the pointer data members of E, will be delete properly.
+* a) Defining both of them as a unique_ptr will do the trick.
 *
 * Notes:
 * ) No need to check for NULL pointer before deleting the pointers of class C in the dtor (C++ permits to delete NULL pointers).
@@ -28,6 +30,7 @@
 #include <crtdbg.h> 
 
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -91,7 +94,7 @@ public:
 		cout << "C::~C" << endl;
 	}
 
-	A* m_a; 
+	A* m_a;
 	B* m_b;
 	string m_str; // 2b)
 };
@@ -125,8 +128,34 @@ public:
 		cout << "D::~D" << endl;
 	}
 
-	A* m_a;
+	A* m_a; 
 	B* m_b;
+};
+
+class E
+{
+public:
+	E(int a, int b)
+		: m_a(nullptr)
+		, m_b(nullptr)
+	{
+		cout << "E::E" << endl;
+		m_a.reset(new A(a));
+		if (b == 0)
+		{
+			throw exception("sample exception to simulate situation where m_b was not fully initialized in class E ctor");
+		}
+
+		m_b.reset(new B(b));
+	}
+
+	~E()
+	{
+		cout << "E::~E" << endl;
+	}
+
+	unique_ptr<A> m_a; // 4a)
+	unique_ptr<B> m_b; // 4a)
 };
 
 void item10Usage()
@@ -171,6 +200,17 @@ void item10Usage()
 	{
 		cout << "item10Usage - caught an excpetion while trying to init a D object:" << e.what() << endl;
 		delete pd; // 3a) 
+	}
+
+	// 4) This is "most" proper way to do it !!
+	E* pe = nullptr;
+	try
+	{
+		pe = new E(1, 0);
+	}
+	catch (const exception& e)
+	{
+		cout << "item10Usage - caught an excpetion while trying to init an E object:" << e.what() << endl;
 	}
 
 	cout << "\n \n item10Usage - end" << endl;
