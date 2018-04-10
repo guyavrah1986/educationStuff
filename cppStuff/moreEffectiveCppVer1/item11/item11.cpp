@@ -16,6 +16,46 @@
 
 using namespace std;
 
+class A
+{
+public:
+	A(int a)
+		: m_a(a)
+	{
+		cout << "A::A - set m_a to:" << m_a << endl;
+	}
+
+	A()
+		: A(17)
+	{
+		cout << "A::A(default)" << endl;
+	}
+
+	~A()
+	{
+		cout << "A::~A" << endl;
+		throw exception("sample exception to simulate situation where the dtor of class A threw an exception");
+	}
+
+	int m_a;
+};
+
+class B
+{
+public:
+	B(int a)
+		: m_a(new A())
+	{
+		cout << "B::B" << endl;
+	}
+
+	~B()
+	{
+		cout << "B::B" << endl;
+	}
+
+	unique_ptr<A> m_a;
+};
 void item11Usage()
 {
 	cout << "item11Usage - start" << endl;
