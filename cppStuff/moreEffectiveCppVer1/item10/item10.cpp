@@ -15,6 +15,8 @@
 *    it's ctor did run completly, YET its dtor did not...).
 * b) Any data member of class C (i.e.- not a pointer) is not effected from the fact that the dtor of class C is NOT invoked -- it is 
 *    being deleted ANYWAY !!
+* 3) On the other hand, if we do wish to be able to delete the pointer of the object that was not initizlied completly, we can throw
+*    the exception form the Init method -- and than the call to the dtor indeed will work.
 *
 * Notes:
 * ) No need to check for NULL pointer before deleting the pointers of class C in the dtor (C++ permits to delete NULL pointers).
@@ -75,7 +77,7 @@ public:
 		cout << "C::C - setting m_a to a newly A object created on the heap (address):" << m_a << endl;
 		if (b == 0)
 		{
-			throw exception("sample exception to simulate situation where m_b was not fully initialized");
+			throw exception("sample exception to simulate situation where m_b was not fully initialized in class C ctor");
 		}
 
 		m_b = new B(b);
@@ -89,21 +91,64 @@ public:
 		cout << "C::~C" << endl;
 	}
 
-	A* m_a;
+	A* m_a; 
 	B* m_b;
 	string m_str; // 2b)
+};
+
+class D
+{
+public:
+	D()
+		: m_a(nullptr)
+		, m_b(nullptr)
+	{
+		cout << "D::D" << endl;
+	}
+
+	void InitD(int a, int b)
+	{
+		cout << "D::InitD" << endl;
+		m_a = new A(a);
+		if (b == 0)
+		{
+			throw exception("sample exception to simulate situation where m_b was not fully initialized in class D Init() method");
+		}
+
+		m_b = new B(b);
+	}
+
+	~D()
+	{
+		delete m_a;
+		delete m_b;
+		cout << "D::~D" << endl;
+	}
+
+	A* m_a;
+	B* m_b;
 };
 
 void item10Usage()
 {
 	cout << "item10Usage - start" << endl;
-
+	
 	// 1) invoke a normal creation of a C object - on the stack
+	// Due to the fact that C's ctor throws an exception - its dtor
+	// won't be invoked when we leave this scope
 	{
-		C c(1, 2, "str1");
+		try
+		{
+			C c(1, 0, "str1");
+		}
+		catch (const exception& e)
+		{
+			cout << "item10Usage - caught an excpetiopn when trying to create a C object on the stack:" << e.what() << endl;
+		}
 	}
-
-	// 2)
+	
+	// 2) same as io 1) for a heap based C object - the explict call to 
+	//    C's dtor (delete pc) won't have any effect
 	C* pc = 0;
 	try
 	{
@@ -114,8 +159,21 @@ void item10Usage()
 		cout << "item10Usage - caught an exception while trying to create a new C object on the heap:" << e.what() << endl;
 		delete pc; // 2a)
 	}
+	
+	// 3) Here, on the other hand, the call to delete pd will indeed 
+	//    invoke D's dtor
+	D* pd = new D();
+	try
+	{
+		pd->InitD(1,0);
+	}
+	catch (const exception& e)
+	{
+		cout << "item10Usage - caught an excpetion while trying to init a D object:" << e.what() << endl;
+		delete pd; // 3a) 
+	}
 
-	cout << "\n \n item10Usage - " << endl;
+	cout << "\n \n item10Usage - end" << endl;
 }
 
 int main(int argc, char** argv)
