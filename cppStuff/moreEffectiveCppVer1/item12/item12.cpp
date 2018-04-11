@@ -17,8 +17,44 @@
 #include <crtdbg.h> 
 
 #include <iostream>
+#include <string>
 
 using namespace std;
+
+class A
+{
+public:
+	A(const string& str)
+		: m_str(str)
+	{
+		cout << "A::A - set m_str to:" << m_str << endl;
+	}
+
+	~A()
+	{
+		cout << "A::~A" << endl;
+	}
+
+	A(const A& other)
+		: A(other.m_str)
+	{
+		cout << "A::A(copy)" << endl;
+	}
+
+	A& operator=(const A& rhs)
+	{
+		if (this == &rhs)
+		{
+			cout << "A::operator= - returning *this" << endl;
+			return *this;
+		}
+
+		this->m_str = rhs.m_str;
+		return *this;
+	}
+
+	string m_str;
+};
 
 void item12Usage()
 {
