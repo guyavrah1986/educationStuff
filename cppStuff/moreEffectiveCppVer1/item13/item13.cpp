@@ -6,18 +6,26 @@
 * different cases that might occur when dealing when throwing (passing an exception object) to its "reciver" (the catch block), has the 
 * same considerations of passing a "normal" object to a fuction.
 *
-* 1) By pointert:
+* 1) By pointer:
 *    The first option leaves us with the "question" - Who should clean-up after the pointer (pointing to an exception) object ?
 *    Offcourse if it is not an exception allocated on the heap - than it is even worse - cause we are catching a pointer to an object
 *    that is no longer valid now...
+*    Also, the standard exception C++ has, when thrown, are thrown by value, so CATCHING an excpetion by pointer WONT work here !!
 *
 * 2) By value:
 *    Other than the ovious overhead of creating and copying the exception object, we are also get risky in situations such as 
 *    "object slicing" (in this case we wont call our exception what method, but the one that std::exception has).
+
+* 3) By refernce:
+*    When doing so we eliminate all issues that rises in the other two options:
+* a) We can work (catch) the standrad exceptions such as:bad_alloc, bad_exception, bad_cast, bad_typeid, etc... (rised in by pointer)
+* b) We are avoiding copying the exception object TWICE - it is being copied only once. (rised in by value)
+* c) We are avoiding the question of whether we should delete the exception object or not. (rised in by pointer)
+* d )We avoid issues like the slicing object issues. (rised in by value)
 * 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
-* Key note: Always catch exceptions by reference !!
+* Key note: Always CATCH exceptions by reference !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 */
