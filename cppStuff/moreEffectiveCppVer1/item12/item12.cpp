@@ -17,6 +17,8 @@
 *    object will be created (and not a copy of an "entire" B object).
 * 3) Note that the order of the catch's blocks is VITAL. If we switch between the catch blocks, meaning, catch A& will be the first 
 *   catch block followed by a B& catch block, than, upon throwing a B object - we will still enter catch A& block (and only into it).
+* 4) In contrast to cases where an implict (legall) type conversion might occur - it is NOT the case when throwing primitive data types.
+*    So, when an int is throw, ONLY an int catch clauses will cathc it, and NOT, for instance, a double catch clause.
 * 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -154,12 +156,32 @@ void illustrateThrowingDerivedExceptionObj()
 	}
 }
 
+void illustrateNoImplicitTypeConversionForPodAsThrownObject()
+{
+	cout << "illustrateNoImplicitTypeConversionForPodAsThrownObject - start" << endl;
+	int i = 9;
+	try
+	{
+		cout << "illustrateNoImplicitTypeConversionForPodAsThrownObject - within try block, throwing an int" << endl;
+		throw i; // 4)
+	}
+	catch (double d)
+	{
+		cout << "illustrateNoImplicitTypeConversionForPodAsThrownObject - within catch double blcok, got d:" << d << endl;
+	}
+	catch (int i)
+	{
+		cout << "illustrateNoImplicitTypeConversionForPodAsThrownObject - within catch int blcok, got i:" << i << endl;
+	}
+}
+
 void item12Usage()
 {
 	cout << "item12Usage - start" << endl;
 
 	diffBetweenCatchAndArgumentByValOrRef();
 	illustrateThrowingDerivedExceptionObj();
+	illustrateNoImplicitTypeConversionForPodAsThrownObject();
 
 	cout << "\n \n item12Usage - end" << endl;
 }
