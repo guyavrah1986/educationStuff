@@ -2,7 +2,13 @@
 /*
 * Item 11:
 * --------
-*
+* Preface: When a C++ program is running, and there is an exception that is thrown and NOT YET caught - if an ADDITIONAL exception is thrown
+* --> the program "crashes" (terminates) immidiatly, by calling the terminate method. This is a bad scenarion which we have to eliminate !!
+* 1) Here we start the "facked stack-unwinding" flow.
+* 2) New "feature" introduced - we can check to see if there is an "on-going" exception.
+* 3) This is where things get tricky - if we enable this function WITHOUT catching the potential exception that it might throw, if there is 
+*    already another exception on going, we will terminate immideatly, thus, potentially leaving the dtor WITHOUT executing all its "clean-up"
+*    logic --> we will have a resource leak.
 *
 */
 // ======================================================================================================================================================================
@@ -16,11 +22,29 @@
 
 using namespace std;
 
+class B
+{
+public:
+	explicit B(int b)
+		: m_b(b)
+	{
+		cout << "B::B" << endl;
+	}
+
+	~B()
+	{
+		cout << "B::~B" << endl;
+	}
+
+	int m_b;
+};
+
 class A
 {
 public:
 	A(int a)
 		: m_a(a)
+		, m_pb(new B(12))
 	{
 		cout << "A::A - set m_a to:" << m_a << endl;
 	}
@@ -31,35 +55,51 @@ public:
 		cout << "A::A(default)" << endl;
 	}
 
+	void simpleFuncToThrowException()
+	{
+		cout << "A::simpleFuncToThrowException - throwing an exception" << endl;
+		throw exception("sample exception to simulate situation where some function (code) of the dtor of class A threw an exception");
+	}
+
 	~A()
 	{
 		cout << "A::~A" << endl;
-		throw exception("sample exception to simulate situation where the dtor of class A threw an exception");
+		if (uncaught_exception() == true) // 2)
+		{
+			cout << "A::~A - there is already an active exception" << endl;
+		}
+		else
+		{
+			cout << "A::~A - there is no active exception" << endl;
+		}
+
+		// 3) 
+		//simpleFuncToThrowException();
 	}
 
+	B* m_pb;
 	int m_a;
 };
 
-class B
-{
-public:
-	B(int a)
-		: m_a(new A())
-	{
-		cout << "B::B" << endl;
-	}
-
-	~B()
-	{
-		cout << "B::B" << endl;
-	}
-
-	unique_ptr<A> m_a;
-};
 void item11Usage()
 {
 	cout << "item11Usage - start" << endl;
 	
+	// 1) simulate a situation where the dtor of class A will be invoked while 
+	// there is "already" another exception "on-going"
+	{
+		try 
+		{
+			cout << "item11Usage - creating A object on the stack, and then immideatly throwing an exception" << endl;
+			A a;
+			throw exception("sample exception to start stack unwinding");
+		}
+		catch (const exception& e)
+		{
+			cout << "item11Usage - caught an exceptionn:" << e.what() << endl;
+		}
+	}
+
 	cout << "\n \n item11Usage - end" << endl;
 }
 
