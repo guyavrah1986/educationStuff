@@ -1,0 +1,7 @@
+
+
+Some relevant links:
+--------------------
+http://www.acodersjourney.com/2016/08/top-15-c-exception-handling-mistakes-avoid/
+
+https://stackoverflow.com/questions/7249378/disabling-c-exceptions-how-can-i-make-any-std-throw-immediately-terminate
