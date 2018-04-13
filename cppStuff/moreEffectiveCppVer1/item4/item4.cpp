@@ -5,6 +5,7 @@
 * C++ compilers automatically creates several functions to any user defined class. One of them is the default constructor. 
 *
 * 1) First, let us see some "issues" we might suffer in case we DON'T have a default constructor in our class. 
+*    NOTE: We will end up WITHOUT a default ctor in our class if we implement by our own AT LEAST one ctor, and we DO NOT add the default ctor by our own.
 * a) In this case, we can see that it is impossible to declare (create) a "stack-Base1d" array of objects with no default Ctor.
 * b) The same goes when the araay is created on the heap.
 * 
@@ -13,10 +14,10 @@
 *    and assginmentable.
 *
 * 3) Third, a case worth mention is with base classes. In case a base class, say, in a long "inheritence chain" DOES NOT have a default ctor,
-*    it implies that ALL derived classes will supply the base class values for its members (assuming there are). That is not such a "good constranit"
-*    to imply on the developers of a derived class.
-* a) In this case, the vase class DOES have a default ctor, so no "need" to know (send) arguemnts from the derived class ctor to the base class ctor.
-* b) In case the base class DOES NOT have a default ctor, then the derived class MUST provide ALL arguemnts to the NON default ctor in its ctor. 
+*    it implies that ALL derived classes will supply the base class values for its (the base's class) members (assuming there are). That is not such a 
+*    "good constranit" to imply on the developers of a derived class (cause usually they do not care NOR wish to care about these members).
+* a) In this case the base class DOES have a default ctor, so no "need" to know (send) arguemnts from the derived class ctor to the base class ctor.
+* b) In this case the base class DOES NOT have a default ctor, then the derived class MUST provide ALL arguemnts to the NON default ctor in its ctor. 
 */
 // ================================================================================================================================================================
 #include <iostream>
@@ -145,7 +146,7 @@ void noDefaultCtorIssueWithArraysInitializationExample()
 	const size_t size = 3;
 	// 1a) Won't compile cause we defined (at least) one ctor in our class
 	// which causes the default ctor of the compiler NOT to be generated, so 
-	// declare "stack-based" array of this kind of object is not possible.
+	// declaring "stack-based" array of this kind of object is not possible.
 	// Base1 arr [size];
 
 	// 1b) This also won't work
