@@ -1,25 +1,23 @@
-# Collect sources into the variable MATH_SOURCES without
+# Collect sources into the variable LIB1_SOURCES without
 # having to explicitly list each header and source file.
 #
 # CMake documentation states "We do not recommend using GLOB to collect a
 # list of source files from your source tree. If no CMakeLists.txt file
 # changes when a source is added or removed then the generated build system
 # cannot know when to ask CMake to regenerate".
-# Collect sources into the variable SIMPLE_FUNCTION_SOURCES
 file (GLOB LIB1_SOURCES
       "*.h"
       "*.cpp")
  
 # Create named folders for the sources within the .vcproj
-# Empty name lists them directly under the .vcproj
-# source_group("" FILES ${LIB1_SOURCES})
+# source_group("" FILES ${LIB1_SOURCES}) - Empty name lists them directly under the .vcproj
 source_group("lib1" FILES ${LIB1_SOURCES})
  
 # Properties->C/C++->General->Additional Include Directories
 include_directories (.)
  
 # Set Properties->General->Configuration Type to Static Library(.lib)
-# Creates lib1.lib with the listed sources collected in the variables
+# Creates lib1.lib (and NOT lib1.dll as with SHARED libraries) composed from the listed sources collected in the variable LIB1_SOURCES
 # Also adds sources to the Solution Explorer
 add_library(lib1 STATIC ${LIB1_SOURCES})
  

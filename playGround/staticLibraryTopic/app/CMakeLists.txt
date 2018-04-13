@@ -2,7 +2,7 @@
 include_directories ("${PROJECT_SOURCE_DIR}/lib1")
  
 # Set Properties->General->Configuration Type to Application(.exe)
-# Creates item1Exe.exe with the listed sources (main.cpp)
+# Creates app with the listed sources (main.cpp)
 # Adds sources to the Solution Explorer
 add_executable(app main.cpp)
  
@@ -10,7 +10,7 @@ add_executable(app main.cpp)
 target_link_libraries(app lib1)
  
 # Creates a folder "executables" and adds target 
-# project (item1Exe.vcproj) under it
+# project (app.vcproj) under it
 set_property(TARGET app PROPERTY FOLDER "executables")
  
 # Properties->General->Output Directory
@@ -18,7 +18,7 @@ set_target_properties(app PROPERTIES
                       RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 					  
 # Solution Properties->Startup Project->Single Startup project 
-# Set this executable to be the startup project of the item8 solution (availble from cmake 3.6)
+# Set this executable to be the startup project of the staticLibraryExample solution (availble from cmake 3.6)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT app)
  
 # Adds logic to INSTALL.vcproj to copy app.exe to destination directory
