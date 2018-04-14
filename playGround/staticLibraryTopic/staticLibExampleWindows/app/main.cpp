@@ -9,17 +9,11 @@
 // =============================================================================================================================================
 #include <iostream>
 
-#include "lib1.h"
-
 using namespace std;
 
 int main(int , char**)
 {
 	cout << "main - start" << endl;
-	cout << "main - creating an A object on the stack" << endl;
-	A a;
-	a.FooA();
-	funcFromASrcFile();
 
 	char c = 0;
 	cout << "main - enter any key to terminate (and press enter)" << endl;
