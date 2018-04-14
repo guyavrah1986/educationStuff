@@ -9,6 +9,11 @@
 
 using namespace std;
 
+void sharedLibFunc()
+{
+	cout << "sharedLibFunc - start" << endl;
+}
+
 A::A()
 {
 	cout << "A::A" << endl;
