@@ -1,0 +1,9 @@
+Item 16:
+--------
+a) The 80-20 percent rule states that 80% of the resources (run-time,memory,disk space, etc...) is consumed (devoted) to 20% of a given program.
+Therefor it can:
+- Make us hrad time find where a performence issue of out program reside in
+Yet, once we have detect where the "problem" is --> it should be easier to apply a fix.
+
+b) An important note about profiling our program, is that it is important to verify that the input our program uses when being profilled is a "representive"
+one, otherwise, the result might actually mislead us to serach/find the "bottle-necks" in the wrong places.
