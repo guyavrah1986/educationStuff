@@ -6,7 +6,8 @@
 * Practiaclly it happens in two main cases:
 * a) An implict conversion is made in a function call to make the passed argument being valid argument.
 * # By passing an object by value.
-* # When passing an object by non const reference - a good example will be the conversion of char arr[] into a string object (see example in the book).
+* # When passing an object by non const reference - a good example will be the conversion of char arr[] into a string object
+*   (see example in the book).And its opposite example is when we pass to non-const-reference, the temporay IS created.
 * 
 * b) When a function returns an object by value.
 * This is relevant almost in all cases, there are some exceptions though (the Return Value Optimization aka RVO is one of them).
