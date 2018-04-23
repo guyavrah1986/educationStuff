@@ -1,7 +1,7 @@
 // ========================================================================================================================================================================
 /*
-* Temporaries:
-* ------------
+* item 19:
+* --------
 * The "formal" definition of when temporary objects are created is when:A non heap object is created AND it is not named.
 * Practiaclly it happens in two main cases:
 * a) An implict conversion is made in a function call to make the passed argument being valid argument.
@@ -29,7 +29,7 @@ class B
 
 	~B()
 	{
-		cout << "B::~B" << endl;
+		cout << "B::~B - this:" << this << endl;
 	}
 
 	B(const B& other) : B(other.m_str)
@@ -50,7 +50,7 @@ class A
 
 	virtual ~A()
 	{
-		cout << "A::~A" << endl;
+		cout << "A::~A - this:" << this << endl;
 	}
 
 	A(const A& other) : A(other.m_a, other.b.m_str) 
@@ -74,7 +74,6 @@ class A
 	B b;
 };
 
-
 void passArgByConstRef(const A& arg)
 {
 	cout << "passArgByConstRef - address of recived argument is:" << &arg << endl;
@@ -87,7 +86,7 @@ void passArgByNonConstRef(A& arg)
 
 void passArgByValue(A arg)
 {
-	cout << "passArgByNonConstRef - address of recived argument is:" << &arg << endl;
+	cout << "passArgByValue - address of recived argument is:" << &arg << endl;
 }
 
 void item19Usage()
@@ -107,9 +106,12 @@ void item19Usage()
 	cout << "item19Usage - calling passArgByValue" << endl;
 	passArgByValue(obj);	// a temp object is created and destroyed once the function returns !!
 
+	cout << "item19Usage - calling A::GetInnerObjByValue" << endl;
 	const B& refb1 = obj.GetInnerObjByValue();
 
+	cout << "item19Usage - calling A::GetInnerObjByConstRef" << endl;
 	const B& refb2 = obj.GetInnerObjByConstRef();
+
 	cout << "\n \n item19Usage - end" << endl;
 }
 
@@ -118,7 +120,9 @@ int main(int argc, char** argv)
 	cout << "main - start" << endl;
 	item19Usage();
 	
-	cout << "\n \n main - end" << endl;
+	char c;
+	cout << "main - enter any key to terminate and hit ENTER" << endl;
+	cin >> c;
 	return 0;
 }
 
