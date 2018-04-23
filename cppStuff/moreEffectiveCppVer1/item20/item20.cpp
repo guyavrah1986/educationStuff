@@ -2,8 +2,21 @@
 /*
 * Item 20:
 * --------
-*
-*
+* When we return objects by value from a function - we are creating a copy. Long story sort - we have nothing we can do
+* about it.
+* What we can do, is minimize the cost of this object creation. We can achinve that by "helping" our compiler to use the 
+* famous RVO optimization (Return Value Optimization).
+* 1) Enabling "completly" the RVO is done when we:
+* a) Returning a "temporary" obejct from the function that returns an object by value.
+* b) "Receiving" the return object into a non-constructed object.
+* c) In this case, there will be an "extra" step due to the invocation of the operator=.
+* 
+* !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
+* !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
+* Key note: Always "help" the complier to imply the RVO by returing temporary (anonymous) object from function that return object 
+*           by value.
+* !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
+* !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 */
 // ======================================================================================================================================================================
 
@@ -26,9 +39,9 @@ public:
 	}
 
 	A(const A& other)
-		: A(other.m_a)
 	{
-		cout << "A::A(copy) - created A object with address:" << this << endl;
+		m_a = other.m_a;
+		cout << "A::A(copy) - setting m_a:" << m_a << " at this:" << this << endl;
 	}
 
 	A& operator=(const A& rhs)
@@ -39,6 +52,7 @@ public:
 			return *this;
 		}
 
+		cout << "A::operator= - returing this:" << this << endl;
 		this->m_a = rhs.m_a;
 		return *this;
 	}
@@ -46,7 +60,7 @@ public:
 	A funcReturnByValueWithRVO(int a)
 	{
 		cout << "A::funcReturnByValueWithRVO" << endl;
-		return A(a);
+		return A(a);	// 1a)
 	}
 
 	A funcReturnByValueWithLocalObject(int a)
@@ -63,7 +77,17 @@ public:
 void item20Usage()
 {
 	cout << "item20Usage - start" << endl;
-
+	A a1(1);
+	cout << "\n \n item20Usage - performing: A a2 = a1.funcReturnByValueWithRVO(3)" << endl;
+	A a2 = a1.funcReturnByValueWithRVO(2);	// 1b)
+	cout << "item20Usage - a2 address is:" << &a2 << endl;
+	cout << "\n \n item20Usage - performing: A a3 = a1.funcReturnByValueWithLocalObject(4)" << endl;
+	A a3 = a1.funcReturnByValueWithLocalObject(4);
+	cout << "item20Usage - a3 address is:" << &a3 << endl;
+	cout << "\n \n item20Usage - performing: A a4(11); a4 = a1.funcReturnByValueWithRVO(5)" << endl;
+	A a4(11);
+	a4 = a1.funcReturnByValueWithRVO(5);	// 1c) 
+	cout << "item20Usage - a4 address is:" << &a4 << endl;
 
 	cout << "\n \n item20Usage - end" << endl;
 }
