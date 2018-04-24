@@ -10,6 +10,8 @@
 * 3) To aviod temporary in the case of int + UpInt we defined this flavour of the operator+
 *    NOTE: Comment any of the two last flavours (2 OR 3) and see for yourself, that before (and in addition) to the call
 *    to the operator, we first invoke the ctor to create the temporary obejct due to the type conversion.
+* 4) IMPORTANT: It is an error to ALSO define this flavour of the operator+ for our class. When we perfrom operator overloading
+*    it is a rule that at least one of the arguments is a user-defined type, otherwise - it is prohibited !!!
 *
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -48,6 +50,8 @@ class UpInt
 	friend const UpInt operator+(const UpInt& lhs, const UpInt& rhs);	// 1) 
 	friend const UpInt operator+(const UpInt& lhs, int rhs);	// 2)
 	//friend const UpInt operator+(int lhs, const UpInt& rhs);	// 3)
+	//friend const UpInt operator+(int lhs, int rhs);	// 4)
+
 	int m_int;
 };
 
