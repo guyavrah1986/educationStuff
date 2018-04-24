@@ -80,14 +80,14 @@ public:
 		cout << "Base2::~Base2 - m_b2:" << m_b2 << " at address:" << this << endl;
 	}
 
+	virtual void f1()
+	{
+		cout << "Base2::f2" << endl;
+	}
+
 	virtual void f3()
 	{
 		cout << "Base2::f3" << endl;
-	}
-
-	virtual void f4()
-	{
-		cout << "Base2::f4" << endl;
 	}
 
 	int m_b2;
@@ -114,6 +114,21 @@ public:
 		cout << "Derived::Derived - m_d :" << m_d << " at address:" << this << endl;
 	}
 
+	virtual void f1()
+	{
+		cout << "Derived::f1" << endl;
+	}
+
+	virtual void f2()
+	{
+		cout << "Derived::f2" << endl;
+	}
+
+	virtual void f3()
+	{
+		cout << "Derived::f3" << endl;
+	}
+
 	int m_d;
 };
 
@@ -126,13 +141,15 @@ void checkClassesSize()
 void makeACall(Base1* pb1)
 {
 	cout << "makeACall" << endl;
-
+	pb1->f1();
 }
 
 void item24Usage()
 {
 	cout << "item24Usage - start" << endl;
 	checkClassesSize();
+	Derived d;
+	makeACall(&d);
 
 	cout << "\n \n item24Usage - end" << endl;
 }
