@@ -11,6 +11,9 @@
 * 4) When invoking a VIRTUAL function via a Base's class pointer, "all" it takes (extra) is two offset calculation + one 
 *    pointer indirection to "reach" the desired function pointer in the class v-table. 
 *    NOTE: Usually, this is NOT a big concern "run time wise".
+* 5) In addition to the vptrs & v-tables, another "entry" we can add to each class v-table (!!) is an entry for a RTTI
+*    information so we can figure out information about a certain object during run time.
+*    Again, the "only" cost we pay, is an additional entry in the v-table (once per class) and the type_info object per object.
 * 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -21,6 +24,7 @@
 *    the virtual-pointer (points to the first entry in the v-table).
 * 3) The real cost of virtual functions regarding "run time" overhead - is the fact that virtual function, WHEN CALLED VIA 
 *    REFERENCES OR POINTERS (NOT OBJECTS), can not be INLINED !!
+* 4) For summary, it is important to understand these features, but more important, is to understand their overhead.
 * 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -29,6 +33,7 @@
 // ======================================================================================================================================================================
 
 #include <iostream>
+#include <typeinfo>
 
 using namespace std;
 
@@ -157,12 +162,21 @@ void makeACall(Base1* pb1)	// 4)
 	*/
 }
 
+void illustrateRTTI()	// 5)
+{
+	cout << "\n \n illustrateRTTI - start" << endl;
+	Base2 b2;
+	const type_info& typeInfo = typeid(Base2);
+	cout << "illustrateRTTI - typeInfo.name for Base2 is:" << typeInfo.name() << endl;
+}
+
 void item24Usage()
 {
 	cout << "item24Usage - start" << endl;
 	checkClassesSize();
 	Derived d;
 	makeACall(&d);
+	illustrateRTTI();
 
 	cout << "\n \n item24Usage - end" << endl;
 }
