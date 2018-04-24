@@ -8,9 +8,14 @@
 * a) Enabling the RVO by NOT naming the return object (keeping it anonymous).
 * b) Implementing the stand-alone IN TERMS of the compund flavour.
 * 
+* 2) Implementing the compund flavour. Note that we return NON-CONST refernce so that we will be able to "chain" calls 
+*    to this flavour of the operator+=.
+* 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
-* Key note: 
+* Key note: Keep in mind to:
+*           - Always implement the stand-alone operaotr IN TERMS of the compund operator.
+*           - "Help" your compiler by facilitaing the RVO in the implementation of the stand-alone flavour.
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 *
@@ -41,7 +46,7 @@ public:
 		cout << "MyInt::~MyInt - m_int:" << m_int << " at address:" << this << endl;
 	}
 
-	MyInt& operator+=(const MyInt& rhs)
+	MyInt& operator+=(const MyInt& rhs)	// 2)
 	{
 		cout << "operator+=(const MyInt& rhs)" << endl;
 		this->m_int = this->m_int + rhs.m_int;
