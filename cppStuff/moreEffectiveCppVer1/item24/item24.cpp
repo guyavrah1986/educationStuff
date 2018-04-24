@@ -22,6 +22,72 @@
 
 using namespace std;
 
+class Base1
+{
+public:
+	Base1(int b1)
+		: m_b1(b1)
+	{
+		cout << "Base1::Base1 - setting m_b1 to:" << m_b1 << " at address:" << this << endl;
+	}
+
+	Base1()
+		: m_b1(0)
+	{
+		cout << "Base1::Base1(default) - setting m_b1 to:" << m_b1 << " at address:" << this << endl;
+	}
+
+	virtual ~Base1()
+	{
+		cout << "Base1::~Base1 - m_b1:" << m_b1 << " at address:" << this << endl;
+	}
+
+	virtual void f1()
+	{
+		cout << "Base1::f1" << endl;
+	}
+
+	void f2()
+	{
+		cout << "Base1::f2" << endl;
+	}
+
+	int m_b1;
+};
+
+class Base2
+{
+public:
+	Base2(int b2)
+		: m_b2(b2)
+	{
+		cout << "Base2::Base2 - setting m_b2 to:" << m_b2 << " at address:" << this << endl;
+	}
+
+	Base2()
+		: m_b2(0)
+	{
+		cout << "Base2::Base2(default) - setting m_b2 to:" << m_b2 << " at address:" << this << endl;
+	}
+
+	virtual ~Base2()
+	{
+		cout << "Base2::~Base2 - m_b2:" << m_b2 << " at address:" << this << endl;
+	}
+
+	virtual void f3()
+	{
+		cout << "Base2::f3" << endl;
+	}
+
+	virtual void f4()
+	{
+		cout << "Base2::f4" << endl;
+	}
+
+	int m_b2;
+};
+
 void item24Usage()
 {
 	cout << "item24Usage - start" << endl;
