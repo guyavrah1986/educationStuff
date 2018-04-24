@@ -8,6 +8,9 @@
 * 2) The size of each class that has a v-table increases by pointer size (4/8 bytes) due to the "penalty" of the vptr.
 * 3) The "most derived class" wont add its "own" vptr - so its total size will be:
 *    the size of her parents data members + the size of its own data members + the vptr's of all its parents.
+* 4) When invoking a VIRTUAL function via a Base's class pointer, "all" it takes (extra) is two offset calculation + one 
+*    pointer indirection to "reach" the desired function pointer in the class v-table. 
+*    NOTE: Usually, this is NOT a big concern "run time wise".
 * 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -16,6 +19,9 @@
 *    The size of the v-table is according to the number of virtual functions it has multiple by pointer size.
 * 2) Each object (instance) of a class with at least one virtual function, will have an additional "class data member" which is
 *    the virtual-pointer (points to the first entry in the v-table).
+* 3) The real cost of virtual functions regarding "run time" overhead - is the fact that virtual function, WHEN CALLED VIA 
+*    REFERENCES OR POINTERS (NOT OBJECTS), can not be INLINED !!
+* 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 *
@@ -138,10 +144,17 @@ void checkClassesSize()
 	cout << "checkClassesSize size of Derived is:" << sizeof(Derived) << endl;	// 3) 
 }
 
-void makeACall(Base1* pb1)
+void makeACall(Base1* pb1)	// 4)
 {
 	cout << "makeACall" << endl;
 	pb1->f1();
+	/*
+	(*pC1->vptr[i])(pC1); 
+	call the function pointed to by the
+	i-th entry in the vtbl pointed to
+	by pC1->vptr; pC1 is passed to the
+	function as the "this" pointer			  
+	*/
 }
 
 void item24Usage()
