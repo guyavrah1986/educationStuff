@@ -16,8 +16,8 @@
 // Some notes about virtual functions and virtual tables:
 // 1) A virtual table is created ONCE for each class. It is located (implementation specific) somewhere (probably) in the BSS segment (all the data
 //    which is relevant for constructing the virtual table is known at compile time so it could be placed there).It is static. 
-// 2) For a specific object - once it has AT lEAST one virtual function --> it will have (contain) also an additional "virtual pointer".
-//    The objective of this pointer is to point to the virtual table.Its location will be at the first 4/8 bytes of the object (32/64 bit).
+// 2) For a specific object - once it has AT LEAST one virtual function --> it will have (contain) also an additional "virtual pointer".
+//    The objective of this pointer is to point to the virtual table.Its location will be (usually) at the first 4/8 bytes of the object (32/64 bit).
 // 3) Virtual table is basically a structure that holds all the function pointers to all the VIRTUAL functions of an object. Note: It DOES NOT hold the 
 //    pointers to non-virtual functions.
 // 4) In the case of multiple inheritence, the derived class will inherite all it's base class(es) virtual pointer, thus increasing its size respectevly. 
@@ -80,7 +80,6 @@ public:
 		cout << "Base1::~Base1" << endl;
 	}
 	
-	
 	virtual void func1()
 	{
 		cout << "Base1::func1 - m_base1 is:" << m_base1 << endl;
@@ -103,7 +102,6 @@ public:
 		cout << "Base2::~Base2" << endl;
 	}
 
-	
 	virtual void func2()
 	{
 		cout << "Base2::func2 - m_base2 is:" << m_base2 << endl;
@@ -126,7 +124,6 @@ public:
 		cout << "Derived::~Derived" << endl;
 	}
 
-	
 	virtual void func1()
 	{
 		cout << "Derived::func1 - m_derived is:" << m_derived << endl;
