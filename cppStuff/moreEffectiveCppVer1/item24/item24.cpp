@@ -3,7 +3,11 @@
 * Item 24:
 * --------
 * Virtual functions is a mechanism to implement inheritence.
-* 
+* 1) All virtual functions of a class have a corresponding entry in the v-table of that class's v-table.
+* a) Non virtual functions, DOES NOT have these entries. 
+* 2) The size of each class that has a v-table increases by pointer size (4/8 bytes) due to the "penalty" of the vptr.
+* 3) The "most derived class" wont add its "own" vptr - so its total size will be:
+*    the size of her parents data members + the size of its own data members + the vptr's of all its parents.
 * 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -47,7 +51,7 @@ public:
 		cout << "Base1::f1" << endl;
 	}
 
-	void f2()
+	void f2()	// 1a)
 	{
 		cout << "Base1::f2" << endl;
 	}
@@ -55,11 +59,12 @@ public:
 	int m_b1;
 };
 
-class Base2
+class Base2 : public Base1
 {
 public:
-	Base2(int b2)
-		: m_b2(b2)
+	Base2(int b1, int b2)
+		: Base1(b1)
+		, m_b2(b2)
 	{
 		cout << "Base2::Base2 - setting m_b2 to:" << m_b2 << " at address:" << this << endl;
 	}
@@ -88,10 +93,46 @@ public:
 	int m_b2;
 };
 
+class Derived : public Base2
+{
+public:
+	Derived(int b1, int b2, int d)
+		: Base2(b1, b2)
+		, m_d(d)
+	{
+		cout << "Derived::Derived - setting m_d to:" << m_d << " at address:" << this << endl;
+	}
+
+	Derived()
+		: m_d(0)
+	{
+		cout << "Derived::Derived(default) - setting m_d to:" << m_d << " at address:" << this << endl;
+	}
+
+	virtual ~Derived()
+	{
+		cout << "Derived::Derived - m_d :" << m_d << " at address:" << this << endl;
+	}
+
+	int m_d;
+};
+
+void checkClassesSize()
+{
+	cout << "checkClassesSize - size of Base1 is:" << sizeof(Base1) << " size of Base2 is:" << sizeof(Base2) << endl;	// 2)
+	cout << "checkClassesSize size of Derived is:" << sizeof(Derived) << endl;	// 3) 
+}
+
+void makeACall(Base1* pb1)
+{
+	cout << "makeACall" << endl;
+
+}
+
 void item24Usage()
 {
 	cout << "item24Usage - start" << endl;
-
+	checkClassesSize();
 
 	cout << "\n \n item24Usage - end" << endl;
 }
