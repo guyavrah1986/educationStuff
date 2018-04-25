@@ -107,12 +107,9 @@ ostream& operator<<(ostream& out, const MyObjNoDefualtCtor& obj)
 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
-//
-// Usages functions: each function aims to describe a different "topic".
-//
+// 1) Vector decleration and element access.
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
-
 /*
  * 1) This example illustrates the difference (and benefits) when using vector (for int in this case) over the use of good old "C style" array of int's.
  * a) The declaration of the static (automatic - on the stack) std::vector can take a NON CONST value (vecSize = 5 in this case).
@@ -155,9 +152,14 @@ void illustrateVectorDeclerationAndElementsAccess()
 	cout << "illustrateVectorDeclerationAndElementsAccess - end" << endl;
 } // b)
 
+  // ===================================================================================================================================================================
+  // ===================================================================================================================================================================
+  // 2) Vector size and capacity explained.
+  // ===================================================================================================================================================================
+  // ===================================================================================================================================================================
 /*
  * 2) This function illustrate the different approaches on how to declare a vector - with focus on its size.
- * a) This declaration will create an empty vector of int's initialized to their default value (0 in this case).
+ * a) This declaration will create an EMPTY vector of int's initialized to their default value (0 in this case).
  * b) This declaration will create a vector of int's with size and capacity of 10. All int's will be initialized to their default value (0).
  * c) After adding an additional element to the vector --> the vector (automatically) will increase its size (double it). The space "left" until
  *    the next growth of the vector is when it will fill all its unused space (capacity - size). Basically this is (capacity - size) is the available
