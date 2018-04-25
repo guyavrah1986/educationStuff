@@ -31,6 +31,9 @@ int main(int argc, char** argv)
 {
 	cout << "vectorExplained - start" << endl;
 
+	// -------------------
+	// vector1Exaplained.h
+	// -------------------
 	// 1)
 	//illustrateVectorDeclerationAndElementsAccess();
 
@@ -40,9 +43,15 @@ int main(int argc, char** argv)
 	// 3)
 	//illustrateVectorGrowth();
 
+	// -------------------
+	// vector2Exaplained.h
+	// -------------------
 	// 4) 
-	illustrateVectorIterator();
+	//illustrateVectorIterator();
 	
+	// 5) 
+	illustrateErasingElementFromVector();
+
 	char c;
 	cout << "vectorExplained - press any key and hit ENTER to terminate..." << endl;
 	cin >> c;

@@ -1,11 +1,21 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #include "vector2Exaplained.h"
 #include "MyObj.h"
 #include "MyObjNoDefualtCtor.h"
 
 using namespace std;
+
+template <typename T> void printVec(const vector<T>& vec)
+{
+	for (size_t i = 0; i < vec.size(); ++i)
+	{
+		cout << vec[i] << " ";
+	}
+	cout << endl;
+}
 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -42,4 +52,53 @@ void illustrateVectorIterator()
 	{
 		cout << "illustrateVectorIterator - vec1[" << i << "]:" << *it << endl;
 	}
+}
+
+// ===================================================================================================================================================================
+// ===================================================================================================================================================================
+// 2) 
+// Key note: Always prefer to use the STL methods to remove and erase elements from a vector (or any other STL container which
+//           is applicable for this task).
+// ===================================================================================================================================================================
+// ===================================================================================================================================================================
+/*
+* 2) 
+* a) The use in both of the method COMBINED will erase ALL occurences of the value to remove form the given vector. Note that
+*    in this case it is from a POD vector (int's).
+* b) 
+*/
+
+void illustrateErasingElementFromVector()
+{
+	cout << "illustrateErasingElementFromVector - start" << endl;
+
+	// a)
+	int valToRemove1 = 3;
+	int valToRemove2 = 4;
+	vector<int> vec2 = { 1,2,3,4,5,4,6,7,2 };
+	cout << "illustrateErasingElementFromVector - before removing " << valToRemove1 << " which"
+		" occurs " << 1 << " times in the vec2:" << endl;
+	printVec(vec2);
+	vec2.erase(remove(vec2.begin(), vec2.end(), valToRemove1), vec2.end());
+
+	cout << "\n \n illustrateErasingElementFromVector - after removing " << valToRemove1 << " which"
+		" occurs" << 1 << " time in the vec2:" << endl;
+	printVec(vec2);
+
+	vec2.erase(remove(vec2.begin(), vec2.end(), valToRemove2), vec2.end());
+	cout << "\n \n illustrateErasingElementFromVector - after removing " << valToRemove2 << " which"
+		" occurs" << 2 << " time in the vec2:" << endl;
+	printVec(vec2);
+
+	vector<MyObj> vec1;
+	const size_t size = 5;
+	vec1.reserve(size);
+	for (size_t i = 0; i < vec1.size(); ++i)
+	{
+		vec1.emplace_back(MyObj(static_cast<int>(i) + 1));
+	}
+
+	// b)
+
+
 }
