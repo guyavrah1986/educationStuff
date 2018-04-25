@@ -20,6 +20,7 @@ add_executable(vectorExe MyObjNoDefualtCtor.cpp
 						 MyObjNoDefualtCtor.h 
 						 MyObj.cpp
 						 MyObj.h
+						 MyObjsOperators.h
 						 vector1Exaplained.h
 						 vector1Exaplained.cpp
 						 vector.cpp)
