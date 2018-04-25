@@ -10,7 +10,8 @@ using namespace std;
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 // 1) Here we will describe the basic of iterators regarding vectors.
-// Key note:
+// Key note: const_iterator will get a const reference to the vector's element, so in case we are not modifying the vector
+//           it is the predered way to traverse it.
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 /*
@@ -20,7 +21,6 @@ using namespace std;
 * b) In the more "C++ STL" generic way, it is also possible, and prefered, to traverse the vector like this.
 *    Note that we used const_iterator cause we DO NOT intend to modify the vector's elements.If we do, we will need to use
 *    the "normal" iterator, vector<doubel>::iterator.
-*
 */
 void illustrateVectorIterator()
 {
