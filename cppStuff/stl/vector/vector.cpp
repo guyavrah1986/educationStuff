@@ -276,8 +276,10 @@ void illustrateFillVectorWithObjects()
 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
-// 3)
-// Key note: 
+// 3) Illustrates the high level detailes of how reserve SHOULD be used, and the capacity Vs size parameters of std::vector.
+// Key note: - When using reserve, we are only allocating enough "room" for the desired amount of elements, NOTHING more.
+//           - At any given time, the number of elements we can add to the vector WITHOUT triggering a "resize" is defined 
+//             to be = vec.capacity() - vec.size().
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 /*
@@ -395,7 +397,6 @@ int main(int argc, char** argv)
 	// 3)
 	illustrateVectorGrowth();
 	
-	//fillVectorWithObjects();
 	
 	char c;
 	cout << "vectorExplained - press any key and hit ENTER to terminate..." << endl;
