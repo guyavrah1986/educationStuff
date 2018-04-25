@@ -4,7 +4,6 @@
 #include "vector1Exaplained.h"
 #include "MyObj.h"
 #include "MyObjNoDefualtCtor.h"
-#include "MyObjsOperators.h"
 
 using namespace std;
 
