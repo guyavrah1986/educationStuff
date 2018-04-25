@@ -16,7 +16,13 @@ include_directories(.)
 # Set Properties->General->Configuration Type to Application(.exe)
 # Creates item1Exe.exe with the listed sources (vector.cpp)
 # Adds sources to the Solution Explorer
-add_executable(vectorExe vector.cpp)
+add_executable(vectorExe MyObjNoDefualtCtor.cpp 
+						 MyObjNoDefualtCtor.h 
+						 MyObj.cpp
+						 MyObj.h
+						 vector1Exaplained.h
+						 vector1Exaplained.cpp
+						 vector.cpp)
  
 # Properties->Linker->Input->Additional Dependencies
 # target_link_libraries(vectorExe)
