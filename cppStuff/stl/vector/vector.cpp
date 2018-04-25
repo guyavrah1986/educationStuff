@@ -60,7 +60,8 @@ public:
 		cout << "MyObj::MyObj(default) - setting m_a to:" << m_a << " at address:" << this << endl;
 	}
 
-	MyObj(const MyObj& other) 
+	MyObj(const MyObj& other)
+		: m_a(other.m_a)
 	{
 		cout << "MyObj::MyObj(copy) - setting m_a to:" << m_a << " at address:" << this << endl;
 	}
@@ -112,6 +113,8 @@ ostream& operator<<(ostream& out, const MyObjNoDefualtCtor& obj)
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 // 1) Vector decleration and element access.
+// Key note: Accessing an element in a vecotr via vec.at(index) has bounds checking (an exception might be thrown) while
+//           vec[index] DOES NOT have.
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 /*
@@ -156,11 +159,15 @@ void illustrateVectorDeclerationAndElementsAccess()
 	cout << "illustrateVectorDeclerationAndElementsAccess - end" << endl;
 } // b)
 
-  // ===================================================================================================================================================================
-  // ===================================================================================================================================================================
-  // 2) Vector size and capacity explained.
-  // ===================================================================================================================================================================
-  // ===================================================================================================================================================================
+// ===================================================================================================================================================================
+// ===================================================================================================================================================================
+// 2) Vector size and capacity explained.
+// Key note: - Almost always prefer to declare a vector like so (given that the initial size for it is known):
+//           vector<T> vec;
+//           vec.reserve(initialSize);
+//           - Once a vector reaches its full capacity - it will "increase itself" (usually in a factor of 2).
+// ===================================================================================================================================================================
+// ===================================================================================================================================================================
 /*
  * 2) This function illustrate the different approaches on how to declare a vector - with focus on its size.
  * a) This declaration will create an EMPTY vector of int's initialized to their default value (0 in this case).
@@ -267,14 +274,22 @@ void illustrateFillVectorWithObjects()
 	cout << "illustrateFillVectorWithObjects - end \n \n";
 } // f)
 
+// ===================================================================================================================================================================
+// ===================================================================================================================================================================
+// 3)
+// Key note: 
+// ===================================================================================================================================================================
+// ===================================================================================================================================================================
 /*
  * 3) This example illustrate how the vector is growing when we insert elements into it.
  * a) The most "common" (and naive) manner to insert elements into the vector. Note that for each element (MyObj) that is inserted,
- *    two ctor's are invoked: The regular ctor that builds the temporary object, followed by the copy ctor that actually inserts a COPY
- *    of the "original" (temporary) object into the vector.
+ *    two ctor's are invoked: The regular ctor that builds the temporary object (which later immediatly is being destructed), followed
+*     by the copy ctor that actually inserts a COPY of the "original" (temporary) object into the vector
  * b) Same thing goes here as well: When adding the fourth element, two ctor's will be called.The more important notation here, is that due to the
  *    fact that we reached the vector capacity --> we will have to increase the vector size (the vector will do it for us off course), causing
- *    the capacity of the vector to increase by a factor of two (3 X 2 = 6) --> YET the last two elements WONT be initialized
+ *    the capacity of the vector to increase by a factor of two (3 X 2 = 6) --> YET the last two elements WONT be initialized.
+ *    So, after the fourth element is inserted, the first three elements will be copied into the "new" locations in the extented
+ *    vector.
  *    Implicitly using the copy ctor --> so accessing them is undefined !!
  * c) In this example we use the C++11 feature of "move semantics" by inserting (adding) the elements to the vector using the emplace_back() method.
  *    In this case, the "flow" is as follows:
@@ -285,10 +300,11 @@ void illustrateFillVectorWithObjects()
  */
 void illustrateVectorGrowth()
 {
-	vector<MyObj> vec1;
+	cout << "illustrateVectorGrowth - start" << endl;
 	size_t initialCapacity = 3;
+	vector<MyObj> vec1;
 	vec1.reserve(initialCapacity);
-
+	
 	// a)
 	cout << " \n \n \n illustrateVectorGrowth - inserting  elements into vec1:" << endl;
 	for (int i = 0; i < initialCapacity; ++i)
@@ -296,23 +312,23 @@ void illustrateVectorGrowth()
 		vec1.push_back(MyObj(i + 1));
 	}
 
-	cout << "illustrateVectorGrowth - displaying elements in vec1:" << endl;
+	cout << "\n \n illustrateVectorGrowth - displaying elements in vec1:" << endl;
 	for (size_t i = 0; i < vec1.capacity(); ++i)
 	{
 		cout << "vec1[" << i << "]:" << vec1[i] << endl;
 	}
 
 	// b)
-	cout << "illustrateVectorGrowth - now, insert the capacity + 1 element into vec1:" << endl;
-	vec1.push_back(MyObj(4));
+	cout << "\n \n illustrateVectorGrowth - now, insert the capacity + 1 element into vec1:" << endl;
+	vec1.push_back(MyObj(initialCapacity + 1));
 
-	cout << "illustrateVectorGrowth - displaying elements in vec1 (after adding the fourth element before):" << endl;
+	cout << "illustrateVectorGrowth - displaying elements in vec1 (after adding the"
+		<< initialCapacity + 1 << " element before):" << endl;
 	for (size_t i = 0; i < vec1.capacity(); ++i)
 	{
 		try
 		{
-			auto tmp = vec1.at(i);
-			cout << "vec1[" << i << "]:" << tmp << endl;
+			cout << "vec1[" << i << "]:" << vec1.at(i) << endl;
 		}
 		catch (const out_of_range& e)
 		{
@@ -343,8 +359,6 @@ void illustrateVectorGrowth()
 // main
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
-
-
 int main(int argc, char** argv)
 {
 	cout << "vectorExplained - start" << endl;
@@ -353,10 +367,10 @@ int main(int argc, char** argv)
 	//illustrateVectorDeclerationAndElementsAccess();
 
 	// 2)
-	illustrateFillVectorWithObjects();
+	//illustrateFillVectorWithObjects();
 
 	// 3)
-	//illustrateVectorGrowth();
+	illustrateVectorGrowth();
 	
 	//fillVectorWithObjects();
 	
