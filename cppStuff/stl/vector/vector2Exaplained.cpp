@@ -103,7 +103,7 @@ void illustrateErasingElementFromVector()
 		" vec1 capacity is:" << vec1.capacity() << endl;
 
 	// b)
-	vector<MyObj>::iterator it = vec1.begin();
+	vector<MyObj>::const_iterator it = vec1.begin();
 	while (it != vec1.end())
 	{
 		if ((*it).m_a == valToRemove)
