@@ -9,7 +9,6 @@
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 
-
 #include <iostream>
 #include <vector>
 
@@ -18,19 +17,21 @@ using namespace std;
 class MyObjNoDefualtCtor
 {
 public:
-	MyObjNoDefualtCtor(int a) : m_a(a)
+	MyObjNoDefualtCtor(int a) 
+		: m_a(a)
 	{
-		cout << "MyObjNoDefualtCtor::MyObjNoDefualtCtor - setting m_a to:" << m_a << endl;
+		cout << "MyObjNoDefualtCtor::MyObjNoDefualtCtor - setting m_a to:" << m_a << " at address:" << this << endl;
 	}
 
-	MyObjNoDefualtCtor(const MyObjNoDefualtCtor& other) : m_a(other.m_a)
+	MyObjNoDefualtCtor(const MyObjNoDefualtCtor& other) 
+		: m_a(other.m_a)
 	{
-		cout << "MyObjNoDefualtCtor::copy_ctor - setting m_a to:" << m_a << endl;
+		cout << "MyObjNoDefualtCtor::copy_ctor - setting m_a to:" << m_a << " at address:" << this << endl;
 	}
 
 	~MyObjNoDefualtCtor()
 	{
-		cout << "MyObjNoDefualtCtor::~MyObjNoDefualtCtor - address is" << this << endl;
+		cout << "MyObjNoDefualtCtor::~MyObjNoDefualtCtor -  m_a to:" << m_a << " at address:" << this << endl;
 	}
 
 	MyObjNoDefualtCtor() = delete;
@@ -43,48 +44,50 @@ class MyObj
 {
 
 public:
-	explicit MyObj(int a) : m_a(a)
+	explicit MyObj(int a) 
+		: m_a(a)
 	{
-		std::cout <<"MyObj::MyObj - setting m_a to:" << m_a << " this address is:" << this << std::endl;
+		cout <<"MyObj::MyObj - setting m_a to:" << m_a << " at address:" << this << endl;
 	}
 
-	MyObj() : m_a(17)
+	MyObj() 
+		: m_a(17)
 	{
-		std::cout << "MyObj::MyObj (default) - setting m_a to:" << m_a << " this address is:" << this << std::endl;
+		cout << "MyObj::MyObj(default) - setting m_a to:" << m_a << " at address:" << this << endl;
 	}
 
-	MyObj(const MyObj& other) : MyObj(other.m_a)
+	MyObj(const MyObj& other) 
 	{
-		std::cout << "MyObj::MyObj (copy) - setting m_a to:" << m_a << " this address is:" << this << std::endl;
+		cout << "MyObj::MyObj(copy) - setting m_a to:" << m_a << " at address:" << this << endl;
 	}
 
-	MyObj(MyObj&& other): m_a(0)
+	MyObj(MyObj&& other) 
+		: m_a(0)
 	{
 		this->m_a = other.m_a;
-		cout << "MyObj::(MyObj&&) - setting m_a to:" << m_a << " for object with address:" << this << endl;
+		cout << "MyObj::(MyObj&&) - setting m_a to:" << m_a << " at address:" << this << endl;
 	}
 
 	~MyObj()
 	{
-		std::cout << "MyObj::~MyObj - this address is:" << this << std::endl;
+		cout << "MyObj::~MyObj - m_a:" << m_a << " at address:" << this << endl;
 	}
 
 	MyObj& operator=(const MyObj& rhs)
 	{
-		std::cout << "MyObj::operator=" << std::endl; 
+		cout << "MyObj::operator=" << endl; 
 		if (this == &rhs)
 		{
+			cout << "MyObj::operator= - self assginment, returnign *this" << endl;
 			return *this;
 		}
 
-		std::cout << "setting m_a to:" << rhs.m_a << std::endl;
-		
+		cout << "setting m_a to:" << rhs.m_a << endl;
 		this->m_a = rhs.m_a;
-
 		return *this;
 	}
 
-	friend std::ostream& operator<<(const std::ostream& out, const MyObj& obj);
+	friend ostream& operator<<(const ostream& out, const MyObj& obj);
 	
 	int m_a;
 };
@@ -127,7 +130,7 @@ void illustrateVectorDeclerationAndElementsAccess()
 	size_t vecSize = 5;
 	vector<int> vec(vecSize);
 
-	for (size_t i = 0; i < vec.size(); ++i)
+	for (int i = 0; i < vec.size(); ++i)
 	{
 		vec[i] = i;
 		cout << "vec[" << i << "]:" << vec[i] << endl;
@@ -144,10 +147,10 @@ void illustrateVectorDeclerationAndElementsAccess()
 		cout << "illustrateVectorDeclerationAndElementsAccess - trying to access element which not in range of the vector with vec.at(" << index <<
 				")" << " gives:" << vec.at(index) << endl;
 	}
-	catch (exception& e)
+	catch (const exception& e)
 	{
 		cout << "illustrateVectorDeclerationAndElementsAccess - caught exception when trying to access vec.at(" << index << ") which is not"
-				" in the vector range" << endl;
+				" in the vector rangeL" << e.what() << endl;
 	}
 
 	cout << "illustrateVectorDeclerationAndElementsAccess - end" << endl;
@@ -246,9 +249,10 @@ void illustrateFillVectorWithObjects()
 			auto element = vec5.at(i);
 			cout << "vec5[" << i << "]:" << element << endl;
 		}
-		catch (out_of_range& e)
+		catch (const out_of_range& e)
 		{
-			cout << "illustrateFillVectorWithObjects - caught an exception when trying to access vec[" << i << "]" << endl;
+			cout << "illustrateFillVectorWithObjects - caught an exception when"
+				" trying to access vec[" << i << "]:" << e.what() << endl;
 		}
 	}
 
@@ -279,7 +283,7 @@ void illustrateVectorGrowth()
 
 	// a)
 	cout << " \n \n \n illustrateVectorGrowth - inserting  elements into vec1:" << endl;
-	for (size_t i = 0; i < initialCapacity; ++i)
+	for (int i = 0; i < initialCapacity; ++i)
 	{
 		vec1.push_back(MyObj(i + 1));
 	}
@@ -302,9 +306,10 @@ void illustrateVectorGrowth()
 			auto tmp = vec1.at(i);
 			cout << "vec1[" << i << "]:" << tmp << endl;
 		}
-		catch (out_of_range& e)
+		catch (const out_of_range& e)
 		{
-			cout << "illustrateVectorGrowth - trying to access vec1[" << i << "], which has not been initialized correctly" << endl;
+			cout << "illustrateVectorGrowth - trying to access vec1[" << i << "], which has not been initialized"
+				" correctly:" << e.what() << endl;
 		}
 	}
 
@@ -313,7 +318,7 @@ void illustrateVectorGrowth()
 	initialCapacity = 3;
 	vec2.reserve(initialCapacity);
 	cout << " \n \n \n illustrateVectorGrowth - inserting  elements into vec2 using the C++11 emplace_back method:" << endl;
-	for (size_t i = 0; i < initialCapacity; ++i)
+	for (int i = 0; i < initialCapacity; ++i)
 	{
 		vec2.emplace_back(MyObj(i + 1));
 	}
@@ -334,7 +339,7 @@ void illustrateVectorGrowth()
 
 int main(int argc, char** argv)
 {
-	std::cout << "vectorExplained - start" << std::endl;
+	cout << "vectorExplained - start" << endl;
 
 
 	// 1)
@@ -348,7 +353,9 @@ int main(int argc, char** argv)
 	
 	//fillVectorWithObjects();
 	
-	std::cout << "vectorExplained - end" << std::endl;
+	char c;
+	cout << "vectorExplained - press any key and press ENTER to terminate..." << endl;
+	cin >> c;
 	return 0;
 }
 
