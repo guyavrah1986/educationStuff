@@ -71,7 +71,7 @@ void illustrateVectorIterator()
 void illustrateErasingElementFromVector()
 {
 	cout << "illustrateErasingElementFromVector - start" << endl;
-
+	
 	// a)
 	int valToRemove1 = 3;
 	int valToRemove2 = 4;
@@ -87,18 +87,41 @@ void illustrateErasingElementFromVector()
 
 	vec2.erase(remove(vec2.begin(), vec2.end(), valToRemove2), vec2.end());
 	cout << "\n \n illustrateErasingElementFromVector - after removing " << valToRemove2 << " which"
-		" occurs" << 2 << " time in the vec2:" << endl;
+		" occurs " << 2 << " time in the vec2:" << endl;
 	printVec(vec2);
-
+	
 	vector<MyObj> vec1;
 	const size_t size = 5;
+	int valToRemove = 2;
 	vec1.reserve(size);
-	for (size_t i = 0; i < vec1.size(); ++i)
+	for (size_t i = 0; i < vec1.capacity(); ++i)
 	{
 		vec1.emplace_back(MyObj(static_cast<int>(i) + 1));
 	}
 
+	cout << "illustrateErasingElementFromVector - vec1 size is:" << vec1.size() << " and"
+		" vec1 capacity is:" << vec1.capacity() << endl;
+
 	// b)
+	vector<MyObj>::iterator it = vec1.begin();
+	while (it != vec1.end())
+	{
+		if ((*it).m_a == valToRemove)
+		{
+			cout << "illustrateErasingElementFromVector - found an element with the value to"
+				" erase:" << valToRemove << endl;
+			it = vec1.erase(it);
+		}
+		else
+		{
+			cout << "illustrateErasingElementFromVector - we are NOT erasing element with"
+				" value:" << (*it).m_a << endl;
+			++it;
+		}
+	}
 
-
+	cout << "illustrateErasingElementFromVector - after erasing the value to remove:" << valToRemove << " vec1"
+		" is:" << endl;
+	printVec(vec1);
+	cout << "illustrateErasingElementFromVector - end" << endl;
 }
