@@ -16,6 +16,7 @@
 #include <iostream>
 
 #include "vector1Exaplained.h"
+#include "vector2Exaplained.h"
 #include "MyObj.h"
 #include "MyObjNoDefualtCtor.h"
 
@@ -31,13 +32,16 @@ int main(int argc, char** argv)
 	cout << "vectorExplained - start" << endl;
 
 	// 1)
-	illustrateVectorDeclerationAndElementsAccess();
+	//illustrateVectorDeclerationAndElementsAccess();
 
 	// 2)
-	illustrateFillVectorWithObjects();
+	//illustrateFillVectorWithObjects();
 
 	// 3)
-	illustrateVectorGrowth();
+	//illustrateVectorGrowth();
+
+	// 4) 
+	illustrateVectorIterator();
 	
 	char c;
 	cout << "vectorExplained - press any key and hit ENTER to terminate..." << endl;

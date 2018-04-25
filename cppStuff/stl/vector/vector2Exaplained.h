@@ -2,6 +2,6 @@
 
 #include "MyObjsOperators.h"
 
-void f1();
+void illustrateVectorIterator();
 
 
