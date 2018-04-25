@@ -115,13 +115,12 @@ ostream& operator<<(ostream& out, const MyObjNoDefualtCtor& obj)
 
 /*
  * 1) This example illustrates the difference (and benefits) when using vector (for int in this case) over the use of good old "C style" array of int's.
- * a) The declaration of the static (automatic - on the stack) std::vector can take a non const value (vecSize = 5 in this case).
+ * a) The declaration of the static (automatic - on the stack) std::vector can take a NON CONST value (vecSize = 5 in this case).
  * b) The std::vector is cleared automatically once it is "out of scope" -- no need to call the delete method explicitly.
  * c) It is possible to use the "C style" array like access syntax - YET for performance considerations the index is not checked to verify it is
  * in bounds..
  * d) It is also possible to access an element in a vector using the vec.at(index) method. In this case, bounds checking is taking place and upon
  *    an access violation an exception in thrown.
- *
 */
 void illustrateVectorDeclerationAndElementsAccess()
 {
@@ -150,7 +149,7 @@ void illustrateVectorDeclerationAndElementsAccess()
 	catch (const exception& e)
 	{
 		cout << "illustrateVectorDeclerationAndElementsAccess - caught exception when trying to access vec.at(" << index << ") which is not"
-				" in the vector rangeL" << e.what() << endl;
+				" in the vector range:" << e.what() << endl;
 	}
 
 	cout << "illustrateVectorDeclerationAndElementsAccess - end" << endl;
@@ -159,7 +158,7 @@ void illustrateVectorDeclerationAndElementsAccess()
 /*
  * 2) This function illustrate the different approaches on how to declare a vector - with focus on its size.
  * a) This declaration will create an empty vector of int's initialized to their default value (0 in this case).
- * b) This declaration will create an array of int's with size and capacity of 10. All int's will be initialized to their default value (0).
+ * b) This declaration will create a vector of int's with size and capacity of 10. All int's will be initialized to their default value (0).
  * c) After adding an additional element to the vector --> the vector (automatically) will increase its size (double it). The space "left" until
  *    the next growth of the vector is when it will fill all its unused space (capacity - size). Basically this is (capacity - size) is the available
  *    space in every moment.
@@ -184,7 +183,8 @@ void illustrateFillVectorWithObjects()
 	cout << "illustrateFillVectorWithObjects - the initial size of vec1 is:" << vec1.size()
 			<< " and its capacity is:" << vec1.capacity() << endl;
 	// b)
-	vector<int> vec2(10);
+	const size_t vec2InitialSize = 5;
+	vector<int> vec2(vec2InitialSize);
 	cout << "illustrateFillVectorWithObjects - the initial size of vec2 is:" << vec2.size()
 			<< " and its capacity is:" << vec2.capacity() << endl;
 	cout << "illustrateFillVectorWithObjects - the initial values of the integers in vec2 are:" << endl;
@@ -341,20 +341,19 @@ int main(int argc, char** argv)
 {
 	cout << "vectorExplained - start" << endl;
 
-
 	// 1)
-	// illustrateVectorDeclerationAndElementsAccess();
+	//illustrateVectorDeclerationAndElementsAccess();
 
 	// 2)
 	illustrateFillVectorWithObjects();
 
 	// 3)
-	illustrateVectorGrowth();
+	//illustrateVectorGrowth();
 	
 	//fillVectorWithObjects();
 	
 	char c;
-	cout << "vectorExplained - press any key and press ENTER to terminate..." << endl;
+	cout << "vectorExplained - press any key and hit ENTER to terminate..." << endl;
 	cin >> c;
 	return 0;
 }
