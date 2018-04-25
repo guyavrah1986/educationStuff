@@ -284,7 +284,8 @@ void illustrateFillVectorWithObjects()
  * 3) This example illustrate how the vector is growing when we insert elements into it.
  * a) The most "common" (and naive) manner to insert elements into the vector. Note that for each element (MyObj) that is inserted,
  *    two ctor's are invoked: The regular ctor that builds the temporary object (which later immediatly is being destructed), followed
-*     by the copy ctor that actually inserts a COPY of the "original" (temporary) object into the vector
+*     by the copy ctor that actually inserts a COPY of the "original" (temporary) object into the vector.
+*     It is the copy that will finally reside within the vector.
  * b) Same thing goes here as well: When adding the fourth element, two ctor's will be called.The more important notation here, is that due to the
  *    fact that we reached the vector capacity --> we will have to increase the vector size (the vector will do it for us off course), causing
  *    the capacity of the vector to increase by a factor of two (3 X 2 = 6) --> YET the last two elements WONT be initialized.
@@ -297,6 +298,10 @@ void illustrateFillVectorWithObjects()
  *    - It is being "moved" to a different object using the "move copy ctor", i.e.- a "new" object is created and the contents (state) of the previous
  *      object are being moved (NOT copied as a good copy ctor would have done) into the state of the newly created object.
  *    - A destructor is called for the first object that was created.
+ * d) IMPORTANT NOTE: When using reserve with some value, say 3, and then we add less than this ammount, say only 2 elements (user
+ *    defined objects) into the vector, if we try to access the element(s) in the indecies that WERE not initiazlied - we will get
+ *   an exception - reserve DOES NOT initialize the all the "n" elements its reserves room for - it ONLY (as it name states) reserves
+ *   room for them, so it is undefined behaviour to access them at that point.
  */
 void illustrateVectorGrowth()
 {
@@ -319,9 +324,10 @@ void illustrateVectorGrowth()
 	}
 
 	// b)
-	cout << "\n \n illustrateVectorGrowth - now, insert the capacity + 1 element into vec1:" << endl;
+	cout << "\n \n illustrateVectorGrowth - now, insert the" << initialCapacity + 1 << " element into vec1:" << endl;
 	vec1.push_back(MyObj(initialCapacity + 1));
-
+	cout << "illustrateVectorGrowth - after adding the " << initialCapacity + 1 << " element into the "
+		" vector, its capacity is now:" << vec1.capacity() << endl;
 	cout << "illustrateVectorGrowth - displaying elements in vec1 (after adding the"
 		<< initialCapacity + 1 << " element before):" << endl;
 	for (size_t i = 0; i < vec1.capacity(); ++i)
@@ -351,6 +357,23 @@ void illustrateVectorGrowth()
 	for (size_t i = 0; i < vec2.capacity(); ++i)
 	{
 		cout << "vec2[" << i << "]:" << vec2[i] << endl;
+	}
+
+	// d)
+	vector<MyObj> vec3;
+	vec3.reserve(initialCapacity);
+	vec3.push_back(MyObj(13));
+	for (size_t i = 0; i < vec3.capacity(); ++i)
+	{
+		try
+		{
+			cout << "illustrateVectorGrowth - vec3[" << i << "]:" << vec3.at(i) << endl;
+		}
+		catch (const out_of_range& e)
+		{
+			cout << "illustrateVectorGrowth - trying to access vec3[" << i << "], which has not been initialized"
+				" correctly:" << e.what() << endl;
+		}
 	}
 }
 
