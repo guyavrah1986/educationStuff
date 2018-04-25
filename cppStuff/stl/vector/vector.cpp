@@ -9,6 +9,10 @@
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 
+#define _CRTDBG_MAP_ALLOC  // NOTE: the order of the includes that FOLLOWS this define is important !!!
+#include <stdlib.h>  
+#include <crtdbg.h> 
+
 #include <iostream>
 #include <vector>
 
@@ -160,21 +164,22 @@ void illustrateVectorDeclerationAndElementsAccess()
 /*
  * 2) This function illustrate the different approaches on how to declare a vector - with focus on its size.
  * a) This declaration will create an EMPTY vector of int's initialized to their default value (0 in this case).
- * b) This declaration will create a vector of int's with size and capacity of 10. All int's will be initialized to their default value (0).
- * c) After adding an additional element to the vector --> the vector (automatically) will increase its size (double it). The space "left" until
+ * b) After adding an additional element to the vector --> the vector (automatically) will increase its size (double it). The space "left" until
  *    the next growth of the vector is when it will fill all its unused space (capacity - size). Basically this is (capacity - size) is the available
  *    space in every moment.
+ * c) This declaration will create a vector of int's with size and capacity of vec2InitialSize. All int's will be initialized to their default value (0).
  * d) As in the first example, in this case as well, the vector will be with size 0 and capacity 0 as well.
  *    NOTE: Different implementation of the STL might implement it differently --> thus causing the default Ctor of vector to initialize it with a certain
  *    size (although we used the default Ctor explicitly).
  * e) As in the case of the int's vector, if we declare the vector with the initial size in the Ctor --> the default Ctor of the object type will be
  *    called ("size" times - as the number of elements we initialed the vector with).
  * f) When we reach the end of the function, due to the fact that the vec4 was declared automatically (on the stack), its Dtor will be invoked.
- *    This will cause the invocation of each objet's Dtor within vec4 as well.
- * g) If the object that is contained within the vector has no default Ctor -- than declaring an array if its type without explicitly initialize the
+ *    NOTE:This will cause the invocation of each objet's Dtor within vec4 as well.
+ * g) If the object that is contained within the vector has no default Ctor -- then declaring a vector of its type without explicitly initialize the
  *    elements of the vector is not possible.
  * h) Declaring an empty array of this type is possible.Also, combining the usage (directly after the declaration) of the reserve method, is basically
- *    the best practice of how to create a vector (assuming we know in advance, more or less, the desired size of it).
+ *    the best practice of how to create a vector (assuming we know in advance, more or less, the desired size of it), and we DO NOT
+ *    wish to autoamtically invoke (perhapse for no reason) the default ctor of the objects that will reside in the vector.
  */
 void illustrateFillVectorWithObjects()
 {
@@ -184,7 +189,14 @@ void illustrateFillVectorWithObjects()
 	vector<int> vec1;
 	cout << "illustrateFillVectorWithObjects - the initial size of vec1 is:" << vec1.size()
 			<< " and its capacity is:" << vec1.capacity() << endl;
+
 	// b)
+	int firstValToAdd = 17;
+	vec1.push_back(firstValToAdd);
+	cout << "illustrateFillVectorWithObjects - after adding the first value to vec1 its size is:" << vec1.size()
+		<< " and its capacity is:" << vec1.capacity() << endl;
+
+	// c)
 	const size_t vec2InitialSize = 5;
 	vector<int> vec2(vec2InitialSize);
 	cout << "illustrateFillVectorWithObjects - the initial size of vec2 is:" << vec2.size()
@@ -195,11 +207,6 @@ void illustrateFillVectorWithObjects()
 		cout << "vec2[" << i << "]:" << vec2[i] << endl;
 	}
 
-	// c)
-	int firstValToAdd = 17;
-	vec1.push_back(firstValToAdd);
-	cout << "illustrateFillVectorWithObjects - after adding the first value to vec1 its size is:" << vec1.size()
-			<< " and its capacity is:" << vec1.capacity() << endl;
 
 	vec2.push_back(firstValToAdd);
 	cout << "illustrateFillVectorWithObjects - after adding the first value to vec2 its size is:" << vec2.size()
@@ -243,13 +250,12 @@ void illustrateFillVectorWithObjects()
 	cout << "illustrateFillVectorWithObjects - about to push obj3 into the vec5" << endl;
 	vec5.push_back(obj3);
 
-	cout << "illustrateFillVectorWithObjects - displaying elements in vec5:" << endl;
+	cout << "\n \n illustrateFillVectorWithObjects - displaying elements in vec5:" << endl;
 	for (size_t i = 0; i < vec5.capacity(); ++i)
 	{
 		try
 		{
-			auto element = vec5.at(i);
-			cout << "vec5[" << i << "]:" << element << endl;
+			cout << "vec5[" << i << "]:" << vec5.at(i) << endl;
 		}
 		catch (const out_of_range& e)
 		{
@@ -357,6 +363,7 @@ int main(int argc, char** argv)
 	char c;
 	cout << "vectorExplained - press any key and hit ENTER to terminate..." << endl;
 	cin >> c;
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
 
