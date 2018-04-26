@@ -10,7 +10,8 @@ public:
 	ObjWithVectorAsClassMember()
 		: m_vec()
 	{
-		std::cout << "ObjWithVectorAsClassMember::ObjWithVectorAsClassMember" << std::endl;
+		std::cout << "ObjWithVectorAsClassMember::ObjWithVectorAsClassMember - size of"
+			" vec is:" << m_vec.size() << " capacity is:" << m_vec.capacity() << std::endl;
 	}
 
 	~ObjWithVectorAsClassMember()
@@ -27,7 +28,8 @@ public:
 	ObjWithRefVectorAsClassMember(std::vector<MyObj>& vec)
 		: m_vec(vec)
 	{
-		std::cout << "ObjWithRefVectorAsClassMember::ObjWithRefVectorAsClassMember" << std::endl;
+		std::cout << "ObjWithRefVectorAsClassMember::ObjWithRefVectorAsClassMember - size of"
+			" vec is:" << m_vec.size() << " capacity is:" << m_vec.capacity() << std::endl;
 	}
 
 	~ObjWithRefVectorAsClassMember()
