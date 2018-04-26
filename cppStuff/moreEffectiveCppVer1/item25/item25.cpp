@@ -85,6 +85,41 @@ public:
 	int m_d1;
 };
 
+class Derived2 : public Base
+{
+public:
+	Derived2(int d2, int b)
+		: Base(b)
+		, m_d2(d2)
+	{
+		cout << "Derived2::Derived2 - setting m_d2 to:" << m_d2 << " at address:" << this << endl;
+	}
+
+	Derived2()
+		: m_d2(2)
+	{
+		cout << "Derived2::Derived2(default) - setting m_d2 to:" << m_d2 << " at address:" << this << endl;
+	}
+
+	Derived2(const Derived2& other)
+	{
+		this->m_d2 = other.m_d2;
+		cout << "Derived2::Derived2(copy) - setting m_d2 to:" << m_d2 << " at address:" << this << endl;
+	}
+
+	virtual ~Derived2()
+	{
+		cout << "Derived2::~Derived2 - m_d2:" << m_d2 << " at address:" << this << endl;
+	}
+
+	virtual Derived2* clone() const
+	{
+		return new Derived2();
+	}
+
+	int m_d2;
+};
+
 void item25Usage()
 {
 	cout << "item25Usage - start" << endl;
