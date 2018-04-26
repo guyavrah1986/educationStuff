@@ -12,9 +12,9 @@ using namespace std;
 // Key note: 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
-void objWithVectorClassMember()
+void createObjWithVectorClassMember()
 {
-	cout << "objWithVectorClassMember -start" << endl;
+	cout << "createObjWithVectorClassMember - start" << endl;
 	ObjWithVectorAsClassMember obj;
 }
 
@@ -25,8 +25,9 @@ void objWithVectorClassMember()
 // Key note: 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
-void objWithRefToVectorClassMember()
+void createObjWithRefToVectorClassMember()
 {
-	cout << "objWithRefToVectorClassMember -start" << endl;
-	ObjWithRefVectorAsClassMember obj;
+	cout << "createObjWithRefToVectorClassMember - start" << endl;
+	vector<MyObj> vecArg;
+	ObjWithRefVectorAsClassMember obj(vecArg);
 }

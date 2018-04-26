@@ -17,6 +17,7 @@
 
 #include "vector1Exaplained.h"
 #include "vector2Exaplained.h"
+#include "vector3Exaplained.h"
 #include "MyObj.h"
 #include "MyObjNoDefualtCtor.h"
 
@@ -50,7 +51,14 @@ int main(int argc, char** argv)
 	//illustrateVectorIterator();
 	
 	// 5) 
-	illustrateErasingElementFromVector();
+	//illustrateErasingElementFromVector();
+
+	// -------------------
+	// vector3Exaplained.h
+	// -------------------
+	// 6) 
+	createObjWithVectorClassMember();
+	createObjWithRefToVectorClassMember();
 
 	char c;
 	cout << "vectorExplained - press any key and hit ENTER to terminate..." << endl;

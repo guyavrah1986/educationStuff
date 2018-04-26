@@ -24,8 +24,8 @@ public:
 class ObjWithRefVectorAsClassMember
 {
 public:
-	ObjWithRefVectorAsClassMember()
-		: m_vec()
+	ObjWithRefVectorAsClassMember(std::vector<MyObj>& vec)
+		: m_vec(vec)
 	{
 		std::cout << "ObjWithRefVectorAsClassMember::ObjWithRefVectorAsClassMember" << std::endl;
 	}
@@ -35,10 +35,10 @@ public:
 		std::cout << "ObjWithRefVectorAsClassMember::~ObjWithRefVectorAsClassMember" << std::endl;
 	}
 
-	std::vector<MyObj> m_vec;
+	std::vector<MyObj>& m_vec;
 };
 
-void objWithVectorClassMember();
-void objWithRefToVectorClassMember();
+void createObjWithVectorClassMember();
+void createObjWithRefToVectorClassMember();
 
 
