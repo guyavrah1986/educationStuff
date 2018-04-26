@@ -26,6 +26,8 @@ add_executable(vectorExe MyObjNoDefualtCtor.h
 						 vector1Exaplained.cpp
 						 vector2Exaplained.h
 						 vector2Exaplained.cpp
+						 vector3Exaplained.h
+						 vector3Exaplained.cpp
 						 vector.cpp)
  
 # Properties->Linker->Input->Additional Dependencies
