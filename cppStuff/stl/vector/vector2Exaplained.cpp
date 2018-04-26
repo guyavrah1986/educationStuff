@@ -8,6 +8,7 @@
 
 using namespace std;
 
+/*
 template <typename T> void printVec(const vector<T>& vec)
 {
 	for (size_t i = 0; i < vec.size(); ++i)
@@ -16,6 +17,7 @@ template <typename T> void printVec(const vector<T>& vec)
 	}
 	cout << endl;
 }
+*/
 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -67,7 +69,6 @@ void illustrateVectorIterator()
 *    in this case it is from a POD vector (int's).
 * b) 
 */
-
 void illustrateErasingElementFromVector()
 {
 	cout << "illustrateErasingElementFromVector - start" << endl;
@@ -106,7 +107,7 @@ void illustrateErasingElementFromVector()
 	vector<MyObj>::const_iterator it = vec1.begin();
 	while (it != vec1.end())
 	{
-		if ((*it).m_a == valToRemove)
+		if ((*it).m_a == valToRemove) // or some other condition
 		{
 			cout << "illustrateErasingElementFromVector - found an element with the value to"
 				" erase:" << valToRemove << endl;
