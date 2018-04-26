@@ -16,6 +16,7 @@
 // ======================================================================================================================================================================
 
 #include <iostream>
+#include <list>
 
 using namespace std;
 
@@ -118,6 +119,31 @@ public:
 	}
 
 	int m_d2;
+};
+
+class X
+{
+public:
+	X()
+	{
+		cout << "X::X" << endl;
+	}
+
+	X(const X& other)
+	{
+		cout << "X::X(copy) - about to copy " << other.m_list.size() << " elements of other.m_list" << endl;
+		for (list<Base*>::const_iterator it = other.m_list.begin(); it != other.m_list.end(); ++it)
+		{
+			this->m_list.emplace_back((*it)->clone());
+		}
+	}
+
+	~X()
+	{
+		cout << "X::X" << endl;
+	}
+
+	list<Base*> m_list;
 };
 
 void item25Usage()
