@@ -2,8 +2,13 @@
 /*
 * Item 25:
 * --------
-* 
-* 
+* Sometimes it is usfull to declare the ctor as "virtual". In this specific example, we define the virtual copy ctor.
+* 1a) When we define the "clone" method, which practically it is the copy ctor, we can define the return type in each of the 
+*    derived's implementation with the class's specific type (and not keeping the entire function's signature identical to the 
+*    Base's class signature).
+*    NOTE:It is possible to return a different type from the Base's class function's ONLY if the return type is a pointer OR
+*    a reference (i.e.- it will not work with objets).
+*
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * Key notes:
@@ -81,7 +86,7 @@ public:
 		cout << "Derived1::~Derived1 - m_d1:" << m_d1 << " at address:" << this << endl;
 	}
 
-	virtual Derived1* clone() const
+	virtual Derived1* clone() const	// 1a)
 	{
 		return new Derived1();
 	}
@@ -116,7 +121,7 @@ public:
 		cout << "Derived2::~Derived2 - m_d2:" << m_d2 << " at address:" << this << endl;
 	}
 
-	virtual Derived2* clone() const
+	virtual Derived2* clone() const	// 1a)
 	{
 		return new Derived2();
 	}
@@ -165,7 +170,10 @@ void item25Usage()
 {
 	cout << "item25Usage - start" << endl;
 	X x1;
+	cout << "item25Usage - about to add Derived's elements to x1 object" << endl;
 	fillM_listWithDerivedObjects(x1);
+	cout << "item25Usage - about to copy construct x1 into newly created x2 object" << endl;
+	X x2(x1);
 
 	cout << "\n \n item25Usage - end" << endl;
 }
