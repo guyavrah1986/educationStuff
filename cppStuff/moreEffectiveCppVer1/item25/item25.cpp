@@ -8,11 +8,12 @@
 *    Base's class signature).
 *    NOTE:It is possible to return a different type from the Base's class function's ONLY if the return type is a pointer OR
 *    a reference (i.e.- it will not work with objets).
+* 2) It is also possible to define non-member class funcitons, such as the operator<<. 
 *
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
-* Key notes:
-* 
+* Key notes: - It is possible to define "virtual ctors" in the terms of the ordinary ctors.
+*			 - It is possible to define "virtual" non-member functions in the terms of the member-functions.
 * 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -55,6 +56,7 @@ public:
 	}
 
 	virtual Base* clone() const = 0;
+	virtual ostream& print(ostream& os) const = 0;
 
 	int m_b;
 };
@@ -89,6 +91,12 @@ public:
 	virtual Derived1* clone() const	// 1a)
 	{
 		return new Derived1();
+	}
+
+	virtual ostream& print(ostream& os) const
+	{
+		os << "Derived1::print - m_d1:" << this->m_d1 << " at address:" << this << endl;
+		return os;
 	}
 
 	int m_d1;
@@ -126,6 +134,12 @@ public:
 		return new Derived2();
 	}
 
+	virtual ostream& print(ostream& os) const
+	{
+		os << "Derived2::print - m_d1:" << this->m_d2 << " at address:" << this << endl;
+		return os;
+	}
+
 	int m_d2;
 };
 
@@ -155,9 +169,24 @@ public:
 		}
 	}
 
+	ostream& print(ostream& os) const
+	{
+		os << "X::print - displaying " << this->m_list.size() << " elements" << endl;
+		for (list<Base*>::const_iterator it = m_list.begin(); it != m_list.end(); ++it)
+		{
+			os << *it;
+		}
+
+		return os;
+	}
+
 	list<Base*> m_list;
 };
 
+inline ostream& operator<<(ostream& os, const Base& b)
+{
+	return b.print(os);
+}
 void fillM_listWithDerivedObjects(X& x)
 {
 	x.m_list.emplace_back(new Derived1(1, 1));
@@ -170,10 +199,15 @@ void item25Usage()
 {
 	cout << "item25Usage - start" << endl;
 	X x1;
+	Derived1 d1;
+	Derived2 d2;
+	cout << d1;
+	cout << d2;
 	cout << "item25Usage - about to add Derived's elements to x1 object" << endl;
 	fillM_listWithDerivedObjects(x1);
 	cout << "item25Usage - about to copy construct x1 into newly created x2 object" << endl;
 	X x2(x1);
+	x2.print(cout);
 
 	cout << "\n \n item25Usage - end" << endl;
 }
