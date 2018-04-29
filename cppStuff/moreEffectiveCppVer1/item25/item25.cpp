@@ -199,10 +199,6 @@ void item25Usage()
 {
 	cout << "item25Usage - start" << endl;
 	X x1;
-	Derived1 d1;
-	Derived2 d2;
-	cout << d1;
-	cout << d2;
 	cout << "item25Usage - about to add Derived's elements to x1 object" << endl;
 	fillM_listWithDerivedObjects(x1);
 	cout << "item25Usage - about to copy construct x1 into newly created x2 object" << endl;
