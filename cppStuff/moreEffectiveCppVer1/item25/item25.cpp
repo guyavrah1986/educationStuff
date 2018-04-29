@@ -14,6 +14,9 @@
 *
 */
 // ======================================================================================================================================================================
+#define _CRTDBG_MAP_ALLOC  // NOTE: the order of the includes that FOLLOWS this define is important !!!
+#include <stdlib.h>  
+#include <crtdbg.h> 
 
 #include <iostream>
 #include <list>
@@ -140,15 +143,29 @@ public:
 
 	~X()
 	{
-		cout << "X::X" << endl;
+		cout << "X::~X" << endl;
+		for (list<Base*>::const_iterator it = m_list.begin(); it != m_list.end(); ++it)
+		{
+			delete *it;
+		}
 	}
 
 	list<Base*> m_list;
 };
 
+void fillM_listWithDerivedObjects(X& x)
+{
+	x.m_list.emplace_back(new Derived1(1, 1));
+	x.m_list.emplace_back(new Derived2(2, 2));
+	x.m_list.emplace_back(new Derived1(3, 3));
+	x.m_list.emplace_back(new Derived2(4, 4));
+}
+
 void item25Usage()
 {
 	cout << "item25Usage - start" << endl;
+	X x1;
+	fillM_listWithDerivedObjects(x1);
 
 	cout << "\n \n item25Usage - end" << endl;
 }
@@ -161,5 +178,6 @@ int main(int argc, char** argv)
 	char c;
 	cout << "\n \n main - enter any key and press ENTER to terminate" << endl;
 	cin >> c;
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
