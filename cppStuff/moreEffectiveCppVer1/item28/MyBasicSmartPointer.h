@@ -13,5 +13,4 @@ public:
 
 private:
 	PointeeType* m_pointee;
-
 };

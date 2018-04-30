@@ -23,6 +23,11 @@
 
 using namespace std;
 
+void basicUsageInMyBasicSmartPointerClass()
+{
+	cout << "basicUsageInMyBasicSmartPointerClass - start" << endl;
+}
+
 void item28Usage()
 {
 	cout << "item28Usage - start" << endl;
