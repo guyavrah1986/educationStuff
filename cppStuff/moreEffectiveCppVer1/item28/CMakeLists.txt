@@ -31,7 +31,9 @@ set(CMAKE_CXX_FLAGS ${item28_FLAGS})
 file(GLOB_RECURSE item28_SRC
     "${CMAKE_CURRENT_LIST_DIR}/item28.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/MyBasicSmartPointer.h"
-	"${CMAKE_CURRENT_LIST_DIR}/MyBasicSmartPointer.cpp")
+	"${CMAKE_CURRENT_LIST_DIR}/MyBasicSmartPointer.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/MySimpleUniquePointer.h"
+	"${CMAKE_CURRENT_LIST_DIR}/MySimpleUniquePointer.cpp")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
