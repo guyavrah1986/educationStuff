@@ -20,6 +20,12 @@
 * a) Yet, one MUST note, that, other than portability issues, another mistake here might rise due to the fact that
 *	 static/global variables are located in the BSS (data segment) of the process address space.In this case, 
 *	 the logic of the suggested method will NOT work correctly. 
+* 
+* 4) To prevent users from creating objects o the heap we face the same three situations where an object can be 
+*	 created: On it's own, as a base class, or within another class.
+*	 To easily attack these 3 cases we can simply decalre the operator new and operator delete for our class as 
+*	 private. 
+* a) As expected - WON'T compile.
 *
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -148,6 +154,33 @@ bool onTheHeap(const void* address)
 	return onHeap;
 }
 
+class OnlyStackObjPrivateNewAndDelte
+{
+public:
+	OnlyStackObjPrivateNewAndDelte()
+	{
+		cout << "OnlyStackObjPrivateNewAndDelte::OnlyStackObjPrivateNewAndDelte" << endl;
+	}
+
+	~OnlyStackObjPrivateNewAndDelte()
+	{
+		cout << "OnlyStackObjPrivateNewAndDelte::~OnlyStackObjPrivateNewAndDelte" << endl;
+	}
+
+private:
+	static void* operator new (size_t size)
+	{
+		// add some logic here, in this case we add "dummy" logic
+		return NULL;
+	}
+
+	static void operator delete(void* ptr)
+	{
+		// add some logic here, in this case we add "dummy" logic
+
+	}
+};
+
 void item27Usage()
 {
 	cout << "item27Usage - start" << endl;
@@ -165,6 +198,12 @@ void item27Usage()
 	delete pd;
 	cout << "item27Usage - onThHeap for address of a global variable:" << &g_int << " returned "
 		 << onTheHeap(&g_int) << endl;	// 3a)
+
+	OnlyStackObjPrivateNewAndDelte obj4;	// 4) fine - on the stack
+
+	// 4a) 
+	//OnlyStackObjPrivateNewAndDelte* obj5 = new OnlyStackObjPrivateNewAndDelte();
+
 	cout << "\n \n item27Usage - end" << endl;
 }
 
