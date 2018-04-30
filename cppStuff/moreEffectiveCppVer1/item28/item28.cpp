@@ -26,6 +26,7 @@ using namespace std;
 void basicUsageInMyBasicSmartPointerClass()
 {
 	cout << "basicUsageInMyBasicSmartPointerClass - start" << endl;
+	MyBasicSmartPointer<int> sp(new int);
 }
 
 void item28Usage()
