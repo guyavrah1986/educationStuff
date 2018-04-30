@@ -17,12 +17,18 @@
 *  
 * 3) An additional NOT PORTABLE and not entirely complete appraoch to determine whether an address (of an object)
 *	 is on the heap or not is to use this function.
+* a) Yet, one MUST note, that, other than portability issues, another mistake here might rise due to the fact that
+*	 static/global variables are located in the BSS (data segment) of the process address space.In this case, 
+*	 the logic of the suggested method will NOT work correctly. 
 *
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * Key notes: - If we decide to create object only on the heap than doing so by declaring the dtor as private will 
 *			   enable us to decalre ONLY a single method.
-*			 - If, on the other hand we chose 
+*			 - If, on the other hand we chose to declare the dtor as public, we need to keep in mind that there 
+*			   might (usually there are) be SEVERAL Ctors !!
+*			 - The logic of finiding whether an address of an object is on the HEAP or not using the onTheHeap
+*			   method - is NOT portanble, therefor might work or not on different architectures.
 * 
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
 * !! @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ !!
@@ -36,6 +42,8 @@
 #include <iostream>
 
 using namespace std;
+
+int g_int = 9;	// 3a)
 
 class OnlyHeapObjPrivateDtor
 {
@@ -150,6 +158,13 @@ void item27Usage()
 	//OnlyHeapObjPrivateDtor obj2; 	// 1) Wont compile !!
 
 	OnlyHeapObjProtectedCtors* obj3 = OnlyHeapObjProtectedCtors::createObj(9);	// 2)
+	delete obj3;
+
+	double* pd = new double(6.8);	// 3) 
+	cout << "item27Usage - onThHeap for address:" << pd << " returned " << onTheHeap(pd) << endl;
+	delete pd;
+	cout << "item27Usage - onThHeap for address of a global variable:" << &g_int << " returned "
+		 << onTheHeap(&g_int) << endl;	// 3a)
 	cout << "\n \n item27Usage - end" << endl;
 }
 
