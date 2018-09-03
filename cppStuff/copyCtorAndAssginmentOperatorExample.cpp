@@ -30,7 +30,6 @@
 using namespace std;
 
 
-
 A::A(int a, const char* str)
 		: m_a(a)
 		, m_cstr(nullptr)

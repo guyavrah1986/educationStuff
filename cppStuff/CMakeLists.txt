@@ -35,10 +35,6 @@ endif()
 file(GLOB_RECURSE VTABLE_EXPLANIED_SRC
     "${CMAKE_CURRENT_LIST_DIR}/virtualTableExplained.cpp")
 
-# std::vector explantation sources
-file(GLOB_RECURSE VECTOR_EXPLANIED_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/vectorExplained.cpp")
-
 # this pointer location (address) sources
 file(GLOB_RECURSE THIS_POINTER_LOCATION_SRC
     "${CMAKE_CURRENT_LIST_DIR}/thisPointerLocationExample.cpp")
@@ -81,8 +77,6 @@ file(GLOB_RECURSE POINTER_TO_AMPERSAND_EXAMPLE_SRC
 # ======================================================================================================================================
    
 add_executable(vtableExplaniedExe ${VTABLE_EXPLANIED_SRC})
-
-add_executable(vectorExplainedExe ${VECTOR_EXPLANIED_SRC})
 
 add_executable(thisPointerLocationExe ${THIS_POINTER_LOCATION_SRC})
 

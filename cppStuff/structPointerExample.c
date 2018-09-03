@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-struct __attribute__((__packed__)) myStruct 
+struct /*__attribute__((__packed__))*/ myStruct 
 {
 	int i;
 	char* pc;
