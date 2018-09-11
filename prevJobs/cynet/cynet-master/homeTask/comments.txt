@@ -1,0 +1,18 @@
+Usefull links:
+==============
+
+1) How to build console application in C# that will run on different machines and from the CMD (and not from within Visual Studio)
+https://docs.microsoft.com/en-us/dotnet/core/tutorials/publishing-with-visual-studio
+
+2) How to get PID of an exe according to its name:
+http://en.ciholas.fr/get-process-id-pid-from-process-name-string-c-windows-api/
+
+git bash:
+========
+1) When commiting a commit, the notepead++ application will be opened in order for us to enter a commit message (at the top of the page).
+- Enter the commit message.
+- Save the file
+- Close the file.
+--> the git bash will "return" immidiatly once you close the file (notepead++) and the commit will be done.
+
+

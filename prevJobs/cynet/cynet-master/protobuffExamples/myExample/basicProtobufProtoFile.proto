@@ -1,0 +1,78 @@
+// ===========================================================================================================================================
+// 
+// 1) Defines the version of the protocol buffers we use, in this case 3rd version.
+//    NOTE: This line MUST be the first line (which is not empty or comment) in the file. If nothing is specified, proto2 is used by default.
+//
+// 2) The "package keyword" places the generated C++ classes (for the provided messages) in the respective namespace. The motivation
+//    for that is to aviod naming conflicts with different projects.
+//
+// 3) Basic message element: This message is a basic message to illustrate the definitions of this "strcuture".
+//    Each filed can have tags (the numbers a fileds is assgined to). Tags in the rage [1-15] takes 1 byte. All rest [16-maxTagNum] 
+//    takes 2 bytes. We cannot use the numbers 19000 through 19999 (FieldDescriptor::kFirstReservedNumber through 
+//    FieldDescriptor::kLastReservedNumber).
+// 
+// 4) Each filed within a message can be either:
+// a) Singular: This filed can occur zero OR one time in a "well-formed message", meaning, zero if it not initialized, or one time if it was
+//    initialized. Note:In proto3, there is no "qualifier" before the type of the filed (i.e.- no required/optional as in proto2).
+// b) Repeated: As its qualifier states, this filed can be reapeted zero or more times witihn a message, and the order of the different 
+//    instances is preserved.
+//
+// 5) For a singular scalar filed, the default values are type specific:
+//    - bool: false
+//    - numeric: 0
+//    - string: empty string
+//    - message: empty fileds.
+// NOTE: For scalar fileds,once a message is parsedIf a filed has a default value, we can NOT state whether it was explicitly set to the 
+//       default value OR it is due to the fact that indeed the filed was NOT set at all, therefor - it is not wise to use default values
+//       as "behaviour switch".
+// a) For repeated fileds the default value for repeated fields is empty (generally an empty list in the appropriate language).  
+//
+// 6) It is possible to define an Enumuration type and filed. 
+//    NOTES:
+// a) The first value of the enum MUST be zero - which will be the Enum's default value as well.
+// b) The assginment to 4 IS NOT the default value we assgin to the singularEnum filed - it is it's tag assignment.
+//
+// 7) It is also possible to define a filed of a message as another message - like composition in OOD.
+//
+//
+// ===========================================================================================================================================
+
+syntax = "proto3";	// 1)
+
+package basicMessageTutorial;	// 2)
+
+message BasicMessage 
+{
+	string singularString = 1; // 3) 
+	int32 singularInt = 2;  // 4a)
+	repeated string repeatedStrings = 3; // 4b)
+
+	enum SimpleEnum 
+	{
+		DEFAULT = 0;	// 6a)
+		FIRST_VAL = 1;
+		SECOND_VAL = 2;
+		THIRD_VAL = 3;
+		FOURTH_VAL = 4;
+		FIFTH_VAL = 5;
+	}
+
+	SimpleEnum singularEnum = 4;	// 6b)
+	BasicNestedMessage nestedMsg = 5;	// 7)
+}
+
+message BasicNestedMessage	
+{
+	string singularNestedString = 1;
+	repeated uint32 repeatedUnsignedInt = 2;
+}
+
+message SampleMessageUsingOneOf
+{
+	oneof oneOfFiled
+	{
+		string oneOfStr = 1;
+		BasicNestedMessage oneOfNestedMsg = 2;
+	}
+}
+

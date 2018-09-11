@@ -1,0 +1,19 @@
+a) Run the programs:
+--------------------
+# server:
+$ dotnet server.dll <server_ip> <server_port>
+
+# cleint:
+$ client.exe <server_ip> <server_port>
+
+# There is a compilation flag (#define SEND_ASCII) in the top of the globalHeader.h file. Uncomment (and re-build) to run the client so that it will transmit ASCII characters.
+
+Some general notes about the code:
+=================================
+
+1) The default behaviour of the client is to send UNICODE (16 bits coding) characters.
+2) In places where I had to assume some assumption I added a "labal" written: ASSUMPTION
+3) I tried to use a MACRO I usually use (NO_COPY) which is defined in the globalHeader.h file. It caused some compilation error which in order to solve it I found
+   a proposal to use the "cpp.hint" file --> so this is the reason for its existence. 
+   
+   
