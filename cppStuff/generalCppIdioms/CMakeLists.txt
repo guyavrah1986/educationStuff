@@ -65,6 +65,10 @@ file(GLOB_RECURSE COMPOSITION_AND_AGGRAGATION_EXAMPLE_SRC
 file(GLOB_RECURSE POINTER_TO_AMPERSAND_EXAMPLE_SRC
     "${CMAKE_CURRENT_LIST_DIR}/pointerToAmpersand.cpp")
 
+# move semantics sources
+file(GLOB_RECURSE MOVE_SEMANTICS_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/moveSemantics.cpp")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -91,6 +95,8 @@ add_executable(functionTemplateExe ${FUNCTION_TEMPLATE_EXAMPLE_SRC})
 add_executable(objectCompositionAndAggragationExe ${COMPOSITION_AND_AGGRAGATION_EXAMPLE_SRC})
 
 add_executable(pointerToAmpersandExe ${POINTER_TO_AMPERSAND_EXAMPLE_SRC})
+
+add_executable(moveSemanticsExe ${MOVE_SEMANTICS_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries

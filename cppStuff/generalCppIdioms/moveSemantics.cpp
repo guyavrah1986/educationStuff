@@ -40,13 +40,15 @@
 #include <vector>
 #include <utility>	// for std::move
 
+using namespace std;
+
 class MyMovedObj 
 {
 
 public:
 	MyMovedObj(int a) : m_pInt(new int(a))
 	{
-		std::cout <<"MyMovedObj::MyMovedObj - setting m_pInt to point to value:" << *m_pInt << " its address is:" << m_pInt << std::endl;
+		cout <<"MyMovedObj::MyMovedObj - setting m_pInt to point to value:" << *m_pInt << " its address is:" << m_pInt << endl;
 	}
 
 	~MyMovedObj()
@@ -55,13 +57,13 @@ public:
 		{
 			delete m_pInt;
 		}
-		std::cout <<"MyMovedObj::~MyMovedObj" << std::endl;
+		cout <<"MyMovedObj::~MyMovedObj" << endl;
 	}
 
 	// copy ctor
 	MyMovedObj(const MyMovedObj& other) : MyMovedObj(*(other.m_pInt))
 	{	
-		std::cout << "MyMovedObj::MyMovedObj (copy) - copied other.m_pInt value:" << *(other.m_pInt) << " into the new object's address:" << m_pInt << std::endl;
+		cout << "MyMovedObj::MyMovedObj (copy) - copied other.m_pInt value:" << *(other.m_pInt) << " into the new object's address:" << m_pInt << endl;
 	}
 
 	// copy assignment operator
@@ -79,14 +81,14 @@ public:
 
 		this->m_pInt = new int(*(rhs.m_pInt));
 
-		std::cout << "MyMovedObj::operator= - assgined the value:" << *(rhs.m_pInt) << std::endl;
+		cout << "MyMovedObj::operator= - assgined the value:" << *(rhs.m_pInt) << endl;
 		return *this;	
 	}
 
 	// move ctor
 	MyMovedObj(MyMovedObj&& rRef)
 	{
-		std::cout <<"MyMovedObj::MyMovedObj (move ctor&&)" << std::endl;
+		cout <<"MyMovedObj::MyMovedObj (move ctor&&)" << endl;
 		this->m_pInt = rRef.m_pInt;
 		rRef.m_pInt = nullptr;
 	}
@@ -98,7 +100,7 @@ public:
 		{
 			return *this;
 		}
-		std::cout << "MyMovedObj::operator= " << std::endl;
+		cout << "MyMovedObj::operator= " << endl;
 	
 		delete this->m_pInt;
 
@@ -108,7 +110,7 @@ public:
 		return *this;
 	}
 
-	friend std::ostream& operator<<(std::ostream& out, const MyMovedObj& obj);
+	friend ostream& operator<<(ostream& out, const MyMovedObj& obj);
 
 private:
 	int* m_pInt;
@@ -116,12 +118,12 @@ private:
 };
 
  
-std::ostream& operator<<(std::ostream& out, const MyMovedObj& obj)
+ostream& operator<<(ostream& out, const MyMovedObj& obj)
 {
 	// Since operator<< is a friend of the Point class, we can access Point's members directly.
 	if (obj.m_pInt != nullptr)
 	{
-		std::cout << "MyMovedObj(" << *obj.m_pInt << ", address:" << &obj << ")" << std::endl;
+		cout << "MyMovedObj(" << *obj.m_pInt << ", address:" << &obj << ")" << endl;
 	}    
 
     return out;
@@ -139,24 +141,22 @@ std::ostream& operator<<(std::ostream& out, const MyMovedObj& obj)
 int main(int argc, char** argv)
 {
 
-	std::cout << "main - start" << std::endl;
+	cout << "main - start" << endl;
 	
 	MyMovedObj obj(12);
-	std::vector<MyMovedObj> vec;
+	vector<MyMovedObj> vec;
 
 	// this insertion will invoke the copy ctor
 	vec.push_back(obj);
 
-	std::cout <<"main - after pushing obj via copy semantics obj is:" << obj << std::endl;	
+	cout <<"main - after pushing obj via copy semantics obj is:" << obj << endl;	
 
 	// this insertion will invoke the move ctor
-	vec.push_back(std::move(obj)); // 4c)
+	vec.push_back(move(obj)); // 4c)
 
-	std::cout <<"main - after pushing obj via move semantics obj is:" << obj << std::endl;	
+	cout <<"main - after pushing obj via move semantics obj is:" << obj << endl;	
 
-	std::cout <<"main - vec[0]:" << vec[0] << " vec[1]:" << vec[1] << std::endl;
- 
-	std::cout << "main - end" << std::endl;
+	cout <<"main - vec[0]:" << vec[0] << " vec[1]:" << vec[1] << endl;
 	return 0;
 }
 
