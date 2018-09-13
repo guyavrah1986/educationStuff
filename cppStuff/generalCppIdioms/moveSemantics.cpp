@@ -12,8 +12,12 @@
 
 // 2) r-value reference:
 // ---------------------
-// a) C++11 introduces this new concept. The main purpose of this "new" value type for r-value is to have the capability to "expand" the life time of an r-value. 
+// a) C++11 introduces this new concept. The main purpose of this "new" value type for r-value is to have the capability to "expand" the life time of an 
+//    "ordinary" r-value --> instead of having the "expression" lifetime, it has the r-value reference lifetime. 
 // b) it is defined using a double ampersand like so (int&& rRef).It is most useful when we wish to use move semantics (instead of copy semantics).
+// c) Usually, in the case of a "normal" temporary object assignment, the temporary object will be destructed once the expression in which it is created is done.
+//    With r-value reference this is NOT the case. The r-value reference EXPANDS the lifetime of the temporary object untill the r-value reference itself goes 
+//    out of scope. 
 
 // 3) copy semantics Vs. move semantics:
 // -------------------------------------
@@ -21,8 +25,22 @@
 //    additional copy along with the already existing object. Sometimes it is useful or a must , yet sometimes it is redundant.
 // b) move semantics on the other hand, simply "transfers" the resources from one object to another - WITHOUT making a copy of the original object (that initially
 //    held the resources). 
+//
+// 4) move constructor and move assignment operator:
+// -------------------------------------------------
+// a) In contrast to theier counterpart copy ctor and copy assignment operator:
+//    # they will NOT create an additional instance of the object that is copied/assigned,
+//    YET they will "transfer" the ownership of the resources of the "original" object to the "new" owner. This reduces the need to CREATE (construct) an additional
+//    instance - which reduces both run-time and memory usage. 
+//    # they will NOT be generated automatically by the complier unless there are some set of rules that apply (most likely they wont).
+// b) When are the move constructor and move assignment called? 
+//    # those functions have been defined, and 
+//    # the argument for construction or assignment is an r-value. Most typically, this r-value will be a literal or temporary value.
+//    Rule: If you want a move constructor and move assignment that do moves, you’ll need to write them yourself.
+// c) Side Note: Sometimes, if we wish to return an object by value from a function, we can simply use a "regular" return statment of the local function's variable.
+//    This is the best practice, cause we simply allowing the compiler to perfomr the famous RVO optimization that does not include copying NOR moving the object.
 // 
-// 4) std::move
+// ) std::move
 // ------------
 // a) In order to be able to send (or receive) arguments an r-value reference we need to explicitly tell the compiler to do so.
 //    # First, offcourse, we need to define the argument (for a function for instance) as an r-value reference.
@@ -57,6 +75,7 @@ public:
 		{
 			delete m_pInt;
 		}
+
 		cout <<"MyMovedObj::~MyMovedObj" << endl;
 	}
 
@@ -73,14 +92,9 @@ public:
 		{
 			return *this;
 		}
-
-		if (this->m_pInt != nullptr)
-		{
-			delete this->m_pInt;
-		}
-
+		
+		delete this->m_pInt;	
 		this->m_pInt = new int(*(rhs.m_pInt));
-
 		cout << "MyMovedObj::operator= - assgined the value:" << *(rhs.m_pInt) << endl;
 		return *this;	
 	}
@@ -100,10 +114,9 @@ public:
 		{
 			return *this;
 		}
-		cout << "MyMovedObj::operator= " << endl;
-	
-		delete this->m_pInt;
 
+		cout << "MyMovedObj::operator=" << endl;	
+		delete this->m_pInt;
 		this->m_pInt = rRef.m_pInt;
 		rRef.m_pInt = nullptr;
 
@@ -137,11 +150,20 @@ ostream& operator<<(ostream& out, const MyMovedObj& obj)
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 
+void simpleRValueRefExample()
+{
+	cout << "simpleRValueRefExample - start" << endl;
+	MyMovedObj&& rvalRef = MyMovedObj(12);			// 2c)
+	cout << "simpleRValueRefExample - end" << endl;
+}
 
 int main(int argc, char** argv)
 {
-
 	cout << "main - start" << endl;
+
+	simpleRValueRefExample();
+
+	cout << "main - back from simpleRValueRefExample" << endl;
 	
 	MyMovedObj obj(12);
 	vector<MyMovedObj> vec;
