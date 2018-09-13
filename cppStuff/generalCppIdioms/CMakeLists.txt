@@ -8,9 +8,10 @@ project("cppStuff")
 
 message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within folder:${CMAKE_CURRENT_LIST_DIR}")
 
-# enable c++11
-set(CMAKE_CXX_STANDARD 11)
+# enable c++14
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # ======================================================================================================================================
 # disable specific warnings
@@ -73,6 +74,10 @@ file(GLOB_RECURSE MOVE_SEMANTICS_SRC
 file(GLOB_RECURSE UNIQUE_PTR_SRC
     "${CMAKE_CURRENT_LIST_DIR}/cpp11/uniquePtrImpl.cpp")
 
+# std::unique_ptr usages sources
+file(GLOB_RECURSE STD_UNIQUE_PTR_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/cpp11/uniquePtrUsage.cpp")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -103,6 +108,8 @@ add_executable(pointerToAmpersandExe ${POINTER_TO_AMPERSAND_EXAMPLE_SRC})
 add_executable(moveSemanticsExe ${MOVE_SEMANTICS_SRC})
 
 add_executable(uniqurPtrExe ${UNIQUE_PTR_SRC})
+
+add_executable(stdUniqurPtrUsageExe ${STD_UNIQUE_PTR_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
