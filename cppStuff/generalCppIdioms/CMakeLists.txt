@@ -67,7 +67,11 @@ file(GLOB_RECURSE POINTER_TO_AMPERSAND_EXAMPLE_SRC
 
 # move semantics sources
 file(GLOB_RECURSE MOVE_SEMANTICS_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/moveSemantics.cpp")
+    "${CMAKE_CURRENT_LIST_DIR}/cpp11/moveSemantics.cpp")
+
+# unique_ptr (my implementation) sources
+file(GLOB_RECURSE UNIQUE_PTR_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/cpp11/uniquePtrImpl.cpp")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
@@ -97,6 +101,8 @@ add_executable(objectCompositionAndAggragationExe ${COMPOSITION_AND_AGGRAGATION_
 add_executable(pointerToAmpersandExe ${POINTER_TO_AMPERSAND_EXAMPLE_SRC})
 
 add_executable(moveSemanticsExe ${MOVE_SEMANTICS_SRC})
+
+add_executable(uniqurPtrExe ${UNIQUE_PTR_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries

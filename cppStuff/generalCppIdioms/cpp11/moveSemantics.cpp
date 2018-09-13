@@ -40,16 +40,23 @@
 // c) Side Note: Sometimes, if we wish to return an object by value from a function, we can simply use a "regular" return statment of the local function's variable.
 //    This is the best practice, cause we simply allowing the compiler to perfomr the famous RVO optimization that does not include copying NOR moving the object.
 // 
-// ) std::move
+// 5) std::move
 // ------------
-// a) In order to be able to send (or receive) arguments an r-value reference we need to explicitly tell the compiler to do so.
+// a) In order to be able to send (or receive) arguments as r-value reference we need to explicitly tell the compiler to do so.
 //    # First, offcourse, we need to define the argument (for a function for instance) as an r-value reference.
-//    # Second, upon invoking this function, we must PROVIDE it an r-value reference. We can achieve that using the std::move method that will "convert" the sent
+//    # Second, upon invoking this function, we must PROVIDE it an r-value reference. We can achieve that using the std::move method that will "convert" (cast )the sent
 //      argument to be r-value reference.  
 // b) So, in short, std::move enables us to use l-values as r-values , for instance, when sending an object to a function, therefore invoking the move semantics instead
 //    of the copy semantics. 
 // c) Note that since C++11, we can simply use vec.emplace_back - which does the move semantics for us, so a good practice will be to ALWAYS insert elements to a
 //    std::vector using emplace_back() !!
+//
+// 6) Motivation to use std::move:
+// -------------------------------
+// The situations in which it will be usefull to use std::move (or move semantics) are the following (but not only):
+// a) We wish to transfer ownership of an std::uniuqe_ptr, which in its implementation, has the move semantics capabilities.It, by its definition, does NOT have copy
+//    semantics (this is why it is unique in the first place).
+// b) We wish to initialize a STL container with objects that are temporary and/or we do not care that after the initialization they will not be valid anymore.
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 
@@ -168,12 +175,12 @@ int main(int argc, char** argv)
 	MyMovedObj obj(12);
 	vector<MyMovedObj> vec;
 
-	// this insertion will invoke the copy ctor
+	// this insertion will invoke the copy ctor - cause obj is refered to as an l-value
 	vec.push_back(obj);
 
 	cout <<"main - after pushing obj via copy semantics obj is:" << obj << endl;	
 
-	// this insertion will invoke the move ctor
+	// this insertion will invoke the move ctor - cause std::move will cast obj to an r-value
 	vec.push_back(move(obj)); // 4c)
 
 	cout <<"main - after pushing obj via move semantics obj is:" << obj << endl;	
