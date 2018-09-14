@@ -5,15 +5,19 @@
 // ----------------------------------
 // 1) The unique_ptr MUST always be created on the STACK, i.e.- be an automatic variable. This is the only way to be sure that it will be deleted no matter what is 
 //    flow of the program.
-//
+//    NOTE: It can be created NOT on the stack, but it misses the point, so it is not a good practice.
 // 2) It implements move semantics - so it is not possible to copy ("share") the pointer.
-// 3) It is probably the best type of pointer to return from a factory method.
-// 4) In case your compiler is C++14 and on, it is prefered to create a unique_ptr using the std::make_uniuqe method.It is primarly best practice to use it against
+// 3) Returning std::unique_ptr from a function is OK. When it is passed from the calle to the caller - move semantics takes action and passes "ownership" of the 
+//    unique_ptr from the function to the unique_ptr that receives it (remeber that copy semantics are disabled for std::unique_ptr).It is probably the best type 
+//    of pointer to return from a factory method.
+//    NOTE:In case your compiler is C++14 and on, it is prefered to create a unique_ptr using the std::make_uniuqe method.It is primarly best practice to use it against
 //    excpetions issues during object constrcution.
-// 5) Returning std::unique_ptr from a function is OK. When it is passed from the calle to the caller - move semantics takes action and passes "ownership" of the 
-//    unique_ptr from the function to the unique_ptr that receives it (remeber that copy semantics are disabled for std::unique_ptr).
 // 6) When passing an std::unique_ptr to a function by value, the caller "loses" ownership on the pointer - i.e.- when the fucntion will return, the std::unique_ptr
-//    will no longer be valid anymore. Also note that, yopu MUST use std::move in order to pass the std::unique_ptr by value to the callee function.
+//    will no longer be valid anymore in the caller function (scope). Also note that, you MUST use std::move in order to pass the std::unique_ptr by value to the 
+//    callee function (again, there are no copy semantics here).This case is usually described as a "sink".
+// 7) It is also possible to pass an std::unique_ptr by reference, it is usually better practice to "just" pass the actual raw pointer (or reference). This approach 
+//    is better, cause in this case, the function can be called in an "agnostic" manner to the lifetime of the resource (being pointed by the std::unique_ptr).
+//    Doing so is best done using the get() method of the std::unique_ptr class.
 // 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -81,11 +85,10 @@ void illustrateUniquePtrMoveSemantics()	// 2)
 		cout << "illustrateUniquePtrMoveSemantics - up2 is NULL" << endl;
 	}
 
-	
 	cout << "illustrateUniquePtrMoveSemantics - end" << endl;
 }
 
-unique_ptr<string> getString()	// 5)
+unique_ptr<string> getString()	// 3)
 {
 	return make_unique<string>("calbas");
 }
@@ -93,6 +96,11 @@ unique_ptr<string> getString()	// 5)
 void passUniquePtrToFuncByVal(unique_ptr<MyObj> upMyObj)
 {
 	cout << "passUniquePtrToFuncByVal - MyObj is:" << *upMyObj << endl;
+}
+
+void getRawPtrFromUniquePtr(MyObj* rawPtr)
+{
+	cout << "getRawPtrFromUniquePtr - got:" << *rawPtr << endl;
 }
 
 // ===================================================================================================================================================================
@@ -123,7 +131,9 @@ int main(int argc, char** argv)
 
 		cout << "main - end of dummy scope" << endl;
 	}
-		
+
+	unique_ptr<MyObj> up3 = make_unique<MyObj>();
+	getRawPtrFromUniquePtr(up3.get());	// 7)
 	cout << "main - end" << endl;
 	return 0;
 }
