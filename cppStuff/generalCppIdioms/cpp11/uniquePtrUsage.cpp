@@ -18,6 +18,11 @@
 // 7) It is also possible to pass an std::unique_ptr by reference, it is usually better practice to "just" pass the actual raw pointer (or reference). This approach 
 //    is better, cause in this case, the function can be called in an "agnostic" manner to the lifetime of the resource (being pointed by the std::unique_ptr).
 //    Doing so is best done using the get() method of the std::unique_ptr class.
+// 8) When using std::unique_ptr as a class member you can be sure that when the class (composed) will get be destroyed, the class member held by the std::unique_ptr
+//    will be as well, EVEN if we do not explicitly do it in the composed class dtor (actually it behaves like a "scoped_ptr" where the scope is the lifetime of the
+//    composed class.
+//    NOTE: Just to be clear - if the composed class was NOT destroyed correctly (for any reason), than the rsource held by the std::unique_ptr will NOT be released
+//    as well. 
 // 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -38,6 +43,25 @@ public:
 		out << "MyObj::operator<<" << endl;
 		return out;
 	}
+};
+
+class ComposeClass
+{
+public:
+	ComposeClass()
+	{
+		m_up = make_unique<MyObj>();
+		cout << "ComposeClass::ComposeClass" << endl;
+	}
+
+	~ComposeClass()
+	{
+		cout << "ComposeClass::~ComposeClass" << endl;
+	}
+
+private:
+	unique_ptr<MyObj> m_up;
+
 };
 
 void illustrateUniquePtrMoveSemantics()	// 2)
@@ -103,6 +127,13 @@ void getRawPtrFromUniquePtr(MyObj* rawPtr)
 	cout << "getRawPtrFromUniquePtr - got:" << *rawPtr << endl;
 }
 
+void uniquePtrAsClassMember()	// 8)
+{
+	cout << "uniquePtrAsClassMember - start, creating a ComposeClass on the function stack" << endl;
+	ComposeClass cc;
+	cout << "uniquePtrAsClassMember - end" << endl;
+}
+
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 // main
@@ -134,6 +165,7 @@ int main(int argc, char** argv)
 
 	unique_ptr<MyObj> up3 = make_unique<MyObj>();
 	getRawPtrFromUniquePtr(up3.get());	// 7)
+	uniquePtrAsClassMember();
 	cout << "main - end" << endl;
 	return 0;
 }
