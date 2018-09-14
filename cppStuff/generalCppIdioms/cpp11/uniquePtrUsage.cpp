@@ -112,7 +112,6 @@ int main(int argc, char** argv)
 		cout << "main - start of dummy scope, creating a MyObj unique_ptr (along with an object)" << endl;
 		auto up2 = make_unique<MyObj>();
 		passUniquePtrToFuncByVal(move(up2));
-
 		if (up2)
 		{
 			cout << *up2 << endl;
