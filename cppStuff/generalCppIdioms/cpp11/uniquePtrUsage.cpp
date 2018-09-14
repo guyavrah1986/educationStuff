@@ -104,11 +104,9 @@ void passUniquePtrToFuncByVal(unique_ptr<MyObj> upMyObj)
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
-	
 	illustrateUniquePtrMoveSemantics();
 	unique_ptr<string> up1 = getString();
 	cout << "main - we got the string:" << (*up1) << " (from getString method)" << endl;
-
 
 	{	// 6)
 		cout << "main - start of dummy scope, creating a MyObj unique_ptr (along with an object)" << endl;
