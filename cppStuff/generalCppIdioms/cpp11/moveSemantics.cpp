@@ -64,6 +64,7 @@
 #include <string>
 #include <vector>
 #include <utility>	// for std::move
+#include <thread>
 
 using namespace std;
 
@@ -117,17 +118,21 @@ public:
 	// move assignment operator
 	MyMovedObj& operator=(MyMovedObj&& rRef)
 	{
+		cout << "MyMovedObj::operator=" << endl;	
 		if (&rRef == this)
 		{
 			return *this;
 		}
 
-		cout << "MyMovedObj::operator=" << endl;	
 		delete this->m_pInt;
 		this->m_pInt = rRef.m_pInt;
 		rRef.m_pInt = nullptr;
-
 		return *this;
+	}
+
+	int GetValue() const
+	{
+		return *m_pInt;
 	}
 
 	friend ostream& operator<<(ostream& out, const MyMovedObj& obj);
@@ -164,12 +169,39 @@ void simpleRValueRefExample()
 	cout << "simpleRValueRefExample - end" << endl;
 }
 
+void workerThreadFunc(MyMovedObj&& obj)
+{
+	cout << "workerThreadFunc - start, thread ID is:" << this_thread::get_id() << endl;
+	cout << "workerThreadFunc - got object with value:" << obj.GetValue() << endl;
+	cout << "workerThreadFunc - end, thread ID is:" << this_thread::get_id() << endl;
+}
+
+void movingObjectToStdThread()
+{
+	cout << "movingObjectToStdThread - start" << endl;
+	MyMovedObj obj(15);
+	thread th1(workerThreadFunc, move(obj));
+	th1.join();
+	cout << "movingObjectToStdThread - end" << endl;
+}
+
+void simpleMoveToAnotherFunction()
+{
+	cout << "simpleMoveToAnotherFunction - start, thread ID is:" << this_thread::get_id() << endl;
+	workerThreadFunc(move(MyMovedObj(9)));
+	cout << "simpleMoveToAnotherFunction - end, thread ID is:" << this_thread::get_id() << endl;
+}
+
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
-
+	cout << "\n \n \n \n" << endl;	
+	simpleMoveToAnotherFunction();
+	cout << "\n \n \n \n" << endl; 
+	movingObjectToStdThread();
+	cout << "\n \n \n \n" << endl; 
 	simpleRValueRefExample();
-
+	cout << "\n \n \n \n" << endl; 
 	cout << "main - back from simpleRValueRefExample" << endl;
 	
 	MyMovedObj obj(12);

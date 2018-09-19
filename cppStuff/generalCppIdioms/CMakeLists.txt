@@ -114,5 +114,6 @@ add_executable(stdUniqurPtrUsageExe ${STD_UNIQUE_PTR_SRC})
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
 # ======================================================================================================================================
-                 
-
+if (UNIX AND NOT APPLE)
+	target_link_libraries(moveSemanticsExe pthread)                 
+endif()
