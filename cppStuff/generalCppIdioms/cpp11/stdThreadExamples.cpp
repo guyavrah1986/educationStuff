@@ -1,6 +1,8 @@
 #include <iostream>
 #include <thread>
 
+#include "myMovedObj.h"
+
 using namespace std;
 
 void workerThreadFuncArgsByVal(int x, string str)
@@ -32,6 +34,9 @@ void workerThreadFuncArgsByRef(int& x, string& str)
 }
 
 
+// ===================================================================================================================================
+// ===================================================================================================================================
+
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
@@ -49,11 +54,30 @@ int main(int argc, char** argv)
 	th2.join();
 	cout << "main - AFTER calling workerThreadFuncArgsByConstRef, x is:" << x << " str is:" << str << endl;
 	cout << "\n \n \n" << endl;
-	
-	cout << "main - BEFORE calling workerThreadFuncArgsByRef" << endl;
-	thread th3(workerThreadFuncArgsByRef, ref(x), ref(str));
+
+	cout << "main - BEFORE calling workerThreadFuncArgsByConstRef(with std::ref(arg))" << endl;
+	thread th3(workerThreadFuncArgsByConstRef, ref(x), ref(str));
 	th3.join();
+	cout << "main - AFTER calling workerThreadFuncArgsByConstRef, x is:" << x << " str is:" << str << endl;
+	cout << "\n \n \n" << endl;
+	
+	cout << "main - BEFORE calling workerThreadFuncArgsByRef(with std::ref(arg))" << endl;
+	thread th4(workerThreadFuncArgsByRef, ref(x), ref(str));
+	th4.join();
 	cout << "main - AFTER calling workerThreadFuncArgsByRef, x is:" << x << " str is:" << str << endl;
+	cout << "\n \n \n" << endl;
+
+	cout << "main - BEFORE calling workerThreadFuncArgsByRef" << endl;
+	thread th5(workerThreadFuncArgsByRef, ref(x), ref(str));
+	th5.join();
+	cout << "main - AFTER calling workerThreadFuncArgsByRef, x is:" << x << " str is:" << str << endl;
+	cout << "\n \n \n" << endl;
+
+	MyMovedObj obj(12);
+	cout << "main - BEFORE calling MyMovedObj::SetValue" << obj << endl;
+	thread th6(&MyMovedObj::SetValue, &obj, 17);
+	th6.join();
+	cout << "main - AFTER calling MyMovedObj::SetValue" << obj << endl;
 
 	cout << "main - end" << endl;
 	return 0;
