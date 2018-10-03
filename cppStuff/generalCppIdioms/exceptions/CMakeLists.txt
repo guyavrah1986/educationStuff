@@ -33,10 +33,13 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/stdThreadRaiiWrapper)
 # group all source files of the executable
 # ======================================================================================================================================
 
-# virtual table explantation sources
+# main sources
 file(GLOB_RECURSE MAIN_SRC
     "${CMAKE_CURRENT_LIST_DIR}/main.cpp")
 
+# throwing excpetion from ctor sources
+file(GLOB_RECURSE THROW_EXCEPTION_FROM_CTOR_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/throwExcpetionFromCtor.cpp")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
@@ -49,6 +52,8 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/stdThreadRaiiWrapper ${CMAKE_CURRENT_
 # create the main executable (and samples as well)
 # ======================================================================================================================================
 add_executable(stdThreadRaiiClassExampleExe ${MAIN_SRC})
+
+add_executable(throwExceptionFromCtorExampleExe ${THROW_EXCEPTION_FROM_CTOR_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
