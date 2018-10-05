@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-project("cppStuff")
+project("generalCppIdioms")
 
 message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within folder:${CMAKE_CURRENT_LIST_DIR}")
 
@@ -65,7 +65,12 @@ file(GLOB_RECURSE COMPOSITION_AND_AGGRAGATION_EXAMPLE_SRC
 # pointer to ampersand example sources
 file(GLOB_RECURSE POINTER_TO_AMPERSAND_EXAMPLE_SRC
     "${CMAKE_CURRENT_LIST_DIR}/pointerToAmpersand.cpp")
-
+	
+# g++ bug example sources
+file(GLOB_RECURSE GPP_BUG_EXAMPLE_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/g++Bug/*.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/g++Bug/*.h")
+	
 # move semantics sources
 file(GLOB_RECURSE MOVE_SEMANTICS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/cpp11/moveSemantics.cpp")
@@ -77,7 +82,8 @@ file(GLOB_RECURSE UNIQUE_PTR_SRC
 # std::unique_ptr usages sources
 file(GLOB_RECURSE STD_UNIQUE_PTR_SRC
     "${CMAKE_CURRENT_LIST_DIR}/cpp11/uniquePtrUsage.cpp")
-
+	
+	
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
@@ -110,6 +116,8 @@ add_executable(moveSemanticsExe ${MOVE_SEMANTICS_SRC})
 add_executable(uniqurPtrExe ${UNIQUE_PTR_SRC})
 
 add_executable(stdUniqurPtrUsageExe ${STD_UNIQUE_PTR_SRC})
+
+add_executable(baseClassWithPureVirtualFunctionsExe ${GPP_BUG_EXAMPLE_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
