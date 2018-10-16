@@ -57,12 +57,20 @@ Result CRsrcMgr::NewAppRsrcCreated(IN const char* uri, IN SpM2mRsrcValue* pValue
 
 Result CRsrcMgr::createLwm2mRsrc(IN const char* uri, IN bool bInternalCreated, IN EnRsrcType rsrcType)
 {
+	if (uri == nullptr)
+	{
+		cerr << "CRsrcMgr::createLwm2mRsrc - got an invalid URI" << endl;
+		return Result(ErrorCode::SP_M2M_ERROR_CODE_GENERAL_FAUILRE);
+	}
+
 	cout << "CRsrcMgr::createLwm2mRsrc - got uri:" << uri << endl;
 	const size_t numOfLevelsLwm2m = 3;
-	const char* arr [numOfLevelsLwm2m] = {'\0'};
+	//const char* arr [numOfLevelsLwm2m] = {'\0'};
 
 	// remove the constness of uri
 	const string origUri(uri);
+
+	/*
 	arr[0] = strtok(const_cast<char*>(uri),"/");
 	if (arr[0] == NULL)
 	{
@@ -86,6 +94,9 @@ Result CRsrcMgr::createLwm2mRsrc(IN const char* uri, IN bool bInternalCreated, I
 
 	// there are 3 valid "levels" of resource URI - add them
 	return addLwm2mRsrsc(origUri, arr, bInternalCreated, rsrcType);
+	*/
+
+	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
 }
 
 Result CRsrcMgr::addLwm2mRsrsc(IN const string& uri, IN const char* arr[], IN bool bInternalCreated, IN EnRsrcType rsrcType)

@@ -109,5 +109,8 @@ struct node* reverseLinkedListRecursive(const struct node* head)
 	return ret;
 }
 
+void reverseLinkedListIterative(struct node** head)
+{
+	printf("reverseLinkedListIterative - start \n");
 
-
+}

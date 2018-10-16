@@ -18,11 +18,12 @@
 // 7) It is also possible to pass an std::unique_ptr by reference, it is usually better practice to "just" pass the actual raw pointer (or reference). This approach 
 //    is better, cause in this case, the function can be called in an "agnostic" manner to the lifetime of the resource (being pointed by the std::unique_ptr).
 //    Doing so is best done using the get() method of the std::unique_ptr class.
-// 8) When using std::unique_ptr as a class member you can be sure that when the class (composed) will get be destroyed, the class member held by the std::unique_ptr
-//    will be as well, EVEN if we do not explicitly do it in the composed class dtor (actually it behaves like a "scoped_ptr" where the scope is the lifetime of the
-//    composed class.
-//    NOTE: Just to be clear - if the composed class was NOT destroyed correctly (for any reason), than the rsource held by the std::unique_ptr will NOT be released
-//    as well. 
+// 8) When using std::unique_ptr as a class member you can be sure that when the class (composed) will be destroyed, the class member held by the std::unique_ptr
+//    will be as well, EVEN if we do not explicitly do it in the composed class dtor.
+//    NOTES:
+//    - actually it (the class member held by the std::unique_ptr) behaves like a "scoped_ptr" where the scope is the lifetime of the composed class.
+//    - Just to be clear - if the composed class was NOT destroyed correctly (i.e.- its destreuctor was not invoked) for any reason, than the resource held by the
+//      std::unique_ptr will NOT be released as well. 
 // 
 // =====================================================================================================================================================================
 // =====================================================================================================================================================================
