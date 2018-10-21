@@ -3,7 +3,7 @@
 #include <list>
 
 #include "coreClient.h"
-#include "globalHeader.h"
+#include "../globalHeader.h"
 
 class CCoreMgr
 {

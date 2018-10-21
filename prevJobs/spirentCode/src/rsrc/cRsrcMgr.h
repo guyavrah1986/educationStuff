@@ -4,7 +4,7 @@
 #include <unordered_map>
 
 #include "rsrcMgr.h"
-#include "cStatsCollectedBase.h"
+#include "../statsModule/cStatsCollectedBase.h"
 
 class CRsrcMgr : public IRsrcMgr
 {

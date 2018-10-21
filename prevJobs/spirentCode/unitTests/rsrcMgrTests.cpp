@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "rsrcMgrTests.h"
-#include "../src/cRsrcMgr.h"
-#include "../src/floatRsrc.h"
+#include "../src/rsrc/cRsrcMgr.h"
+#include "../src/rsrc/floatRsrc.h"
 
 using namespace std;
 

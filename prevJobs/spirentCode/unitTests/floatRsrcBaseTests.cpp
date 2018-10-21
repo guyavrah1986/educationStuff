@@ -2,7 +2,7 @@
 #include <cstring>
 
 #include "floatRsrcBaseTests.h"
-#include "../src/floatRsrc.h"
+#include "../src/rsrc/floatRsrc.h"
 
 using namespace std;
 

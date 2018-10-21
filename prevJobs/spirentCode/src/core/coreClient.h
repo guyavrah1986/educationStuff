@@ -2,7 +2,7 @@
 
 #include <list>
 
-#include "adapterMgr.h"
+#include "../adapter/adapterMgr.h"
 
 class CCoreClient
 {

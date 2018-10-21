@@ -1,10 +1,11 @@
 #include <iostream>
 
 #include "coreMgr.h"
-#include "globalHeader.h"
+#include "../src/globalHeader.h"
 
-#include "cStatsCollectedBase.h"
-#include "cStatsCollectedCounter.h"
+#include "../src/statsModule/cStatsCollectedBase.h"
+#include "../src/statsModule/cStatsCollectedCounter.h"
+
 
 using namespace std;
 
