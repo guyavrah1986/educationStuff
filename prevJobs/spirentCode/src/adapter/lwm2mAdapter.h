@@ -1,8 +1,8 @@
 #pragma once
 
-#include "adapterProtocol.h"
+#include "baseAdapterProtocol.h"
 
-class CAdapterLwm2m : public IAdapProtocol
+class CAdapterLwm2m : public BaseAdapProtocol
 {
 	public:
 	CAdapterLwm2m();

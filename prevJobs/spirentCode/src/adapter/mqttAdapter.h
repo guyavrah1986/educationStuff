@@ -1,8 +1,8 @@
 #pragma once
 
-#include "adapterProtocol.h"
+#include "baseAdapterProtocol.h"
 
-class CAdapterMqtt : public IAdapProtocol
+class CAdapterMqtt : public BaseAdapProtocol
 {
 	public:
 	CAdapterMqtt();

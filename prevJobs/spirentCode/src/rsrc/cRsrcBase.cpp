@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "cRsrcBase.h"
+#include "floatRsrc.h"
 
 using namespace std;
 
@@ -22,4 +23,21 @@ SpEnRsrcType CRsrcBase::AdapGetRsrcType() const
 {
 	cout << "CRsrcBase::AdapGetRsrcType" << endl;
 	return m_rsrcType;
+}
+
+// Factory method to create resources of different types.
+// Change is required only in this function to add a creation option for
+// a new resource type
+CRsrcBase* CRsrcBase::Create(IN const char* rsrcUri,
+							 IN bool isInternalCreated,
+							 IN const SpEnRsrcType rsrcType)
+{
+	switch (rsrcType)
+	{
+	case SP_M2M_RSRC_TYPE_FLOAT:cout << "CRsrcBase::Create - creating FLOAT resource type" << endl;
+								return new CFloatRsrc(rsrcUri, isInternalCreated);
+
+	default:cout << "CRsrcBase::Create - got an invalid resource type, return NULL" << endl;
+			return NULL;
+	}
 }

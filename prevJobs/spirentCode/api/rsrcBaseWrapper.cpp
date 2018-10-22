@@ -9,7 +9,7 @@ struct SpM2mRsrcBase
  
 struct SpM2mRsrcBase* SpM2mCreateResource(IN const char* pRsrcUri,
 										  IN SpEnRsrcType rsrcType,
-										  IN bool bInternalCreated)
+										  IN EnProtocolType protocolType)
 {
 	struct SpM2mRsrcBase* p = (typeof p)malloc(sizeof(*p));
 

@@ -3,7 +3,7 @@
 #include <map>
 #include <list>
 
-#include "adapterProtocol.h"
+#include "baseAdapterProtocol.h"
 
 class CAdapterMgr
 {
@@ -12,9 +12,9 @@ class CAdapterMgr
 	virtual ~CAdapterMgr();
 
 	// class specific "interface"
-	virtual IAdapProtocol* GetAdapByProtocolType(EnProtocolType protocolType) const;
+	virtual BaseAdapProtocol* GetAdapByProtocolType(EnProtocolType protocolType) const;
 	virtual SdkConnection* GetConnectionByProtocolType(EnProtocolType protocolType) const;
 
 	private:
-	std::map<EnProtocolType, IAdapProtocol*> m_protocolAdaptersMap;
+	std::map<EnProtocolType, BaseAdapProtocol*> m_protocolAdaptersMap;
 };
