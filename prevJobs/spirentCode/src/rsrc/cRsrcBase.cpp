@@ -4,7 +4,7 @@
 
 using namespace std;
 
-CRsrcBase::CRsrcBase(IN const char* rsrcUri, IN const EnRsrcType rsrcType, IN bool internalCreated)
+CRsrcBase::CRsrcBase(IN const char* rsrcUri, IN const SpEnRsrcType rsrcType, IN bool internalCreated)
 	: m_rsrcUri(rsrcUri ? rsrcUri : string())
 	, m_rsrcType(rsrcType)
 	, m_internalCreated(internalCreated)
@@ -18,7 +18,7 @@ CRsrcBase::~CRsrcBase()
 	cout << "CRsrcBase::~CRsrcBase" << endl;
 }
 
-EnRsrcType CRsrcBase::AdapGetRsrcType() const
+SpEnRsrcType CRsrcBase::AdapGetRsrcType() const
 {
 	cout << "CRsrcBase::AdapGetRsrcType" << endl;
 	return m_rsrcType;

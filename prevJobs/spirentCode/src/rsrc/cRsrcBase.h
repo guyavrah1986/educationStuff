@@ -7,13 +7,13 @@
 class CRsrcBase : public IAdapAppRsrcFunc
 {
 public:
-		CRsrcBase(IN const char* rsrcUri, IN const EnRsrcType rsrcType, IN bool internalCreated);
+		CRsrcBase(IN const char* rsrcUri, IN const SpEnRsrcType rsrcType, IN bool internalCreated);
 		virtual ~CRsrcBase();
-		virtual EnRsrcType AdapGetRsrcType() const;
+		virtual SpEnRsrcType AdapGetRsrcType() const;
 
 
 private:
 		const std::string m_rsrcUri;
-		EnRsrcType m_rsrcType;
+		SpEnRsrcType m_rsrcType;
 		bool m_internalCreated;
 };

@@ -17,7 +17,7 @@ CRsrcMgr::~CRsrcMgr()
 	cout << "CRsrcMgr::~CRsrcMgr" << endl;
 }
 
-Result CRsrcMgr::CreateRsrc(IN const char* strUri, IN EnRsrcType rsrcType, IN EnProtocolType protocolType, IN bool bInternalCreated, INOUT CRsrcBase*& pRsrc)
+Result CRsrcMgr::CreateRsrc(IN const char* strUri, IN SpEnRsrcType rsrcType, IN EnProtocolType protocolType, IN bool bInternalCreated, INOUT CRsrcBase*& pRsrc)
 {
 	cout << "CRsrcMgr::CreateRsrc" << endl;
 	if (strUri == nullptr)
@@ -55,7 +55,7 @@ Result CRsrcMgr::NewAppRsrcCreated(IN const char* uri, IN SpM2mRsrcValue* pValue
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
 }
 
-Result CRsrcMgr::createLwm2mRsrc(IN const char* uri, IN bool bInternalCreated, IN EnRsrcType rsrcType)
+Result CRsrcMgr::createLwm2mRsrc(IN const char* uri, IN bool bInternalCreated, IN SpEnRsrcType rsrcType)
 {
 	if (uri == nullptr)
 	{
@@ -99,7 +99,7 @@ Result CRsrcMgr::createLwm2mRsrc(IN const char* uri, IN bool bInternalCreated, I
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
 }
 
-Result CRsrcMgr::addLwm2mRsrsc(IN const string& uri, IN const char* arr[], IN bool bInternalCreated, IN EnRsrcType rsrcType)
+Result CRsrcMgr::addLwm2mRsrsc(IN const string& uri, IN const char* arr[], IN bool bInternalCreated, IN SpEnRsrcType rsrcType)
 {
 	cout << "CRsrcMgr::addLwm2mRsrsc - about to create Lwm2m resources for resource:" << uri << endl;
 	const size_t numOfLevelsLwm2m = 3;

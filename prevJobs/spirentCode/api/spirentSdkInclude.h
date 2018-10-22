@@ -16,7 +16,7 @@ enum EnProtocolType
 	SP_M2M_PROTOCOL_TYPE_MQTT
 };
 
-enum EnRsrcType
+enum SpEnRsrcType
 {
 	SP_M2M_RSRC_TYPE_PARENT_RSRC = 0,
 	SP_M2M_RSRC_TYPE_INT,

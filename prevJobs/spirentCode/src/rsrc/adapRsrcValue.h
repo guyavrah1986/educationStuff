@@ -1,12 +1,12 @@
 #pragma once
 
-#include "globalHeader.h"
+#include "../globalHeader.h"
 
 typedef struct _SpM2mRsrcValue SpM2mRsrcValue;
 
 struct _SpM2mRsrcValue
 {
-	EnRsrcType type;
+	SpEnRsrcType type;
 	void* value;
 };
 
