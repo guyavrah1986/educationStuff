@@ -28,11 +28,11 @@ class SdkConnection
 		, m_socketNum(socketNum)
 		, m_ipAddress(ipAddress)
 	{
-		std::cout << "SdkConnection::SdkConnection - setting m_ipAddress to:" << m_ipAddress << std::endl;
+		//std::cout << "SdkConnection::SdkConnection - setting m_ipAddress to:" << m_ipAddress << std::endl;
 	}
 	~SdkConnection()
 	{
-		std::cout << "SdkConnection::~SdkConnection" << std::endl;
+		//std::cout << "SdkConnection::~SdkConnection" << std::endl;
 	}	
 	
 	private:

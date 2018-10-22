@@ -9,6 +9,7 @@ class CCoreMgr
 {
 	public:
 	static CCoreMgr* GetInstance();
+	void DestroyInstance();
 	~CCoreMgr();
 
 	CCoreClient* CreateClient(const std::list<EnProtocolType>& protocolsList);

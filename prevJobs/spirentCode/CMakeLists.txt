@@ -37,6 +37,7 @@ file(GLOB_RECURSE SPIRENT_CODE_EXE_SRC
 # SDK APIs
 file(GLOB_RECURSE SPIRENT_SDK_API_SRC
     "${CMAKE_CURRENT_LIST_DIR}/api/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/api/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/api/*.h")
 
 # ======================================================================================================================================

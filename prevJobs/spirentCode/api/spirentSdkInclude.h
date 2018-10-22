@@ -4,11 +4,10 @@
 #define OUT
 #define INOUT
 
-
 enum SpStatus
 {
-	SP_M2M_SUCCESS = 0,
-	SP_M2M_GENERAL_FAUILRE
+	SP_M2M_STATUS_SUCCESS = 0,
+	SP_M2M_STATUS_GENERAL_FAUILRE
 };
 
 enum EnProtocolType
