@@ -9,9 +9,9 @@ public:
 	virtual ~CFloatRsrc();
 
 	// IAdapRsrcValue interface method
-	virtual Result AdapGetRsrcValue(INOUT SpM2mRsrcValue* value); 		//server ask to read the rsrc value.
-	virtual Result AdapSetRsrcValue(IN SpM2mRsrcValue* value);			//server ask to write the rsrc value.
-	virtual Result AdapExecRsrc();										//server ask to perform execution related to the rsrc.
+	virtual Result AdapGetRsrcValue(INOUT SpM2mRsrcValue* value);
+	virtual Result AdapSetRsrcValue(IN SpM2mRsrcValue* value);
+	virtual Result AdapExecRsrc();
 
 private:
 	double m_value;

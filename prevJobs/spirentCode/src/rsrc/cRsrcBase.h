@@ -4,12 +4,13 @@
 
 #include "adapRsrcValue.h"
 
-class CRsrcBase
+class CRsrcBase : public IAdapAppRsrcFunc
 {
 public:
 		CRsrcBase(IN const char* rsrcUri, IN const EnRsrcType rsrcType, IN bool internalCreated);
 		virtual ~CRsrcBase();
 		virtual EnRsrcType AdapGetRsrcType() const;
+
 
 private:
 		const std::string m_rsrcUri;

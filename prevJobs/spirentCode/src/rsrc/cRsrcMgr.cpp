@@ -109,12 +109,12 @@ Result CRsrcMgr::addLwm2mRsrsc(IN const string& uri, IN const char* arr[], IN bo
 	cout << "3rd level resource uri is:" << arr[2] << endl;
 
 	// 1st level resource is a "grandfather" resource
-	CRsrcBase* firstLevelRsrc = new CRsrcBase(arr[0], SP_M2M_RSRC_TYPE_PARENT_RSRC, true);
-	m_rsrcMap.insert(pair<string, CRsrcBase*>(arr[0], firstLevelRsrc));
+	//CRsrcBase* firstLevelRsrc = new CRsrcBase(arr[0], SP_M2M_RSRC_TYPE_PARENT_RSRC, true);
+	//m_rsrcMap.insert(pair<string, CRsrcBase*>(arr[0], firstLevelRsrc));
 
 	// 2nd level resource is a "father" resource
-	CRsrcBase* secondLevelRsrc = new CRsrcBase(arr[1], SP_M2M_RSRC_TYPE_PARENT_RSRC, true);
-	m_rsrcMap.insert(pair<string, CRsrcBase*>(arr[1], secondLevelRsrc));
+	//CRsrcBase* secondLevelRsrc = new CRsrcBase(arr[1], SP_M2M_RSRC_TYPE_PARENT_RSRC, true);
+	//m_rsrcMap.insert(pair<string, CRsrcBase*>(arr[1], secondLevelRsrc));
 
 	// 3rd level resource is a concrete resource
 	switch (rsrcType)

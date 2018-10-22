@@ -10,12 +10,12 @@ struct _SpM2mRsrcValue
 	void* value;
 };
 
-class IAdapRsrcValue
+class IAdapAppRsrcFunc
 {
 public:
 	virtual Result AdapGetRsrcValue(INOUT SpM2mRsrcValue* value) = 0; 		// server ask to read the rsrc value.
 	virtual Result AdapSetRsrcValue(IN SpM2mRsrcValue* value) = 0;			// server ask to write the rsrc value.
 	virtual Result AdapExecRsrc() = 0;										// server ask to perform execution related to the rsrc.
 
-	virtual ~IAdapRsrcValue() {}
+	virtual ~IAdapAppRsrcFunc() {}
 };

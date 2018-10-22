@@ -20,7 +20,8 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../src)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../src
+		    ${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests)
 
 # ======================================================================================================================================
 # group all source files of the executable
@@ -28,8 +29,10 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/../src)
 
 # CRsrcBase unit tests
 file(GLOB_RECURSE FLOAT_RSRC_BASE_UNIT_TESTS_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/floatRsrcBaseTests.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/floatRsrcBaseTests.h")
+    "${CMAKE_CURRENT_LIST_DIR}/floatRsrcUnitTests/floatRsrcBaseTests.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/floatRsrcUnitTests/floatRsrcBaseTests.h"
+    "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.h"
+    "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c")
 
 # CRsrcMgr unit tests
 file(GLOB_RECURSE RSRC_MGR_UNIT_TESTS_SRC
@@ -40,8 +43,6 @@ file(GLOB_RECURSE RSRC_MGR_UNIT_TESTS_SRC
 # Create dependencies libraries
 # ======================================================================================================================================
 
-# Create the memory leak detector library
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/memoryLeakDetector ${CMAKE_CURRENT_LIST_DIR}/../../../../../build/unitTests/memoryLeakDetector)
 
 # ======================================================================================================================================
 # create the unit tests executables
@@ -55,9 +56,9 @@ add_executable(rsrcMgrTestsUnitTestsExe ${RSRC_MGR_UNIT_TESTS_SRC})
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
 
-target_link_libraries(floatRsrcBaseTestsUnitTestsExe gtest gtest_main memoryLeakDetectorLib spirentLib)
+target_link_libraries(floatRsrcBaseTestsUnitTestsExe gtest gtest_main spirentLib)
 
-target_link_libraries(rsrcMgrTestsUnitTestsExe gtest gtest_main memoryLeakDetectorLib spirentLib)
+target_link_libraries(rsrcMgrTestsUnitTestsExe gtest gtest_main spirentLib)
 
 # ======================================================================================================================================
 # GTest realted settings

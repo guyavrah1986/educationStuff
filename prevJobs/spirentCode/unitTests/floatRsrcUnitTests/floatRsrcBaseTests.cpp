@@ -3,12 +3,22 @@
 
 #include "floatRsrcBaseTests.h"
 #include "../src/rsrc/floatRsrc.h"
+#include "mallocAndFreeWrappers.c"
 
 using namespace std;
+
+int g_mallocAndFreeInitialized = 0;
 
 CFloatRsrcBaseTests::CFloatRsrcBaseTests()
 {
 	cout << "CFloatRsrcBaseTests::CFloatRsrcBaseTests" << endl;
+	if (g_mallocAndFreeInitialized == 0)
+	{
+		cout << "CFloatRsrcBaseTests::CFloatRsrcBaseTests - initializing malloc and free hooks"
+				" for unit testing memory leak detection" << endl;
+		g_mallocAndFreeInitialized++;
+		my_init_hook();
+	}
 }
 
 CFloatRsrcBaseTests::~CFloatRsrcBaseTests()
@@ -29,6 +39,16 @@ void CFloatRsrcBaseTests::TearDown()
 // =====================================================================================================================
 // GTests for this class
 // =====================================================================================================================
+TEST_F(CFloatRsrcBaseTests,test1)
+{
+	cout << "CFloatRsrcBaseTests::test1" << endl;
+
+	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
+		{
+			// some logic to test
+		}
+		MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
+}
 
 TEST_F(CFloatRsrcBaseTests, createRsrcBaseOnTheStack)
 {

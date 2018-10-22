@@ -1,6 +1,6 @@
 #pragma once
 
-#include "memoryLeakDetector/memoryLeakDetectorBase.h"
+#include "gtest/gtest.h"
 
 class CRsrcMgrTests : public ::testing::Test
 {

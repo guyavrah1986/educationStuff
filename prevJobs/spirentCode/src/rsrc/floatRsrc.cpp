@@ -21,7 +21,7 @@ Result CFloatRsrc::AdapGetRsrcValue(INOUT SpM2mRsrcValue* value)
 	cout << "CFloatRsrc::AdapGetRsrcValue" << endl;
 	if (value == nullptr)
 	{
-		return 	Result(ErrorCode::SP_M2M_ERROR_CODE_GENERAL_FAUILRE);
+		return Result(ErrorCode::SP_M2M_ERROR_CODE_GENERAL_FAUILRE);
 	}
 
 	value->type = SP_M2M_RSRC_TYPE_FLOAT;

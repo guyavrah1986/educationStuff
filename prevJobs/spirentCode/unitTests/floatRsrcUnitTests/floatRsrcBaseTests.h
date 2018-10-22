@@ -1,8 +1,8 @@
 #pragma once
 
-#include "memoryLeakDetector/memoryLeakDetectorBase.h"
+#include "gtest/gtest.h"
 
-class CFloatRsrcBaseTests : public MemoryLeakDetectorBase
+class CFloatRsrcBaseTests :  public ::testing::Test
 {
 protected:
 
