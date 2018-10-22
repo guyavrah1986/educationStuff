@@ -14,10 +14,6 @@ CCoreMgr::CCoreMgr() : m_numOfClients(0)
 CCoreMgr::~CCoreMgr()
 {
 	cout << "CCoreMgr::~CCoreMgr" << endl;
-	if (m_instance != nullptr)
-	{
-		delete m_instance;
-	}
 }
 
 CCoreMgr* CCoreMgr::GetInstance()
