@@ -21,7 +21,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-include_directories(${CMAKE_CURRENT_LIST_DIR}/src/core)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/src/core
+		    ${CMAKE_CURRENT_LIST_DIR}/api)
 
 
 # ======================================================================================================================================
@@ -30,7 +31,7 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/src/core)
 
 # executable files
 file(GLOB_RECURSE SPIRENT_CODE_EXE_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/samples/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/samples/*.c"
     "${CMAKE_CURRENT_LIST_DIR}/samples/*.h")
 
 # SDK APIs
