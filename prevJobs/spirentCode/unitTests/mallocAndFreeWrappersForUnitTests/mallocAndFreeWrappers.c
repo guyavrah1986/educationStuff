@@ -1,5 +1,7 @@
 #include <malloc.h>
 
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 static size_t g_numBytesAllocated = 0;
 
 static size_t g_numBytesAllocatedBeforeTest = 0;

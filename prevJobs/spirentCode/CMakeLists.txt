@@ -33,13 +33,18 @@ file(GLOB_RECURSE SPIRENT_CODE_EXE_SRC
     "${CMAKE_CURRENT_LIST_DIR}/samples/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/samples/*.h")
 
+# SDK APIs
+file(GLOB_RECURSE SPIRENT_SDK_API_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/api/*.c"
+    "${CMAKE_CURRENT_LIST_DIR}/api/*.h")
+
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
 
 
 # disable specific warnings (intentionally stated AFTER the unitTest --> GTests framework ahs TONS of warnings which slows the compilation process)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option -Wno-pmf-conversions")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option -Wno-pmf-conversions -Wno-deprecated-declarations")
 
 # the "main" SDK library (spirentLib)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src ${CMAKE_CURRENT_LIST_DIR}/build/src)
@@ -52,7 +57,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/unitTests ${CMAKE_CURRENT_LIST_DIR}/b
 # create the main executable (and samples as well)
 # ======================================================================================================================================
    
-add_executable(spirentCodeExe ${SPIRENT_CODE_EXE_SRC})
+add_executable(spirentCodeExe ${SPIRENT_CODE_EXE_SRC} ${SPIRENT_SDK_API_SRC})
 
 # ======================================================================================================================================
 # link the executable with all relevant libraries
