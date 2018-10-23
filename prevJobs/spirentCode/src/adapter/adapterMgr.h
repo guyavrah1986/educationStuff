@@ -13,7 +13,7 @@ class CAdapterMgr
 
 	// public interface
 	SpStatus AddProtocolAdapter(IN const EnProtocolType protocolType);
-	BaseAdapProtocol* GetAdapByProtocolType(IN EnProtocolType protocolType) const;
+	BaseAdapProtocol* GetAdapByProtocolType(IN const EnProtocolType protocolType) const;
 	virtual SdkConnection* GetConnectionByProtocolType(EnProtocolType protocolType) const;
 
 	private:

@@ -27,12 +27,17 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	mainLoop();
+	enum SpStatus res = SpM2mCreateAdaptor(pCoreClient, SP_M2M_PROTOCOL_TYPE_LWM2M);
+	if (res != SP_M2M_STATUS_SUCCESS)
+	{
+		printf("main - was unable to add adaptor of type %d \n", SP_M2M_PROTOCOL_TYPE_LWM2M);
+	}
 
+	mainLoop();
 
 	printf("main - done with main loop, about to destroy SpM2mCoreClient \n");
 
-	enum SpStatus res = SpM2mDestroyCoreClient(pCoreClient);
+	res = SpM2mDestroyCoreClient(pCoreClient);
 	if (res != SP_M2M_STATUS_SUCCESS)
 	{
 		printf("main - was unable to destroy SpM2mCoreClient correctly \n");

@@ -10,7 +10,7 @@ class CCoreClient
 	CCoreClient();
 	~CCoreClient();
 
-	const CAdapterMgr& GetAdapMgr() const;
+	CAdapterMgr& GetAdapMgr();
 
 	
 	private:

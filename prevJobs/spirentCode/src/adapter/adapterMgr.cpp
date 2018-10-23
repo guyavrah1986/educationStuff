@@ -34,9 +34,19 @@ SpStatus CAdapterMgr::AddProtocolAdapter(IN const EnProtocolType protocolType)
 	return addProtocolAdapterToMap(protocolType, protoclAdapter);
 }
 
-BaseAdapProtocol* CAdapterMgr::GetAdapByProtocolType(EnProtocolType protocolType) const
+BaseAdapProtocol* CAdapterMgr::GetAdapByProtocolType(IN const EnProtocolType protocolType) const
 {
-	return nullptr;
+	auto search = m_protocolAdaptersMap.find(protocolType);
+	if (search != m_protocolAdaptersMap.end())
+	{
+	        return search->second;
+    }
+	else
+	{
+		cout << "CAdapterMgr::GetAdapByProtocolType - adaptor with protocol type:" << static_cast<int>(protocolType)
+				<< " was not found, returning NULL" << endl;
+		return NULL;
+	}
 }
 
 SdkConnection* CAdapterMgr::GetConnectionByProtocolType(EnProtocolType protocolType) const

@@ -122,6 +122,13 @@ enum SpStatus SpM2mCreateAdaptor(IN struct SpM2mCoreClient* pCoreClient, IN enum
     	return SP_M2M_STATUS_GENERAL_FAUILRE;
     }
 
+    SpStatus res = p->GetAdapMgr().AddProtocolAdapter(protocolType);
+    if (res != SP_M2M_STATUS_SUCCESS)
+    {
+    	printf("SpM2mCreateAdaptor - was unable to create protocol adaptor of type %d \n", protocolType);
+    	return SP_M2M_STATUS_GENERAL_FAUILRE;
+    }
+
 	return SP_M2M_STATUS_SUCCESS;
 }
 
