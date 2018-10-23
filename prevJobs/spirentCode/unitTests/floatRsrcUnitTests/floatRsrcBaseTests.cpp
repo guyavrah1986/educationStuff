@@ -39,17 +39,6 @@ void CFloatRsrcBaseTests::TearDown()
 // =====================================================================================================================
 // GTests for this class
 // =====================================================================================================================
-TEST_F(CFloatRsrcBaseTests,test1)
-{
-	cout << "CFloatRsrcBaseTests::test1" << endl;
-
-	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
-		{
-			// some logic to test
-		}
-		MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
-}
-
 TEST_F(CFloatRsrcBaseTests, createRsrcBaseOnTheStack)
 {
 	cout << "CFloatRsrcBaseTests::createRsrcBaseOnTheStack - start" << endl;

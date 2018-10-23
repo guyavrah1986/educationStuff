@@ -38,9 +38,30 @@ void CAdapterMgrTests::TearDown()
 // =====================================================================================================================
 // GTests for this class
 // =====================================================================================================================
-TEST_F(CAdapterMgrTests,test1)
+TEST_F(CAdapterMgrTests,addingSingleAdapter)
 {
-	cout << "CAdapterMgrTests::test1" << endl;
-	CAdapterMgr adapterMgr;
+	cout << "CAdapterMgrTests::addingSingleAdapter" << endl;
+	SpStatus res = SP_M2M_STATUS_GENERAL_FAUILRE;
+	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
+	{
+		CAdapterMgr adapterMgr;
+		res = adapterMgr.AddProtocolAdapter(SP_M2M_PROTOCOL_TYPE_LWM2M);
+		EXPECT_EQ(res, SP_M2M_STATUS_SUCCESS);
+	}
+	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
 }
 
+TEST_F(CAdapterMgrTests,addingSameAdapterTwice)
+{
+	cout << "CAdapterMgrTests::addingSameAdapterTwice" << endl;
+	SpStatus res = SP_M2M_STATUS_GENERAL_FAUILRE;
+	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
+	{
+		CAdapterMgr adapterMgr;
+		res = adapterMgr.AddProtocolAdapter(SP_M2M_PROTOCOL_TYPE_LWM2M);
+		EXPECT_EQ(res, SP_M2M_STATUS_SUCCESS);
+		res = adapterMgr.AddProtocolAdapter(SP_M2M_PROTOCOL_TYPE_LWM2M);
+		EXPECT_EQ(res, SP_M2M_STATUS_SUCCESS);
+	}
+	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
+}

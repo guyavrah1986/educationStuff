@@ -56,6 +56,7 @@ SpStatus CAdapterMgr::addProtocolAdapterToMap(IN const EnProtocolType protocolTy
 				" in the map, we need to delete it before adding the new one" << endl;
 
 		m_protocolAdaptersMap.erase(res.first);
+		delete res.first->second;
 		// now, insert again (this time it should work)
 		res = m_protocolAdaptersMap.insert(pair<EnProtocolType, BaseAdapProtocol*>(protocolType, protoclAdapter));
 		if (res.second == false)
