@@ -10,10 +10,10 @@ class CCoreClient
 	CCoreClient();
 	~CCoreClient();
 
-	//const CAdapterMgr& GetAdapMgr() const;
+	const CAdapterMgr& GetAdapMgr() const;
 
 	
 	private:
-	//CAdapterMgr m_adapMgr;
+	CAdapterMgr m_adapMgr;
 	/* CRsrcMgr* m_rsrcMgr;*/
 };

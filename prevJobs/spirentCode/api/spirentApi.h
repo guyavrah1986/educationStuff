@@ -23,6 +23,11 @@ struct SpM2mCoreClient;
 struct SpM2mCoreClient* SpM2mCreateCoreClient(IN struct SpM2mCoreMgr* pCoreMgr);
 enum SpStatus SpM2mDestroyCoreClient(IN struct SpM2mCoreClient* pCoreClient);
 
+// ======================================
+// AdaptorProtocol related APIs:
+// ======================================
+
+enum SpStatus SpM2mCreateAdaptor(IN struct SpM2mCoreClient* pCoreClient, IN enum EnProtocolType protocolType);
 
 // ======================================
 // CRsrcBase related APIs:

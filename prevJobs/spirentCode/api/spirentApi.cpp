@@ -12,6 +12,10 @@ struct SpM2mCoreClient
 	void* obj;
 };
  
+
+// ======================================
+// CCoreMgr related APIs:
+// ======================================
 struct SpM2mCoreMgr* SpM2mCreateCoreMgr()
 {
 	struct SpM2mCoreMgr* p = (typeof p)malloc(sizeof(*p));
@@ -42,6 +46,9 @@ enum SpStatus SpM2mDestroyCoreMgr(struct SpM2mCoreMgr* pCoreMgr)
     return SP_M2M_STATUS_SUCCESS;
 }
 
+// ======================================
+// CCoreClient related APIs:
+// ======================================
 struct SpM2mCoreClient* SpM2mCreateCoreClient(struct SpM2mCoreMgr* pCoreMgr)
 {
     if (pCoreMgr == NULL)
@@ -95,5 +102,26 @@ enum SpStatus SpM2mDestroyCoreClient(IN struct SpM2mCoreClient* pCoreClient)
 
     free(pCoreClient);
     return SP_M2M_STATUS_SUCCESS;
+}
+
+// ======================================
+// AdaptorProtocol related APIs:
+// ======================================
+enum SpStatus SpM2mCreateAdaptor(IN struct SpM2mCoreClient* pCoreClient, IN enum EnProtocolType protocolType)
+{
+	if (pCoreClient == NULL)
+	{
+    	printf("SpM2mCreateAdaptor - got NULL pointer\n");
+    	return SP_M2M_STATUS_GENERAL_FAUILRE;
+	}
+
+    CCoreClient* p = static_cast<CCoreClient*>(pCoreClient->obj);
+    if (p == NULL)
+    {
+    	printf("SpM2mCreateAdaptor - got a NULL pointer for the encapsulated CCoreClient object\n");
+    	return SP_M2M_STATUS_GENERAL_FAUILRE;
+    }
+
+	return SP_M2M_STATUS_SUCCESS;
 }
 
