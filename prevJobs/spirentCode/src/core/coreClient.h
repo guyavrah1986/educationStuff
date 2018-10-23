@@ -7,13 +7,13 @@
 class CCoreClient
 {
 	public:
-	CCoreClient(const std::list<EnProtocolType>& protocolsList);
+	CCoreClient();
 	~CCoreClient();
 
-	const CAdapterMgr& GetAdapMgr() const;
+	//const CAdapterMgr& GetAdapMgr() const;
 
 	
 	private:
-	CAdapterMgr m_adapMgr;
+	//CAdapterMgr m_adapMgr;
 	/* CRsrcMgr* m_rsrcMgr;*/
 };

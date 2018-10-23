@@ -12,7 +12,7 @@ class CCoreMgr
 	void DestroyInstance();
 	~CCoreMgr();
 
-	CCoreClient* CreateClient(const std::list<EnProtocolType>& protocolsList);
+	CCoreClient* CreateClient();
 
 	private:
 	CCoreMgr();

@@ -38,11 +38,11 @@ void CCoreMgr::DestroyInstance()
     m_instance = 0;
 }
 
-CCoreClient* CCoreMgr::CreateClient(const list<EnProtocolType>& protocolsList)
+CCoreClient* CCoreMgr::CreateClient()
 {
 	++m_numOfClients;
-	CCoreClient* client = new CCoreClient(protocolsList);
-	cout << "CCoreMgr::CreateClient - creating client number " << m_numOfClients << " with " <<  protocolsList.size() << " types of protocols" << endl;
+	CCoreClient* client = new CCoreClient();
+	cout << "CCoreMgr::CreateClient - creating client number " << m_numOfClients << endl;
 	return client;
 }
 
