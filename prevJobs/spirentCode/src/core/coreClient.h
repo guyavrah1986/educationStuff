@@ -3,6 +3,7 @@
 #include <list>
 
 #include "../adapter/adapterMgr.h"
+#include "../rsrc/cRsrcMgr.h"
 
 class CCoreClient
 {
@@ -15,5 +16,5 @@ class CCoreClient
 	
 	private:
 	CAdapterMgr m_adapMgr;
-	/* CRsrcMgr* m_rsrcMgr;*/
+	CRsrcMgr m_rsrcMgr;
 };

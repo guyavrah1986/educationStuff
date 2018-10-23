@@ -1,6 +1,6 @@
 #pragma once
 
-#include "globalHeader.h"
+
 #include "cRsrcBase.h"
 
 class IRsrcMgr
