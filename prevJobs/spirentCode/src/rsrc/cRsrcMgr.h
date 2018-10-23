@@ -2,6 +2,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include "rsrcMgr.h"
 #include "../statsModule/cStatsCollectedBase.h"
@@ -24,6 +25,7 @@ public:
 private:
 	Result createLwm2mRsrc(IN const char* uri, IN bool bInternalCreated, IN SpEnRsrcType rsrcType);
 	Result addLwm2mRsrsc(IN const std::string& uri, IN const char* arr[], IN bool bInternalCreated, IN SpEnRsrcType rsrcType);
+	std::vector<std::string> splitRsrcAccordingToDelimiterLwm2m(const std::string& str, const std::string& delim);
 
 private:
 	std::unordered_map<std::string, CStatsCollectedBase*> m_rsrcNameToCollectedObjMap;

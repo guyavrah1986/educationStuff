@@ -17,7 +17,7 @@ CRsrcMgr::~CRsrcMgr()
 	cout << "CRsrcMgr::~CRsrcMgr" << endl;
 }
 
-Result CRsrcMgr::CreateRsrc(IN const char* strUri, IN SpEnRsrcType rsrcType, IN EnProtocolType protocolType, IN bool bInternalCreated, INOUT CRsrcBase*& pRsrc)
+Result CRsrcMgr::CreateRsrc(IN const char* strUri, IN SpEnRsrcType rsrcType, IN EnProtocolType protocolType, IN bool bInternalCreated, INOUT CRsrcBase* pRsrc)
 {
 	cout << "CRsrcMgr::CreateRsrc" << endl;
 	if (strUri == nullptr)
@@ -142,6 +142,22 @@ Result CRsrcMgr::addLwm2mRsrsc(IN const string& uri, IN const char* arr[], IN bo
 
 
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
+}
+
+vector<string> CRsrcMgr::splitRsrcAccordingToDelimiterLwm2m(const string& str, const string& delim)
+{
+    vector<string> tokens;
+    size_t prev = 0, pos = 0;
+    do
+    {
+        pos = str.find(delim, prev);
+        if (pos == string::npos) pos = str.length();
+        string token = str.substr(prev, pos-prev);
+        if (!token.empty()) tokens.push_back(token);
+        prev = pos + delim.length();
+    }
+    while (pos < str.length() && prev < str.length());
+    return tokens;
 }
 
 const unordered_map<string, CRsrcBase*>& CRsrcMgr::GetRsrcMap() const
