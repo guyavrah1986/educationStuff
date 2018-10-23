@@ -43,8 +43,10 @@ file(GLOB_RECURSE ADAPTER_MGR_UNIT_TESTS_SRC
 
 # CRsrcMgr unit tests
 file(GLOB_RECURSE RSRC_MGR_UNIT_TESTS_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/rsrcMgrTests.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/rsrcMgrTests.h")
+    "${CMAKE_CURRENT_LIST_DIR}/rsrcMgrUnitTests/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/rsrcMgrUnitTests/*.h"
+    "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.h"
+    "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c")
 
 # ======================================================================================================================================
 # Create dependencies libraries
@@ -80,4 +82,5 @@ add_test(floatRsrcBaseTestsUnitTestsExe floatRsrcBaseTestsUnitTestsExe)
 add_test(adapterMgrTestsUnitTestsExe adapterMgrTestsUnitTestsExe)
 
 add_test(rsrcMgrTestsUnitTestsExe rsrcMgrTestsUnitTestsExe)
+
 

@@ -2,12 +2,12 @@
 
 #include "gtest/gtest.h"
 
-class CRsrcMgrTests : public ::testing::Test
+class CRsrcMgrUnitTests :  public ::testing::Test
 {
 protected:
 
-	CRsrcMgrTests();
-	virtual ~CRsrcMgrTests();
+	CRsrcMgrUnitTests();
+	virtual ~CRsrcMgrUnitTests();
 	virtual void SetUp();
 	virtual void TearDown();
 };
