@@ -1,26 +1,22 @@
 #include <stdio.h>
 #include <stdint.h>
 
-void calle()
+void calle(uint32_t* p)
 {
-	uint32_t tmp = 17;
-	*((&tmp) + sizeof(uint32_t) * 3) = 12;
+	uint32_t tmp = 9;
+	printf("calle - tmp is located at address location:%p and p is:%p \n", &tmp, p);
 }
 
 void caller()
 {
-	printf("caller - start \n");
-	uint32_t p1 = 17;
-	calle();
-	printf("caller - after calling calle, p1 has the value of:%u \n", p1);
+	uint32_t tmp1 = 12;
+    	printf("caller - address of tmp1:%p \n", &tmp1);
+	calle(&tmp1);
 }
 
 
 int main(int argc, char** argv)
 {
-	printf("main - start \n \n");
 	caller();
-
-	printf("main - end \n \n");
 	return 0;
 }
