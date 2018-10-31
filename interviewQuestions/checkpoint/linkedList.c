@@ -147,5 +147,24 @@ struct node* reverseLinkedListRecursive(const struct node* head)
 void reverseLinkedListIterative(struct node** head)
 {
 	printf("reverseLinkedListIterative - start \n");
+	if (head == NULL || *head == NULL)
+	{
+		printf("reverseLinkedListIterative - got NULL pointer \n");
+		return;	
+	}
 
+	struct node* origHead = *head;
+	struct node* prev = *head;
+	struct node* curr = (*head)->next;
+
+	while (curr != NULL)
+	{
+		struct node* tmp = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = tmp;
+	}
+
+	*head = prev;
+	origHead->next = NULL;
 }

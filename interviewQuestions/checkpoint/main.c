@@ -37,11 +37,23 @@ void callItoaFunc()
 	printf("callItoaFunc - for num:%d, got the string:%s \n",num, ret);
 }
 
+void callReverseLinkedListIterative()
+{
+	printf("callReverseLinkedListIterative - start \n");
+	struct node* head = createList();
+	printf("callReverseLinkedListIterative - before reversing the linked list \n");
+	displayList(head);
+	reverseLinkedListIterative(&head);
+	printf("callReverseLinkedListIterative - after reversing the linked list \n");
+	displayList(head);
+}
+
 int main(int argc, char** argv)
 {
 	printf("main - start \n");
 
-	callItoaFunc();
+	//callItoaFunc();
+	callReverseLinkedListIterative();
 	printf("main - end \n");
 	return 0;
 }
