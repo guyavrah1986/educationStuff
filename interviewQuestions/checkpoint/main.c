@@ -6,6 +6,7 @@
 #include "iotaQuestion.h"
 #include "findDoubleOccurencesInString.h"
 #include "findNthElementFromEndOfList.h"
+#include "removeWhiteSpacesFromStr.h"
 
 void callAtoiFunc()
 {
@@ -76,6 +77,15 @@ void callFindNthElementFromTheEndOfTheList()
 	clearListLinear(head);
 }
 
+void callRemoveWhiteSpacesFromString()
+{
+	char str [] = "abc  abc";
+	printf("callRemoveWhiteSpacesFromString - original string:%s \n", str);
+	removeSpaces(str);
+	
+	printf("callRemoveWhiteSpacesFromString - after removing white spaces the string is:%s \n", str);
+}
+
 // ===================================================================================================================
 int main(int argc, char** argv)
 {
@@ -84,10 +94,9 @@ int main(int argc, char** argv)
 	//callItoaFunc();
 	//callReverseLinkedListIterative();
 	//callFindAllOccurencesForEachChar();
+	//callFindNthElementFromTheEndOfTheList();
 
-	callFindNthElementFromTheEndOfTheList();
-
-
+	callRemoveWhiteSpacesFromString();
 
 	printf("main - end \n");
 	return 0;
