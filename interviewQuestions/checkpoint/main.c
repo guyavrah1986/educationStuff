@@ -5,6 +5,7 @@
 #include "findLoopInALinkedList.h"
 #include "iotaQuestion.h"
 #include "findDoubleOccurencesInString.h"
+#include "findNthElementFromEndOfList.h"
 
 void callAtoiFunc()
 {
@@ -60,6 +61,21 @@ void callFindAllOccurencesForEachChar()
 	findAllOccurencesForEachChar("abcdefEW#@../");
 }
 
+void callFindNthElementFromTheEndOfTheList()
+{
+	printf("callFindNthElementFromTheEndOfTheList - start \n");
+	struct node* head = createList();
+	printf("callFindNthElementFromTheEndOfTheList - before the given linked list is: \n");
+	displayList(head);
+	struct node* ret = findNthElementFromTheEndOfTheList(head, 2);
+	if (ret != NULL)
+	{
+		printf("callFindNthElementFromTheEndOfTheList - node's value that was returned from function is:%d \n", ret->val);
+	}
+
+	clearListLinear(head);
+}
+
 // ===================================================================================================================
 int main(int argc, char** argv)
 {
@@ -67,8 +83,10 @@ int main(int argc, char** argv)
 
 	//callItoaFunc();
 	//callReverseLinkedListIterative();
+	//callFindAllOccurencesForEachChar();
 
-	callFindAllOccurencesForEachChar();
+	callFindNthElementFromTheEndOfTheList();
+
 
 
 	printf("main - end \n");
