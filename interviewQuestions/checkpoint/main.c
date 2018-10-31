@@ -4,6 +4,7 @@
 #include "atoiQuestion.h"
 #include "findLoopInALinkedList.h"
 #include "iotaQuestion.h"
+#include "findDoubleOccurencesInString.h"
 
 void callAtoiFunc()
 {
@@ -49,12 +50,27 @@ void callReverseLinkedListIterative()
 	clearListLinear(head);
 }
 
+void callFindAllOccurencesForEachChar()
+{
+	printf("callFindAllOccurencesForEachChar - start \n");
+	findAllOccurencesForEachChar("");
+	findAllOccurencesForEachChar(NULL);
+	findAllOccurencesForEachChar("abcdef");
+	findAllOccurencesForEachChar("abcdefabcde");
+	findAllOccurencesForEachChar("abcdefEW#@../");
+}
+
+// ===================================================================================================================
 int main(int argc, char** argv)
 {
 	printf("main - start \n");
 
 	//callItoaFunc();
-	callReverseLinkedListIterative();
+	//callReverseLinkedListIterative();
+
+	callFindAllOccurencesForEachChar();
+
+
 	printf("main - end \n");
 	return 0;
 }
