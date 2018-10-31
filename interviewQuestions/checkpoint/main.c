@@ -46,6 +46,7 @@ void callReverseLinkedListIterative()
 	reverseLinkedListIterative(&head);
 	printf("callReverseLinkedListIterative - after reversing the linked list \n");
 	displayList(head);
+	clearListLinear(head);
 }
 
 int main(int argc, char** argv)
