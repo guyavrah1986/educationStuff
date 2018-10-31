@@ -36,6 +36,40 @@ struct node* createList()
 	return origHead;
 }
 
+struct node* createLinkedListWithInnerLoop()
+{
+	printf("createLinkedListWithInnerLoop - start \n");
+	
+	int v1 = 1;
+	struct node* node1 = (struct node*)malloc(sizeof(struct node));
+	struct node* origHead = node1;
+	node1->val = v1;
+		
+	int v2 = 2;
+	struct node* node2 = (struct node*)malloc(sizeof(struct node));
+	node2->val = v2;
+	node1->next = node2;
+
+	int v3 = 3;
+	struct node* node3 = (struct node*)malloc(sizeof(struct node));
+	node3->val = v3;
+	node2->next = node3;
+
+	int v4 = 4;
+	struct node* node4 = (struct node*)malloc(sizeof(struct node));
+	node4->val = v4;
+	node3->next = node4;
+		
+	int v5 = 5;
+	struct node* node5 = (struct node*)malloc(sizeof(struct node));
+	node5->val = v5;
+	node4->next = node5;
+
+	// this is the loop !!!
+	node5->next = node3;
+	return origHead;
+}
+
 void displayList(const struct node* head)
 {
 	printf("displayList - start \n");
