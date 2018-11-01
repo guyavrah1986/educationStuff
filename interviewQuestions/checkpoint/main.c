@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 
 #include "linkedList.h"
 #include "atoiQuestion.h"
@@ -7,6 +8,56 @@
 #include "findDoubleOccurencesInString.h"
 #include "findNthElementFromEndOfList.h"
 #include "removeWhiteSpacesFromStr.h"
+#include "reachEndOfTwoDimMatrix.h"
+
+// ===========================================================================================================================
+// ===========================================================================================================================
+/*
+* What does this function do ? What is the bug  and how can we fix it ?
+* 
+* Some context: In a proper usage of this function, the same mask should be called in consucutives calls over and over again. 
+*/
+// ===========================================================================================================================
+// ===========================================================================================================================
+
+static int function(uint64_t make)
+{ 
+	int inst, position, items, i;
+	uint64_t temp_mask = make;
+	static int curr;
+
+	while (temp_mask)
+	{
+		if (temp_mask & 0x1)
+		{
+			items++;
+		}
+	
+		temp_mask = temp_mask >> 1;
+	}
+
+	position = curr;
+	position = position % items;
+	position++;
+	curr++;
+	inst = 0;
+	temp_mask = make;
+	while (temp_mask)
+	{
+		if (temp_mask & 0x1)
+		{
+			position--;
+			if (!position)
+			{
+				break;
+			}
+			
+			temp_mask = temp_mask >> 1;
+			inst++;
+	}
+
+	return inst; 
+} 
 
 void callAtoiFunc()
 {
@@ -86,6 +137,14 @@ void callRemoveWhiteSpacesFromString()
 	printf("callRemoveWhiteSpacesFromString - after removing white spaces the string is:%s \n", str);
 }
 
+void callNumOfPathsToEndOfTwoDimMatrix()
+{
+	printf("callNumOfPathToEndOfTwoDimMatrix - start \n");
+	int n = 3;
+	int m = 3;
+	printf("numOfPathsToEndOfTwoDimMatrix(0,0, %d, %d) returned:%d \n",n, m, numOfPathsToEndOfTwoDimMatrix(0,0, n,m));
+}
+
 // ===================================================================================================================
 int main(int argc, char** argv)
 {
@@ -95,8 +154,11 @@ int main(int argc, char** argv)
 	//callReverseLinkedListIterative();
 	//callFindAllOccurencesForEachChar();
 	//callFindNthElementFromTheEndOfTheList();
+	//callRemoveWhiteSpacesFromString();
 
-	callRemoveWhiteSpacesFromString();
+
+	callNumOfPathsToEndOfTwoDimMatrix();
+
 
 	printf("main - end \n");
 	return 0;
