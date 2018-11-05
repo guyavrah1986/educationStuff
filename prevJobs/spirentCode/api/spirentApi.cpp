@@ -1,4 +1,5 @@
 #include <stdlib.h>
+
 #include "../api/spirentApi.h"
 #include "coreMgr.h"
  
@@ -12,7 +13,6 @@ struct SpM2mCoreClient
 	void* obj;
 };
  
-
 // ======================================
 // CCoreMgr related APIs:
 // ======================================
@@ -20,7 +20,7 @@ struct SpM2mCoreMgr* SpM2mCreateCoreMgr()
 {
 	struct SpM2mCoreMgr* p = (typeof p)malloc(sizeof(*p));
     p->obj = CCoreMgr::GetInstance();
- 
+
     return p;
 }
  

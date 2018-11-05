@@ -6,6 +6,8 @@
 void mainLoop()
 {
 	printf("mainLoop - start \n");
+
+	printf("mainLoop - end \n");
 	return;
 }
 
@@ -20,6 +22,7 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
+	printf("main - created SpM2mCoreMgr successfully \n");
 	struct SpM2mCoreClient* pCoreClient = SpM2mCreateCoreClient(pCoreMgr);
 	if (pCoreClient == NULL)
 	{
@@ -27,12 +30,14 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
+	printf("main - created SpM2mCoreClient successfully \n");
 	enum SpStatus res = SpM2mCreateAdaptor(pCoreClient, SP_M2M_PROTOCOL_TYPE_LWM2M);
 	if (res != SP_M2M_STATUS_SUCCESS)
 	{
 		printf("main - was unable to add adaptor of type %d \n", SP_M2M_PROTOCOL_TYPE_LWM2M);
 	}
 
+	printf("main - added SP_M2M_PROTOCOL_TYPE_LWM2M adapter successfully \n");
 	mainLoop();
 
 	printf("main - done with main loop, about to destroy SpM2mCoreClient \n");
