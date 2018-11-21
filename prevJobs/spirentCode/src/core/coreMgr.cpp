@@ -6,7 +6,8 @@ using namespace std;
 
 CCoreMgr* CCoreMgr::m_instance = nullptr;
 
-CCoreMgr::CCoreMgr() : m_numOfClients(0)
+CCoreMgr::CCoreMgr()
+	: m_numOfClients(0)
 {
 	cout << "CCoreMgr::CCoreMgr" << endl;
 }
