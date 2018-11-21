@@ -27,6 +27,8 @@ private:
 	Result addLwm2mRsrsc(IN const std::string& uri, IN const char* arr[], IN bool bInternalCreated, IN SpEnRsrcType rsrcType);
 	std::vector<std::string> splitRsrcAccordingToDelimiterLwm2m(const std::string& str, const std::string& delim);
 
+// members:
+// -------
 private:
 	std::unordered_map<std::string, CStatsCollectedBase*> m_rsrcNameToCollectedObjMap;
 	std::unordered_map<std::string, CRsrcBase*> m_rsrcMap;
