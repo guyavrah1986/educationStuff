@@ -26,9 +26,9 @@ Result CAdapterLwm2m::HandlePacket(const SdkConnection* connection, const char* 
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
 }
 
-Result CAdapterLwm2m::NewAppRsrc(const char* uri, SpEnRsrcType rsrcType)
+Result CAdapterLwm2m::CreateAppRsrc(const char* uri, SpEnRsrcType rsrcType)
 {
-	cout << "CAdapterLwm2m::NewAppRsrc" << endl;
+	cout << "CAdapterLwm2m::CreateAppRsrc" << endl;
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
 }
 	

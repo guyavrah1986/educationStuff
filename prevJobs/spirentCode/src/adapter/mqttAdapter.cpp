@@ -26,9 +26,9 @@ Result CAdapterMqtt::HandlePacket(const SdkConnection* connection, const char* b
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
 }
 
-Result CAdapterMqtt::NewAppRsrc(const char* uri, SpEnRsrcType rsrcType)
+Result CAdapterMqtt::CreateAppRsrc(const char* uri, SpEnRsrcType rsrcType)
 {
-	cout << "CAdapterMqtt::NewAppRsrc" << endl;
+	cout << "CAdapterMqtt::CreateAppRsrc" << endl;
 	return Result(ErrorCode::SP_M2M_ERROR_CODE_SUCCESS);
 }
 	

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include "../api/spirentSdkInclude.h"
 
 class Result

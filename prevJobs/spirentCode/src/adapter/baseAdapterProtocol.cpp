@@ -18,7 +18,6 @@ BaseAdapProtocol::~BaseAdapProtocol()
 
 BaseAdapProtocol* BaseAdapProtocol::Create(IN enum EnProtocolType protocolType)
 {
-
 	switch(protocolType)
 	{
 	case SP_M2M_PROTOCOL_TYPE_LWM2M:cout << "BaseAdapProtocol::Create - creating LwM2M protocol adapter" << endl;

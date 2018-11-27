@@ -12,7 +12,7 @@ class CCoreClient
 	~CCoreClient();
 
 	CAdapterMgr& GetAdapMgr();
-
+	CRsrcMgr& GetRsrcMgr();
 	
 	private:
 	CAdapterMgr m_adapMgr;

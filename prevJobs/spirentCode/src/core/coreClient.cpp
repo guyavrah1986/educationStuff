@@ -19,3 +19,9 @@ CAdapterMgr& CCoreClient::GetAdapMgr()
 	return m_adapMgr;
 }
 
+CRsrcMgr& CCoreClient::GetRsrcMgr()
+{
+	return m_rsrcMgr;
+}
+
+
