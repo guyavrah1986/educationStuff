@@ -52,7 +52,7 @@ int my_atoi1(const char* str)
 	++tmp;
 
 	// now we continue to "parse" the number with "constant multipiler" with
-	// the value of 10 as long as it contains only valid  decimal values
+	// the value of 10 as long as it contains only valid decimal values
 	while(*tmp != '\0')
 	{
 		currChar = *tmp;

@@ -9,9 +9,7 @@ class CCoreMgr
 	static CCoreMgr* GetInstance();
 	CCoreClient* CreateClient();
 	void DestroyInstance();
-
 	~CCoreMgr();
-
 
 	private:
 	CCoreMgr();
