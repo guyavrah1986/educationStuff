@@ -33,7 +33,7 @@ endif()
 # ======================================================================================================================================
 # virtual table explantation sources
 file(GLOB_RECURSE POSIX_THREADS_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/posixThreads.c")
+    "${CMAKE_CURRENT_LIST_DIR}/posixThreadsCondVarAndMutexSimpleUsage.c.c")
 
 	
 # ======================================================================================================================================
@@ -46,11 +46,11 @@ file(GLOB_RECURSE POSIX_THREADS_SRC
 # ======================================================================================================================================
 # create the main executable (and samples as well)
 # ======================================================================================================================================
-add_executable(posixThreadsExe ${POSIX_THREADS_SRC})
+add_executable(posixThreadsCondVarAndMutexSimpleUsageExe ${POSIX_THREADS_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
 # ======================================================================================================================================
 if (UNIX AND NOT APPLE)
-	target_link_libraries(posixThreadsExe pthread)                 
+	target_link_libraries(posixThreadsCondVarAndMutexSimpleUsageExe pthread)                 
 endif()
