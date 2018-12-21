@@ -7,6 +7,13 @@
 // b) Type the command: cl /EHsc fileName.cpp
 // c) Run the fileName.exe for debugging.
 
+
+// Questions:
+// ----------
+// 1) Given a string that holds 3 types of parantheses (opening and closing), find out whether it is 
+//    legal, i.e.- every openning has a respective closing.
+// 2) Reverse a string.
+
 // #####################################################################################################
 // #####################################################################################################
 #include <iostream>
@@ -14,6 +21,7 @@
 
 using namespace std;
 
+// 1)
 int verifyParanthesesVer1(const char* str)
 {
 	if (str == NULL)
@@ -169,6 +177,58 @@ void testParanthesesSolutionVer1()
 	printf("testParanthesesSolutionVer1 - ALL test cases went well !! \n");
 }
 
+// 2)
+void reverseString(char* str)
+{
+	if (str == NULL)
+	{
+			printf("reverseString - got NULL pointer \n");
+			return;
+	}
+	
+	printf("reverseString - got the original string:%s \n", str);
+	// abc --> cba
+	unsigned int counter = 0;
+	char* startStr = str;
+	while (*startStr++ != '\0')
+	{
+		counter++;
+	}
+	
+	startStr -= 2;
+	char* endStr = startStr;
+	startStr = str;
+	unsigned int numIter = counter / 2;
+	while (numIter-- > 0)
+	{
+		char currChar = *endStr;
+		*endStr = *startStr;
+		*startStr = currChar;
+		startStr++;
+		endStr--;
+	}
+	
+	printf("reverseString - done reversing the string which is now:%s \n", str);
+}
+
+
+
+void testReverseString()
+{
+	printf("testReverseString - start \n");
+	char* str1 = 0;
+	
+	char str2 [] = "abc";
+	reverseString(str2);
+	printf("testReverseString - after str2 is:%s \n", str2);
+	
+	char str3 [] = "bnmk";
+	reverseString(str3);
+	printf("testReverseString - after str3 is:%s \n", str3);
+	
+	char str4 [] = "qwer";
+}
+
 // ===============================
 // main
 // ===============================
@@ -177,10 +237,14 @@ int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
 	
+	/*	// 1)
 	const char paranthesses1 [] = "{()}";
 	testParanthesesSolutionVer1();
 	verifyParanthesesVer1(paranthesses1);
+	*/
 	
+	// 2) 
+	testReverseString();
 	
 	cout << "main - end" << endl;
 	return 0;
