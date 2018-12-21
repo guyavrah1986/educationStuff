@@ -189,29 +189,29 @@ void reverseString(char* str)
 	printf("reverseString - got the original string:%s \n", str);
 	// abc --> cba
 	unsigned int counter = 0;
-	char* tmp = str;
-	while (*tmp++ != '\0')
+	char* startStr = str;
+	while (*startStr++ != '\0')
 	{
 		counter++;
 	}
 	
-	char* endStr = --tmp;
-	tmp = str;
-	printf("reverseString - after counting num of characters, tmp points to:%s \n", tmp);
-	
-	// for debug
+	startStr -= 2;
+	char* endStr = startStr;
+	startStr = str;
 	unsigned int numIter = counter / 2;
 	while (numIter-- > 0)
 	{
 		char currChar = *endStr;
-		*endStr = *tmp;
-		*tmp = currChar;
-		tmp++;
+		*endStr = *startStr;
+		*startStr = currChar;
+		startStr++;
 		endStr--;
 	}
 	
 	printf("reverseString - done reversing the string which is now:%s \n", str);
 }
+
+
 
 void testReverseString()
 {
@@ -225,8 +225,9 @@ void testReverseString()
 	char str3 [] = "bnmk";
 	reverseString(str3);
 	printf("testReverseString - after str3 is:%s \n", str3);
+	
+	char str4 [] = "qwer";
 }
-
 
 // ===============================
 // main
