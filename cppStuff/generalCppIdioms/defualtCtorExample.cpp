@@ -3,10 +3,10 @@
 // 1) default Ctor:
 // ----------------
 // a) As long as we have decalred and defined at least one Ctor of our own (does not matter which type of Ctor and how we implemented it) --> the defualt Ctor 
-// providied by the compiler is disabled (technically speaking - it is not public so it can not be used).
+// providied by the compiler is disabled (technically speaking - it is not public so it can not be used from outside of the class).
 //
 // b) Note that the values that the compiler's defualt constructor initializes the class members are garbage values - so we should not make any assumption on these
-// values (it follows the "C++ mantra" of "you dont ask for it - you dont get it, and you dont pay for it). 
+// values (it follows the "C++ mantra" of "you dont ask for it - you dont get it, and you dont pay for it"). 
 //
 // c) In this example we created the argument Ctor --> so we also defined the defualt Ctor (it is not always neccssary).
 //
@@ -34,6 +34,7 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
 
 class InnerObjValue 
 {
@@ -105,13 +106,13 @@ private:
 int main(int argc, char** argv)
 {
 
-	std::cout << "main - start" << std::endl;
-	
-	std::cout << "about to create a ContainerObj on the stack of main" << std::endl;
+	cout << "main - start" << endl;
+	cout << "about to create a ContainerObj on the stack of main" << endl;
 
 	// e) 	
 	ContainerObj obj;
-	std::cout << "main - end" << std::endl;
+
+	cout << "main - end" << endl;
 	return 0;
 }
 
