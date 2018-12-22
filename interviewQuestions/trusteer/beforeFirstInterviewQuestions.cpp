@@ -6,8 +6,8 @@
 // a) Navigate to the file's folder from the Developer Command Prompt for VS2017.
 // b) Type the command: cl /EHsc fileName.cpp
 // c) Run the fileName.exe for debugging.
-
-
+//
+//
 // Questions:
 // ----------
 // 1) Given a string that holds 3 types of parantheses (opening and closing), find out whether it is 
@@ -19,7 +19,8 @@
 // a) void freeOs(void* ptr, size_t size);
 // b) void* mallocOs(size_t size);
 //    Implement the stadard malloc() and free() givne these two functions.
-//
+// 5) You have array with N numbers, remove all the elements in the array that have the vlaue M.
+// 
 // #####################################################################################################
 // #####################################################################################################
 #include <iostream>
@@ -262,11 +263,54 @@ void testQuestion4()
 {
 	cout << "testQuestion4 - start" << endl;
 	void* ret = myMalloc(10);
-
-
 	myFree(ret);
 	cout << "testQuestion4 - end" << endl;
 }
+
+// 5)
+size_t question5(int* arr, size_t arrLen, int numToRemove)
+{
+	cout << "question5 - start" << endl;
+	size_t newArrIndex = 0;
+	for (size_t i = 0; i < arrLen; ++i)
+	{
+		if (arr[i] != numToRemove)
+		{
+			arr[newArrIndex] = arr[i];
+			newArrIndex++;	
+		}
+	}
+
+	cout << "question5 - end" << endl;
+	return newArrIndex;
+}
+
+void testQuestion5()
+{
+	cout << "testQuestion5 - start" << endl;
+	int numToRemove = 3;
+	size_t arrLen = 12;
+	int arr [] = {1,3,4,2,3,5,6,3,1,2,9,89};
+	cout << "testQuestion5 - BEFORE removing elements with value of:" << numToRemove << ", the original array is:" << endl;
+	cout << "[";
+	for (size_t i = 0; i < arrLen; ++i)
+	{
+		cout << arr[i] << " ";
+	}
+
+	cout << "]" << endl;
+	size_t newArrLen = question5(arr, arrLen, numToRemove);
+	cout << "testQuestion5 - AFTER removing elements with value of:" << numToRemove << ", the updated array is:" << endl;
+	cout << "[";
+	for (size_t i = 0; i < newArrLen; ++i)
+	{
+		cout << arr[i] << " ";
+	}
+
+	cout << "]" << endl;
+	cout << "\n testQuestion5 - end" << endl;
+}
+
 
 // ===============================
 // main
@@ -287,8 +331,12 @@ int main(int argc, char** argv)
 	testReverseString();
 	*/
 
+	/*
 	// 4)
 	testQuestion4();
+	*/
+
+	testQuestion5();
 	
 	cout << "main - end" << endl;
 	return 0;
