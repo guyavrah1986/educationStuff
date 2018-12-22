@@ -69,7 +69,7 @@ int main(int argc, char** argv)
 	cout << "main - start \n" << endl;
 
 	// 1)
-	question1();
+	testQuestion1();
 
 
 	cout << "\n \n main - end \n" << endl;
