@@ -13,13 +13,41 @@
 // ===================================================================================================
 #include<iostream>
 
+#include "linkedList.h"
+
 using namespace std;
 
+// 1)
+void question1()
+{
+	cout << "question1 - start" << endl;
 
+	struct node* head = createList();
+	displayList(head);
+
+	node* tmp1 = head;
+	node* tmp2 = head;
+	while (tmp2->next != NULL)
+	{
+		tmp1 = tmp1->next;
+		tmp2 = tmp2->next;
+		tmp2 = tmp2->next;
+		// for debug		
+		cout << "question1 - after forwarding, tmp1:" << tmp1->val << ", tmp2:" << tmp2->val << endl;
+	}
+
+	cout << "question1 - the node in the middle of the list is:" << tmp1->val << endl;
+	clearListLinear(head);
+	cout << "question1 - end" << endl;
+}
 
 int main(int argc, char** argv)
 {
 	cout << "main - start \n" << endl;
+
+	// 1)
+	question1();
+
 
 	cout << "\n \n main - end \n" << endl;
 	return 0;
