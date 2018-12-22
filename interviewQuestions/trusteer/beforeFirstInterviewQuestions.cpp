@@ -13,7 +13,9 @@
 // 1) Given a string that holds 3 types of parantheses (opening and closing), find out whether it is 
 //    legal, i.e.- every openning has a respective closing.
 // 2) Reverse a string.
-
+// 3) Givne a linked list, find the element in the middle of the list, i.e.- given 1-->2-->3-->4-->5
+//    return element 3 (see solution under general questions on linked list topic).
+//
 // #####################################################################################################
 // #####################################################################################################
 #include <iostream>

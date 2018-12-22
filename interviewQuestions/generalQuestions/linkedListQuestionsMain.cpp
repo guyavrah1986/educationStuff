@@ -18,12 +18,26 @@
 using namespace std;
 
 // 1)
-void question1()
+void question1(struct node* head)
 {
 	cout << "question1 - start" << endl;
+	if (head == NULL)
+	{
+		cout << "question1 - got an empty list" << endl;
+		return;
+	}
 
-	struct node* head = createList();
-	displayList(head);
+	if (head->next == NULL)
+	{
+		cout << "question1 - got a single element list" << endl;
+		return;
+	}
+
+	if (head->next->next == NULL)
+	{
+		cout << "question1 - got a two elements list" << endl;
+		return;
+	}
 
 	node* tmp1 = head;
 	node* tmp2 = head;
@@ -37,8 +51,17 @@ void question1()
 	}
 
 	cout << "question1 - the node in the middle of the list is:" << tmp1->val << endl;
-	clearListLinear(head);
 	cout << "question1 - end" << endl;
+}
+
+void testQuestion1()
+{
+	cout << "testQuestion1 - start" << endl;
+
+	struct node* head = createList();
+	displayList(head);
+	clearListLinear(head);
+	cout << "testQuestion1 - end" << endl;
 }
 
 int main(int argc, char** argv)
