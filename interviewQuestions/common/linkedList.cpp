@@ -36,7 +36,7 @@ struct node* createList()
 	return origHead;
 }
 
-void displayList(const struct node* head)
+void displayList(struct node* head)
 {
 	printf("displayList - start \n");
 	while (head != NULL)
@@ -48,7 +48,7 @@ void displayList(const struct node* head)
 	printf("NULL \n");
 }
 
-void clearListRecursive(const struct node* head)
+void clearListRecursive(struct node* head)
 {
 	printf("clearListRecursive - start \n");
 	
@@ -60,7 +60,7 @@ void clearListRecursive(const struct node* head)
 	if (head->next == NULL)
 	{
 		printf("clearListRecursive - freeing node with val:%d \n",head->val);
-		free(head);
+		free(static_cast<void*>(head));
 		return;
 	}
 
@@ -68,12 +68,12 @@ void clearListRecursive(const struct node* head)
 	{
 		clearListRecursive(head->next);
 		printf("clearListRecursive - freeing node with val:%d \n",head->val);
-		free(head);
+		free(static_cast<void*>(head));
 		return;
 	}
 }
 
-void clearListLinear(const struct node* head)
+void clearListLinear(struct node* head)
 {
 	printf("clearListLinear - start \n");
 
@@ -81,14 +81,14 @@ void clearListLinear(const struct node* head)
 	while (head != NULL)
 	{
 		tmp = head->next;
-		free(head);
+		free(static_cast<void*>(head));
 		head = tmp;
 	}
 }
 
 // for debug: 1-->2-->3-->4-->5-->NULL
 //				NULL<--5
-struct node* reverseLinkedListRecursive(const struct node* head)
+struct node* reverseLinkedListRecursive(struct node* head)
 {
 	printf("reverseLinkedListRecursive - start \n");
 	if (head == NULL)

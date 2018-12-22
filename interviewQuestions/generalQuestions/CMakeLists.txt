@@ -19,15 +19,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-include_directories("${CMAKE_CURRENT_LIST_DIR}/../common)
+include_directories("${CMAKE_CURRENT_LIST_DIR}/../common")
 
 # ======================================================================================================================================
 # group all source files of the executable
 # ======================================================================================================================================
-file(GLOB_RECURSE GENERAL_QUESTIONS_SRC
-	"${CMAKE_CURRENT_LIST_DIR}/*.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/*.c"
-    "${CMAKE_CURRENT_LIST_DIR}/*.h")
+set(LINKED_LIST_QUESTIONS_SRC "${CMAKE_CURRENT_LIST_DIR}/linkedListQuestionsMain.cpp")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
@@ -38,10 +35,10 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../common ${CMAKE_CURRENT_LIST_DIR}/b
 # ======================================================================================================================================
 # create the main executable (and samples as well)
 # ======================================================================================================================================
-add_executable(generalQuestionsExe ${GENERAL_QUESTIONS_SRC})
+add_executable(linkedListQuestionsExe ${LINKED_LIST_QUESTIONS_SRC})
 
 # ======================================================================================================================================
 # link the executable(s) with all relevant libraries
 # ======================================================================================================================================             
-target_link_libraries(generalQuestionsExe interviewQuestionsCommonLib)
+target_link_libraries(linkedListQuestionsExe interviewQuestionsCommonLib)
 

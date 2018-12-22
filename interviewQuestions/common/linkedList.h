@@ -3,7 +3,7 @@
 #include "node.h"
 
 struct node* createList();
-void displayList(const struct node* head);
-void clearListRecursive(const struct node* head);
-void clearListLinear(const struct node* head);
-struct node* reverseLinkedListRecursive(const struct node* head);
+void displayList(struct node* head);
+void clearListRecursive(struct node* head);
+void clearListLinear(struct node* head);
+struct node* reverseLinkedListRecursive(struct node* head);

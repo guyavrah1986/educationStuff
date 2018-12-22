@@ -10,14 +10,13 @@ message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within fo
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-
-#include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+#include_directories("${CMAKE_CURRENT_LIST_DIR}/include")
 
 # ======================================================================================================================================
 # group all source files of the library
 # ======================================================================================================================================
 file(GLOB_RECURSE COMMON_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/*.c") 
+    "${CMAKE_CURRENT_LIST_DIR}/*.cpp") 
 
 file(GLOB_RECURSE COMMON_HEADERS
     "${CMAKE_CURRENT_LIST_DIR}/*.h")
