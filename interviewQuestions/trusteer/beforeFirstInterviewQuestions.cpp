@@ -15,6 +15,10 @@
 // 2) Reverse a string.
 // 3) Givne a linked list, find the element in the middle of the list, i.e.- given 1-->2-->3-->4-->5
 //    return element 3 (see solution under general questions on linked list topic).
+// 4) You are given the following functions:
+// a) void freeOs(void* ptr, size_t size);
+// b) void* mallocOs(size_t size);
+//    Implement the stadard malloc() and free() givne these two functions.
 //
 // #####################################################################################################
 // #####################################################################################################
@@ -231,6 +235,39 @@ void testReverseString()
 	char str4 [] = "qwer";
 }
 
+// 4) this fuction "pretents" to replace the usual malloc
+void* myMalloc(size_t size) 
+{
+	cout << "myMalloc - got size:" << size << ", sizeof(size_t):" << sizeof(size_t) << endl;
+	// according to the question, this call should actually be to the provided fuction (see 4b)
+	char* tmp = (char*)malloc(sizeof(size_t) + size);
+	cout << "myMalloc - initially tmp is at address:" << static_cast<void*>(tmp) << endl;	
+	*(size_t*)(tmp) = size;
+	tmp += sizeof(size_t);
+	cout << "myMalloc - after tmp += sizeof(size_t), tmp is at address:" << static_cast<void*>(tmp) << endl;
+	return tmp;
+}
+
+void myFree(void* ptr)
+{
+	cout << "myFree - got ptr at address:" << static_cast<void*>(ptr) << endl;
+	char* tmp = (char*)(ptr);
+	tmp -= sizeof(size_t);	
+	cout << "myFree - after (char*)(ptr) -= sizeof(size_t), ptr is at address:" << static_cast<void*>(tmp) << endl;
+	// according to the question, this call should actually be to the provided fuction (see 4a)
+	free(tmp);
+}
+
+void testQuestion4()
+{
+	cout << "testQuestion4 - start" << endl;
+	void* ret = myMalloc(10);
+
+
+	myFree(ret);
+	cout << "testQuestion4 - end" << endl;
+}
+
 // ===============================
 // main
 // ===============================
@@ -245,8 +282,13 @@ int main(int argc, char** argv)
 	verifyParanthesesVer1(paranthesses1);
 	*/
 	
+	/*
 	// 2) 
 	testReverseString();
+	*/
+
+	// 4)
+	testQuestion4();
 	
 	cout << "main - end" << endl;
 	return 0;
