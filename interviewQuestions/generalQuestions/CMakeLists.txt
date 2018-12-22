@@ -28,7 +28,8 @@ include_directories("${CMAKE_CURRENT_LIST_DIR}/../common")
 set(LINKED_LIST_QUESTIONS_SRC "${CMAKE_CURRENT_LIST_DIR}/linkedList/linkedListQuestionsMain.cpp")
 
 # stack source file(s)
-set(STACK_QUESTIONS_SRC "${CMAKE_CURRENT_LIST_DIR}/stack/stackMain.cpp")
+set(STACK_QUESTIONS_SRC "${CMAKE_CURRENT_LIST_DIR}/stack/stackMain.cpp"
+			"${CMAKE_CURRENT_LIST_DIR}/stack/myStack.h") # "${CMAKE_CURRENT_LIST_DIR}/stack/myStack.cpp"
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
@@ -48,5 +49,5 @@ add_executable(stackQuestionsExe ${STACK_QUESTIONS_SRC})
 # ======================================================================================================================================             
 target_link_libraries(linkedListQuestionsExe interviewQuestionsCommonLib)
 
-target_link_libraries(stackQuestionsExe interviewQuestionsCommonLib)
+target_link_libraries(stackQuestionsExe interviewQuestionsCommonLib pthread)
 
