@@ -10,38 +10,38 @@ using namespace std;
 class A 
 {
 	public:
-		A() { std::cout << "A Ctor " << std::endl; }
-		~A() { std::cout << "A Dtor " << std::endl; }
+		A() { cout << "A Ctor " << endl; }
+		~A() { cout << "A Dtor " << endl; }
 		
-		void p1() { std::cout << "A : p1 " << std::endl; }
-		virtual void p2() { std::cout << "A : p2 " << std::endl; }
+		void p1() { cout << "A : p1 " << endl; }
+		virtual void p2() { cout << "A : p2 " << endl; }
 };
 
 class B : public A 
 {
 	public:	
-		B() { std::cout << "B Ctor " << std::endl; }
-		~B() { std::cout << "B Dtor " << std::endl; }
-		void p1 () { std::cout << "B : p1 " << std::endl;}
-		void p2() { std::cout << "B : p2 " << std::endl; }
+		B() { cout << "B Ctor " << endl; }
+		~B() { cout << "B Dtor " << endl; }
+		void p1 () { cout << "B : p1 " << endl;}
+		void p2() { cout << "B : p2 " << endl; }
 };
 
 class C : public A 
 {
 	public:
-		C() { std::cout << "C Ctor " << std::endl; }
-		virtual ~C() { std::cout << "C Dtor " << std::endl; }
-		void p1() { std::cout << "C : p1" << std::endl;}
-		void p2() { std::cout << "C : p2" << std::endl; }
+		C() { cout << "C Ctor " << endl; }
+		virtual ~C() { cout << "C Dtor " << endl; }
+		void p1() { cout << "C : p1" << endl;}
+		void p2() { cout << "C : p2" << endl; }
 };
 
 class D : public C 
 {
 	public:
-	D() { std::cout << "D Ctor " << std::endl; }
-	~D() { std::cout << "D Dtor " << std::endl; }
+	D() { cout << "D Ctor " << endl; }
+	~D() { cout << "D Dtor " << endl; }
 	//void p1() { std::cout << "D : p1" << std::endl; }
-	//void p2() { std::cout << "D : p2 " << std::endl; }
+	void p2() { cout << "D : p2 " << endl; }
 };
 
 B b;
@@ -57,6 +57,8 @@ int main(int argc, char** argv)
 	pa1->p2();
 	pa2->p1();
 	pa2->p2();
+	pc->p1();
+	pc->p2();
 	
 	D d;
 	d.p1();
