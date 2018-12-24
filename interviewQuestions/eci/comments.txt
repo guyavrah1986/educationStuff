@@ -1,0 +1,9 @@
+links to relevant questions:
+---------------------------
+http://www.theworker.co.il/company/interviews/ECI/ECI
+
+
+Questions:
+---------
+1) Differneces between HTTP 1.0 Vs HTTP 1.1 ?
+2) Ways to prevent dead-lock ?
