@@ -2,8 +2,27 @@ links to relevant questions:
 ---------------------------
 http://www.theworker.co.il/company/interviews/ECI/ECI
 
+https://www.jobhunt.co.il/f/%D7%A9%D7%97%D7%96%D7%95%D7%A8%D7%99-%D7%A8%D7%90%D7%99%D7%95%D7%A0%D7%95%D7%AA-%D7%A2%D7%91%D7%95%D7%93%D7%94/%D7%A8%D7%90%D7%99%D7%95%D7%9F-eci-t1167-15.html
+
+
 
 Questions:
 ---------
 1) Differneces between HTTP 1.0 Vs HTTP 1.1 ?
 2) Ways to prevent dead-lock ?
+a) Lock ordering: Make sure all threads aquire ALL locks (in case there are several) in the same order.
+b) Enable preemption of "lower priorty" threads in case they hold a lock that a "higher priority" thread needs.
+c) Deadlock detection: The OS takes care of it while utilizing some data structures that records each thread that aquired a lock in some graph or other 
+form. This way, it might be possible to "for-see" a potential deadlock situation and prevent it while it can.
+
+3) What are the differences between process and thread ?
+
+4) Given the following logic unit: 
+     ____
+A-->|    |--> D = Max(A,B)
+B-->|____|--> C = Min(A,B)
+
+Compose another one that recives four numbers (A,B,C,D) and sort them from Max-Min, for example: A,D,B,Compose
+Use as minimum logic units as possible.
+
+5) Given a two dimesional array   
