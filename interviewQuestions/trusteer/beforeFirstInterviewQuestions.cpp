@@ -219,8 +219,6 @@ void reverseString(char* str)
 	printf("reverseString - done reversing the string which is now:%s \n", str);
 }
 
-
-
 void testReverseString()
 {
 	printf("testReverseString - start \n");
