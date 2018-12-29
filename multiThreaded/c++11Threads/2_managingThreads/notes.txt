@@ -10,5 +10,8 @@ find_package(Threads REQUIRED)
 ...
 target_link_libraries(managingThreadsExe Threads::Threads)
 
+2) For every std::thread, for example std::thread t1(someFunc); object that was created we (the thread that created it) MUST either:
+- call t1.join();
+- call t1.detach();
 
   

@@ -26,7 +26,8 @@ find_package(Threads REQUIRED)
 # group all source files of the executable
 # ======================================================================================================================================
 
-file(GLOB MANAGING_THREADS_EXE_SRC "${CMAKE_CURRENT_LIST_DIR}/managingThreadsMain.cpp")
+file(GLOB MANAGING_THREADS_EXE_SRC "${CMAKE_CURRENT_LIST_DIR}/managingThreadsMain.cpp"
+								   "${CMAKE_CURRENT_LIST_DIR}/myMovedObj.h")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
