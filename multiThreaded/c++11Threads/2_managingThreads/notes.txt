@@ -1,0 +1,14 @@
+NOTES:
+======
+1) In case you use CMake to maintain your C++11 threading application, an elegant way to get CMake to link the proper
+threading library when using C++11 std::thread is as foolows:
+
+# get the OS specific threading library (needed for std::thread)
+find_package(Threads REQUIRED)
+...
+...
+...
+target_link_libraries(managingThreadsExe Threads::Threads)
+
+
+  

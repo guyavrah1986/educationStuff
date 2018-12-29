@@ -3,13 +3,8 @@ This folder holds topics on multi-threading programming in C++11, by utilizing t
 It follows (more or less) the book "C++ Concurrency in Action" by Anthony Williams.
 
 # Structure:
-- 
+- chapter 2: Basic capabilties for managing threads.
 
-- prevJobs: Illustration of major features/components I have used/developed in previous roles.
-
-- interviewQuestions: Notes from previous intervies I have been to or read about.
-
-- desginPatterns: Desgin Patterns educational code.
 
 
 
