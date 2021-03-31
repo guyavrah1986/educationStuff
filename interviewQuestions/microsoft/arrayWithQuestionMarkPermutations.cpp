@@ -1,14 +1,20 @@
 #include <iostream>
+#include <math.h>       /* pow */
 
 using namespace std;
 
 int returnNumberOfArrayPermutations(char arr [], size_t arrLen)
 {
 	string funcName = "returnNumberOfArrayPermutations - ";
-	cout << funcName + "the original array is:" << endl;
+	cout << funcName + "the original array is of length:" << arrLen << ", with the following content:" << endl;
+	size_t numOfQuestionMarks = 0;
 	for (size_t i = 0; i < arrLen; ++i)
 	{
 		cout << "[" << arr[i] << "]";
+		if (arr[i] == '?')
+		{
+			++numOfQuestionMarks;
+		}
 	}
 
 	cout << endl;
@@ -26,8 +32,10 @@ int returnNumberOfArrayPermutations(char arr [], size_t arrLen)
 		return 0;
 	}
 
-	
-	return 0;
+	cout << funcName + "there are total of:" << numOfQuestionMarks << " ? in the original array" << endl;
+	size_t numOfPermutations = pow(2, numOfQuestionMarks);
+	cout << funcName + "there are:" << numOfPermutations << " different permutations set of sub arrays" << endl;
+	return numOfPermutations;
 }
 
 int runSampleTestCases()
@@ -57,6 +65,21 @@ int runSampleTestCases()
 	cout << funcName + "runnign test case " << testCase << endl;
 	res = returnNumberOfArrayPermutations(arr, arrLen);
 	expectedRes = 0;	
+	if (res != expectedRes)
+	{
+		cout << funcName + "expected result as:" << expectedRes << ", but got:" << res << endl;
+		return 1;
+	}
+
+	// test case 3: array with single ?
+	const size_t arr3Len = 3;
+	char arr3 [arr3Len] = {'1', '0', '?'};
+	size_t numOfQuestionMarks = 1;
+	size_t numOfPermutations = pow(2, numOfQuestionMarks);
+	testCase = 3;
+	cout << funcName + "runnign test case " << testCase << endl;
+	res = returnNumberOfArrayPermutations(arr3, arr3Len);
+	expectedRes = 2;	
 	if (res != expectedRes)
 	{
 		cout << funcName + "expected result as:" << expectedRes << ", but got:" << res << endl;
