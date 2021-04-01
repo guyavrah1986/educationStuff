@@ -11,25 +11,26 @@ char* implementStrpbrk(const char* str, const char* matchedStr)
 		return NULL;
 	}
 
-	char* tmpStr = (char*)str;
+	// fill the matchedStr dictionary
+	bool isCharPresentInMatchedStr [256] = {false};
 	char* tmpMatchedStr = (char*)matchedStr;
-	printf("str is:%s and matchedStr is:%s\n", tmpStr, tmpMatchedStr);
 	while (*tmpMatchedStr != '\0')
 	{
-		printf("about to check if char:%c is present in string:%s\n", *tmpMatchedStr, tmpStr);
-		while (*tmpStr != '\0')
-		{
-			printf("comparing *tmpStr:%c and *tmpMatchedStr:%c \n", *tmpStr, *tmpMatchedStr);
-			if (*tmpStr == *tmpMatchedStr)
-			{
-				return tmpStr;
-			}
-			
-			tmpStr++;
-		}
+		isCharPresentInMatchedStr[*tmpMatchedStr] = true;
+		++tmpMatchedStr;
+	}
 
-		tmpStr = (char*)str;
-		tmpMatchedStr++;
+	char* tmpStr = (char*)str;
+	printf("str is:%s and matchedStr is:%s\n", str, matchedStr);
+	while (*tmpStr != '\0')
+	{
+		printf("about to check if char:%c is present in matched string:%s\n", *tmpStr, matchedStr);
+		if (true == isCharPresentInMatchedStr[*tmpStr])
+		{
+			return tmpStr;
+		}
+		
+		++tmpStr;
 	}
 
 	return NULL;
