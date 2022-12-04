@@ -1,0 +1,122 @@
+1) Main components:
+------------------
+a) Thread pool1 (request handlers) - will contain and manage N1 threads that will do the handling of the requests
+Some high level notes aobut these threads:
+- Will recive a request, and extract which type of request is it.
+- Check whether we can set bunch of threads to specific core/cache in order for all of them to use the same data from a "closer" (faster) location.
+- stats request handler - will contain the implementation of the threads that will handle the stats requests.
+- letter permutation handler - will contain the implementtion of the threads that will handle the match request
+- in case the cache is operatinal, upon handling a request, these threads first will look the given word in the cache - and will automatically pull its respective
+response from there. 
+
+b) OPTIONAL: Thread pool2 (cache updaters) - will contain and manage N2 threads that will perform updates on the words cache (most recent words asked for)
+- Each thread from this pool will be invoked (called) ONLY AFTER a thread from pool 1 (request handlers) has finished to handle a specific request (so we wont "harm" the latency 
+of that specific request).
+
+c) TCP server - will be the actual server.
+- port number: 8000 (as mentioend in the task description) - configurable.
+- ip address: local host.
+
+d) DB (dictonary) - will hold all the words from the DB within an appropriate STL container.
+members:
+- cache (OPTIONAL)
+- stl container with the words and their mappings which are needed by the resolver
+
+methods:
+support in all the neccessary functions to retrive the "letter permutation" for a given word.
+
+f) Similar words request Handler - will perform the requiered logic to fullfill the similar words requests.
+members:
+- DB
+
+g) Stats request handler - will perform the requiered logic to fullfill the stats request.
+members:
+- total number of words (will be set upon creation - supplied by the DBManager, uint64_t)
+- avgarge request handling time (nano seconds - unsigned uint64_t)
+- total number of requests so far (uint64_t)
+- mutex (for safe access and update of the two last members)
+
+h) JSON object creator - will handle the creation of the JSON objects we need to return to the client upon each of the two request
+
+
+==============================================================================================================================================================
+==============================================================================================================================================================
+
+2) Testing:
+----------
+a) Functunality 
+# each request answers as it should
+
+b) load - the server does not crash/misbehave upon load
+
+c) Vulanrabilty - handle cases where the request can cause us "problems" (buffer overflows), i.e. - 
+# the given word in the request is too long: GET /api/v1/similar?word=tooLongWord
+
+==============================================================================================================================================================
+==============================================================================================================================================================
+
+3) General desgin notes:
+------------------------
+a) Perform as much as possible Offline prepreations. It is not neccessarly a class of its own, but we might want to do all the operations that can be done before the server is up and running, such as:
+# Get the total number of words in the DB.
+# Get the length of the longest word in the DB --> we will use it as a refernce value when reciving the match request (if the given word is longer than the 
+longest word length -- we will ignore the request). 
+# set the DB oject - read the words from the file and put them in an STL container.
+
+b) OPTIONAL: Add the cache updaters threads - threads that will run after the request handlers threads and will update the cache.
+
+c) Eveything that possible SHOULD be written as a non copyable object (delete the copy ctor and operator=).
+
+d) Assuming that if a word appears in a different way (case sensetive) --> it is considred as a different word (they will have different hash).
+==============================================================================================================================================================
+==============================================================================================================================================================
+
+4) TODO:
+--------
+a) Multithreaed -- Done
+b) Call the UpdateStatsUponServingRequest(requDuration) once I understand what does it mean "serving a request" -- Done
+c) write component test (client in Python/bash) -- Done
+d) Check whether we need to "set" the relevant counters in order to avoid overflow (or we can ignore it) -- Done (no need)
+e) catch signal handlers (SIG_INT,SIGTERM) in order to support gracefull shutdown (termination) of the server (i.e.- pressing Ctrl+C and be able to catch it in order to invoke my "cleanup" method 
+   before the main program exits (to avoid memory leak and so...) -- Done
+f) Take care of URI length issues --> the length should be tested and return 414 if it is too long -- Done
+g) define the max length of URI as a configurable parameter.
+
+==============================================================================================================================================================
+==============================================================================================================================================================
+
+5) Dependencies:
+----------------
+a) cmake
+b) g++ (prefereably:  5.4.0  or newwer).
+c) python-requests (sudo apt-get install python-requests)
+d) json lib ("in house" within the source code tree)
+e) server code ("in house" within the source code tree)
+f) pip install termcolor (prior to that we might need to install pip)
+h) install parallel: sudo apt-get install parallel 
+
+
+==============================================================================================================================================================
+==============================================================================================================================================================
+
+6) Quick start:
+---------------
+a) Extract the folder.
+b) Run from within the ts-task folder the following
+
+==============================================================================================================================================================
+==============================================================================================================================================================
+
+7) Tips taken:
+--------------
+a) When adding elements to an std::map, we MUST use map.insert(pair<key,value>) and not nany other approach.
+b) When creating a global std::atomic<native_type> g_var --> no need to set it to zero (in the decleration), but instead we should use the "initialization list"
+style init, like so: atomic<uint64_t> g_numOfTotalRequestsRecived{0};
+c) Working in TDD:
+# developing first the tests and only then the code.
+# after a certain amount of logic that have been accumulated --> the same procedure is implied with "component tests".
+d) Working with interfaces - even when it seems redunandent at first look. It would help us allot in case of "major refactoring".
+
+
+
+
