@@ -1,0 +1,7 @@
+This guidline is a summary of the contents of this repository
+=============================================================
+1. Pointer introduction (pointersSummary.c)
+1.1 Memory representation of variables (Big Vs Littele endian)
+1.2 Const pointers and pointer to const
+1.3 Accessing variables' memroy location via different types of pointers
+1.4 
