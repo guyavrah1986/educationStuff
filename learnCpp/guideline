@@ -28,5 +28,7 @@ This file contains an overall guideline regarding how to go voer the topics here
 - Due to the addition of it, a non static member function can NOT be used as a callback function which its signature was provided.
 - It is poiting to the first class member of the object it belongs to. In inheritence use cases, it points to the first class member of the "first" base class.
 
-7) 
+7) Copy illusion (chapter 9):
+- When the compiler "detects" that, for instance, there is a return parameter from a function that is returned by value --> he can levarage the copy
+  illusion pattern, that simply put, will eliminate the need to "jump" into the function, and will simply call the object ctor in order to create the object.
 
