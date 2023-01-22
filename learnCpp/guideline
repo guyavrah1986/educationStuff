@@ -23,3 +23,10 @@ This file contains an overall guideline regarding how to go voer the topics here
 - In C++ there are four types of casting:
 - static_cast: The usage of it is, in contrast to "plain old" C-style cast, is that using the static_cast, there is a compile time checking to verify that the pointee is pointed by a "valid" pointer
 
+6) This pointer (chapter 8):
+- It is argument 0 that is added to each non static class member function.
+- Due to the addition of it, a non static member function can NOT be used as a callback function which its signature was provided.
+- It is poiting to the first class member of the object it belongs to. In inheritence use cases, it points to the first class member of the "first" base class.
+
+7) 
+

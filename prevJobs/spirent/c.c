@@ -8,7 +8,7 @@ void funcThatGetPointerToCppClassAndTreatItAsStrcut(void* pStruct)
 	printf("%s start\n", funcName);
 	printf("%s got pointer in address:%p\n", funcName, pStruct);
 	
-	/* first member of the struct (class) is an int, so "extract" it: */
+	/* first member of the struct (class) is an int, so "extract" it */
 	int* px = (int *)pStruct;
 	int x = *px;
 	pStruct += sizeof(int);

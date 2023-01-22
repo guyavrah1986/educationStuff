@@ -78,6 +78,19 @@ private:
 	string m_str;
 };
 
+class InnerObjectWithPrivateDefaultCtor
+{
+public:
+	InnerObjectWithPrivateDefaultCtor(int x) : m_x(x)
+	{
+		cout << "InnerObjectWithPrivateDefaultCtor::InnerObjectWithPrivateDefaultCtor - setting m_x to:" << m_x << endl;
+	}
+
+private:
+	int m_x;
+
+};
+
 class ContainerObj
 {
 
@@ -92,6 +105,7 @@ private:
 	InnerObjValue m_innerObjByValue;
 	const string m_str = "const string";
 	InnerObjWithString m_innerObjWithString;// f)
+	//InnerObjectWithPrivateDefaultCtor m_innerObjWithPrivateDefaultCtor; // a)
 	InnerObjPointer* m_innerObjByPointer;
 
 	int m_d;

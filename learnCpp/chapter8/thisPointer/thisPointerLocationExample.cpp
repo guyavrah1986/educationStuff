@@ -56,10 +56,8 @@ public:
 
 int main(int argc, char** argv)
 {
-
-	cout << "thisPointerLocationExample - start" << endl;
-
+	cout << "main - start" << endl;
 	C c(1,2,3);
-	cout << "thisPointerLocationExample - end" << endl;
+	cout << "main - end" << endl;
 	return 0;
 }

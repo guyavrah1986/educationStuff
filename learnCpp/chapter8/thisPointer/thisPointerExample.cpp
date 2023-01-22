@@ -2,17 +2,22 @@
 // ===================================================================================================================================================================
 // the "this" pointer:
 // -------------------
-// 1) For each object we create, there will be a "reference" to distinguish each instance from OTHER instances of the same class, this is the (main) motivation of 
-//    the 'this pointer`.
-// 2) For EVERY NON STATIC class member function, the compiler "adds" an additional argument, the `this pointer`.One can think about it as "argument No 0" to every
-//    NON STATIC class function.
-// 3) When we wish to use a class member function as a call back function that we will send its address - we CAN NOT use a NON STATIC class member function due to
-//    the above fact - the signature of the function will not be correct no matter what type of signature we will use. 
+// 1) For each object we create, there will be a "reference" to distinguish each instance from OTHER instances of the same class, this is the (main)
+//    motivation of the 'this pointer`.
+//    
+// 2) For EVERY NON STATIC class member function, the compiler "adds" an additional argument, the `this pointer`.One can think about it as "argument No 0" 
+//    to every NON STATIC class function.
+//
+// 3) When we wish to use a class member function as a call back function that we will send its address - we CAN NOT use a NON STATIC class member function
+//    due to the above fact - the signature of the function will not be correct no matter what type of signature we will use. 
+//
 // 4) One solution to this situation is to declare the call back function as a STATIC function - cause in these function no `this` pointer is added, so we can 
 //    match the signature type correctly.   
 //    NOTES:
 //    a) As STATIC member function obligate - ONLY STATIC class members can be accessed in these function.
-//    b) Note a might be crusial in cases where the call back function can be accessed via several threads concurrently AND if this function accesses any class member  
+//    b) Note a might be crusial in cases where the call back function can be accessed via several threads concurrently AND if this function accesses any
+//       class member 
+//    c) All of the above is NOT relevant for C functions cause they do NOT have the this pointer 
 // 
 // Some notes:
 // -----------
@@ -72,16 +77,12 @@ void funcToInvokeCallBackFunc(callBackFuncPointer cbFunc, int a)	// 3)
 
 int main(int argc, char** argv)
 {
-
 	cout << "main - start" << endl;
-
 	A a1;
 	int a = 15;
 	a1.someNonStaticFunc(17);
 	//funcToInvokeCallBackFunc(A::someNonStaticFunc, a);	// 3)
 	funcToInvokeCallBackFunc(A::someStaticFunc, a);
-
-
 	cout << "main - end" << endl;
 	return 0;
 }
