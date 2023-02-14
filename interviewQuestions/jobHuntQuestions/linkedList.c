@@ -1,6 +1,7 @@
-#include "node.h"
-
+#include <stdio.h>
 #include <stdlib.h>
+
+#include "node.h"
 
 struct node* createList()
 {
@@ -89,7 +90,7 @@ void clearListLinear(const struct node* head)
 //				NULL<--5
 struct node* reverseLinkedListRecursive(const struct node* head)
 {
-	printf("reverseLinkedListRecursive - start \n");
+	printf("reverseLinkedListRecursive - start\n");
 	if (head == NULL)
 	{
 		return NULL;
@@ -109,8 +110,32 @@ struct node* reverseLinkedListRecursive(const struct node* head)
 	return ret;
 }
 
+/*
+NULL<--1<--2
+*/
 void reverseLinkedListIterative(struct node** head)
 {
 	printf("reverseLinkedListIterative - start \n");
+	if (NULL == *head)
+	{
+		printf("reverseLinkedListIterative - empty list\n");
+		return;
+	}
 
+	struct node* current = *head;
+	struct node* next = NULL;
+	struct node* prev = NULL;
+	while (current != NULL)
+	{
+            // Store next
+            next = current->next;
+            // Reverse current node's pointer
+            current->next = prev;
+            // Move pointers one position ahead.
+            prev = current;
+            current = next;
+        }
+        *head = prev;
 }
+
+
