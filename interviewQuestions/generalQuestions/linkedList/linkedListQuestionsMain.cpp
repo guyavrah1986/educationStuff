@@ -64,6 +64,63 @@ void testQuestion1()
 	cout << "testQuestion1 - end" << endl;
 }
 
+
+struct ListNode
+{
+	int val;
+	struct ListNode *next;
+};
+
+int removeNthFromEndRecursive(struct ListNode* head, int n)
+{
+    // stop condition:
+    if (NULL == head->next)
+    {
+        //printf("head->next == NULL and head->val is:%d\n", head->val);
+        return n - 1;
+    }
+
+    int ret = removeNthFromEndRecursive(head->next, n);
+    //printf("ret is:%d and head->val is:%d\n", ret, head->val);
+
+    if (0 == ret)
+    {
+        //printf("about to remove the n-th element from the end of the list when head points to:%d\n", head->val);
+        head->next = head->next->next;
+    }
+
+    return ret - 1;
+}
+
+struct ListNode* removeNthFromEnd(struct ListNode* head, int n)
+{
+    // edge cases: 
+    // single element in the list
+    if (NULL == head->next)
+    {
+        return NULL;
+    }
+
+    // two elements in the list
+    if (NULL == head->next->next)
+    {
+        if (1 == n)
+        {
+            head->next = NULL;
+            return head;
+        }
+
+        return head->next;
+    }
+
+    int ret = removeNthFromEndRecursive(head, n);
+    if (0 == ret)
+    {
+        head = head->next;
+    }
+    return head;
+}
+
 int main(int argc, char** argv)
 {
 	cout << "main - start \n" << endl;
