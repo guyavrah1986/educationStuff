@@ -1,72 +1,100 @@
+#include <iostream>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <functional>
 
 using namespace std;
+
+typedef void (*funcPointer)(void);
+
+void printFoo()
+{
+	cout << "foo";
+}
+
+void printBar()
+{
+	cout << "bar";
+}
 
 class FooBar 
 {
 private:
     int n;
-    mutex m;
-    condition_variable cv;
-    bool ready;
-    bool processed; 
+    mutex cond_var_mutex;
+    condition_variable go_foo_cv;
+    condition_variable go_bar_cv;
+    volatile bool go_foo = true;
+    volatile bool go_bar = false;
+
 public:
     FooBar(int n)
     {
         this->n = n;
-        ready = false;
-        processed = false;
     }
 
-    void foo(function<void()> printFoo)
+    void foo()  // function<void()> printFoo
     {
         cout << "foo - start" << endl;
         for (int i = 0; i < n; i++)
         {
-            // send data to the worker thread
-            {
-                lock_guard lk(m);
-                // printFoo() outputs "foo". Do not change or remove this line.
-                printFoo();
-                ready = true;
-                cout << "foo function thread() signals it is done printing" << endl;
-            }
-            cv.notify_one();
-            cout << "foo function AFTER calling cv.notify_one()" << endl;
-            // wait for the worker2 to finish
-            {
-                unique_lock lk(m);
-                cv.wait(lk, [this]{return processed;});
-            }
+            cout << "foo - iteration:" << i << ", before locking cond_var_mutex" << endl;
+            unique_lock<mutex> lk(cond_var_mutex);
+            cout << "foo - iteration:" << i << ", AFTER locking cond_var_mutex" << endl;
+            go_foo_cv.wait(lk, [&]{return go_foo;});
+            cout << "foo - iteration:" << i << ", AFTER waiting for goo_foo to be true" << endl;
+            // printFoo() outputs "foo". Do not change or remove this line.
+            printFoo();
+
+            go_foo = false;
+            go_bar = true;
+            lk.unlock();
+            cout << "foo - iteration:" << i << ", AFTER unlocking cond_var_mutex" << endl;
+            go_bar_cv.notify_all();
+            cout << "foo - iteration:" << i << ", AFTER goo_bar_cv notify_all" << endl;
         }
         cout << "foo - end" << endl;
     }
 
-    void bar(function<void()> printBar)
+    void bar() // function<void()> printBar
     {    
         cout << "bar - start" << endl;
         for (int i = 0; i < n; i++)
         {
-            // Wait until foo function thread is done printing
-            std::unique_lock lk(m);
-            cv.wait(lk, [this]{return ready;});
- 
-            // after the wait, we own the lock.
-            std::cout << "bar function has the lock" << std::endl;
- 
-            // Send data back to foo thread()
+            cout << "bar - iteration:" << i << ", before locking cond_var_mutex" << endl;
+            unique_lock<mutex> lk(cond_var_mutex);
+            cout << "bar - iteration:" << i << ", AFTER locking cond_var_mutex" << endl;
+            go_bar_cv.wait(lk, [&]{return go_bar;});
+            cout << "bar - iteration:" << i << ", AFTER waiting for go_bar to be true" << endl;
             // printBar() outputs "bar". Do not change or remove this line.
-        	printBar();
-            processed = true;
-            std::cout << "bar function thread signals it printed bar" << std::endl;
- 
-            // Manual unlocking is done before notifying, to avoid waking up
-            // the waiting thread only to block again (see notify_one for details)
+            printBar();
+
+            go_bar = false;
+            go_foo = true;
             lk.unlock();
-            cv.notify_one();
+            cout << "bar - iteration:" << i << ", AFTER unlocking cond_var_mutex" << endl;
+            go_foo_cv.notify_all();
+            cout << "bar - iteration:" << i << ", AFTER go_foo_cv notify_all" << endl;
         }
         cout << "bar - end" << endl;
     }
 };
+
+int main(int argc, char** argv)
+{
+	cout << "main - start" << endl;
+	FooBar fooBar(2);
+	//function<void()> foo_function_pointer = printFoo;
+	//function<void()> bar_function_pointer = printBar;
+	funcPointer foo_print_func_pointer = printFoo;
+	funcPointer bar_print_func_pointer = printBar;
+
+    	//f_display(-9);
+	thread barThread(fooBar.bar);
+	thread fooThread(fooBar.foo);
+	cout << "main - joining the two worker threads" << endl;
+	barThread.join();
+	fooThread.join();
+	cout << "main - end" << endl;
+}
