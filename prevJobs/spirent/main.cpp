@@ -30,7 +30,7 @@ public:
 		cout << "SampleClass::SampleClass - set m_x:" << m_x << ", m_y:" << m_y << ", m_c:" << m_c << endl;
 	}
 	
-	virtual ~SampleClass()
+	/*virtual*/ ~SampleClass()
 	{
 		cout << "SampleClass::~SampleClass" << endl;
 	}
@@ -38,7 +38,7 @@ public:
 	int m_x;
 	int m_y;
 	char m_c;
-};
+}__attribute__((packed));
 
 using namespace std;
 
@@ -51,8 +51,8 @@ int main(int argc, char** argv)
 	pStruct.y = 15;
 	pStruct.c = 'a';
 	SampleClass sampleClass(12, 15, 'a');
-	cout << funcName + "sizeof SampleClass is:" << sizeof(SampleClass) << endl;
-	cout << funcName + "sizeof sampleStruct is:" << sizeof(sampleStruct) << endl;
+	cout << funcName + "sizeof SampleClass is:" << sizeof(sampleClass) << endl;
+	cout << funcName + "sizeof sampleStruct is:" << sizeof(pStruct) << endl;
 	cout << funcName + "passing pointer to a SampleClass object in address:" << static_cast<void*>(&sampleClass) << endl;
 	funcThatGetPointerToCppClassAndTreatItAsStrcut(&sampleClass);
 	cout << funcName + "end" << endl;	

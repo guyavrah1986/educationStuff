@@ -6,7 +6,7 @@ struct sampleStruct
 	int x;
 	int y;
 	char c;
-};
+}__attribute__((packed));
 
 
 /* This ifdef allows the header to be used from both C and C++ 
@@ -14,7 +14,7 @@ struct sampleStruct
 #ifdef __cplusplus
 extern "C" {
 #endif
-void funcThatGetPointerToCppClassAndTreatItAsStrcut(void* pStruct);
+struct sampleStruct funcThatGetPointerToCppClassAndTreatItAsStrcut(void* pStruct);
 #ifdef __cplusplus
 }
 #endif
