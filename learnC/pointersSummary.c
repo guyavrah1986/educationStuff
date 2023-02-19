@@ -1,3 +1,12 @@
+// ============================================================================================================
+// Pointers:
+// ---------
+// 1) When pointing on some variable in memory, the ACTUAL amount of memory that is being pointed is acording
+//    to the pointer's type and not the pointee. 
+// 2) Same goes here, only this time, sPtr points to TWO bytes (short). Due to the fact this this example was
+//    tested on littele endian, the value below is the value after this "modification".
+// ============================================================================================================
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,7 +22,7 @@ void checkBigOrLittleEndian()
 	x = 0x0102;
 
 	// When poiting on any variable with a char* we can access it for a single byte.
-	// The byte it points to will be the first memory location (address) where x is stored.
+	// The byte it points to will be the first memory location (address) where x is stored while the additional bytes used to store it will follow.
 	// Depending on the value stored there - we can determine whether it is big or little
 	// endian.
 	char* ptr = (char*)&x;	
@@ -74,7 +83,8 @@ void accessingViaCharPointer()
 	char* ptr = (char*)&x;
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Woverflow"
-		*ptr = 0x05060708;         /* no diagnostic for this one */
+		*ptr = 0x05060708;
+		/* 1)  */
 	#pragma GCC diagnostic pop
 
 
@@ -84,14 +94,14 @@ void accessingViaCharPointer()
 	{
 		printf("address:%p, has value of:%x \n",ptr + i, *(ptr + i));	
 	}
-	// at this stage the value of x is:
+	// at this stage the value of x is (assuming littele endian architecture)
 	// 0x08030201
 
 	short* sPtr = (short*)&x;
 	sPtr++;
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Woverflow"
-		*sPtr = 0x05060708;         /* no diagnostic for this one */
+		*sPtr = 0x05060708;         /* 2) */
 	#pragma GCC diagnostic pop
 	
 	printf("after setting x via short* which was moved incremented by 1, it value is:\n");
@@ -101,7 +111,7 @@ void accessingViaCharPointer()
 	}
 
 	// at this stage x has the value of:
-	// 0x08030807
+	// 0x08030807 --> on littele endian architecture. 
 	printf("accessingViaCharPointer - end\n");
 }
 

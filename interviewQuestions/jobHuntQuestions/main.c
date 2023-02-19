@@ -170,23 +170,6 @@ void q1()
 	printf("\n \nq1 - end \n");
 }
 
-void q2()
-{
-	printf("q2 - start \n");
-	struct node* head1 = createList();
-	printf("q2 - display list originaly \n");
-	displayList(head1);
-
-	printf("q2 - display list after reversing it \n");
-	struct node* head2 = reverseLinkedListRecursive(head1);
-	displayList(head2);
-
-	
-	clearListLinear(head2);
-
-	printf("\n \nq2 - end \n");	
-}
-
 void question7()
 {
 	printf("question7 - start \n");
