@@ -1,6 +1,6 @@
+#pragma once
+
 #include <ostream>
-
-
 
 class A 
 {

@@ -1,5 +1,4 @@
-#ifndef C_H_
-#define C_H_
+#pragma once
 
 struct sampleStruct
 {
@@ -18,5 +17,3 @@ struct sampleStruct funcThatGetPointerToCppClassAndTreatItAsStrcut(void* pStruct
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* C_H_ */

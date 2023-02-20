@@ -10,18 +10,15 @@ struct sampleStruct funcThatGetPointerToCppClassAndTreatItAsStrcut(void* pStruct
 	
 	struct sampleStruct ss;
 	/* first member of the struct (class) is an int, so "extract" it */
-	int* px = (int *)pStruct;
-	int x = *px;
-	ss.x = *px;
+	int* intPointer = (int *)pStruct;
+	ss.x = *intPointer;
 	pStruct = (char*)pStruct + sizeof(int);
-	int* py = (int *)pStruct;
-	int y = *py;
-	ss.y = *py;
+	intPointer = (int *)pStruct;
+	ss.y = *intPointer;
 	pStruct = (char*)pStruct + sizeof(int);
-	char* pc = (char*)pStruct;
-	char c = *pc;
-	ss.c = c;
-	printf("%s got the following values pointed by pStruct: x=%d, y=%d, c=%c\n", funcName, x, y, c);
+	char* charPointer = (char*)pStruct;
+	ss.c = *charPointer;
+	printf("%s got the following values pointed by pStruct: x=%d, y=%d, c=%c\n", funcName, ss.x, ss.y, ss.c);
 	printf("%s end\n", funcName);
 	return ss;
 }

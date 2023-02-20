@@ -32,3 +32,11 @@ This file contains an overall guideline regarding how to go voer the topics here
 - When the compiler "detects" that, for instance, there is a return parameter from a function that is returned by value --> he can levarage the copy
   illusion pattern, that simply put, will eliminate the need to "jump" into the function, and will simply call the object ctor in order to create the object.
 
+8) Copy ctor & assginment operator (chapter 9):
+- They both perform similar things, but they are being invoked in different situations
+- Copy ctor simply creates a NEW object as a copy of another.
+- Assignment operator "copies" the values of some object into an already existing one.
+
+9) Aggragation and composition (chapter 10):
+- Two forms to hold ("posses") a class member. 
+- In aggragation, note that in the by reference "form", the default ctor is not applicable.

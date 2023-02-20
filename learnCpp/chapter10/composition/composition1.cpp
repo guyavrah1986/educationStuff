@@ -2,7 +2,7 @@
 // ===================================================================================================================================================================
 // Composition1:
 // ------------
-// 1) Basic composition means that every member class (which is a class on its own as well) of the "parent" class, "lives" exactly the same as it father - it gets 
+// 1) Basic composition means that every member class (which is a class on its own as well) of the "parent" class, "lives" exactly the same as its father - it gets 
 //    destroyed while its father dtor is executed.
 //    Also, every class member, also DOES NOT know about its parent existence.It just exists.It does not need to know anything from/about its father class in order
 //    to do what it does.
@@ -89,7 +89,6 @@ private:
 	int m_b;
 };
 
-
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 // main
@@ -100,12 +99,8 @@ int main(int argc, char** argv)
 {
 
 	cout << "main - start" << endl;
-	
 	MyClass obj;
-
 	cout << "main - end" << endl;
 	return 0;
 }
-
-
 

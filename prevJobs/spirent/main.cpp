@@ -40,6 +40,24 @@ public:
 	char m_c;
 }__attribute__((packed));
 
+class SampleClassWithVirtualPointer
+{
+public:
+	SampleClassWithVirtualPointer(int x, int y, char c) : m_x(x), m_y(y), m_c(c)
+	{
+		cout << "SampleClassWithVirtualPointer::SampleClassWithVirtualPointer - set m_x:" << m_x << ", m_y:" << m_y << ", m_c:" << m_c << endl;
+	}
+	
+	virtual ~SampleClassWithVirtualPointer()
+	{
+		cout << "SampleClassWithVirtualPointer::~SampleClassWithVirtualPointer" << endl;
+	}
+
+	int m_x;
+	int m_y;
+	char m_c;
+}__attribute__((packed));
+
 using namespace std;
 
 int main(int argc, char** argv)
@@ -54,7 +72,12 @@ int main(int argc, char** argv)
 	cout << funcName + "sizeof SampleClass is:" << sizeof(sampleClass) << endl;
 	cout << funcName + "sizeof sampleStruct is:" << sizeof(pStruct) << endl;
 	cout << funcName + "passing pointer to a SampleClass object in address:" << static_cast<void*>(&sampleClass) << endl;
-	funcThatGetPointerToCppClassAndTreatItAsStrcut(&sampleClass);
+	struct sampleStruct retStruct = funcThatGetPointerToCppClassAndTreatItAsStrcut(&sampleClass);
+	cout << funcName + "retStruct has the following values - retStruct.x:" << retStruct.x << ", retStruct.y:" << retStruct.y << ", retStruct.c:" << retStruct.c << endl;
+	SampleClassWithVirtualPointer sampleClassWithVirtualPointer(12, 15, 'a');
+	cout << funcName + "sizeof SampleClassWithVirtualPointer is:" << sizeof(SampleClassWithVirtualPointer) << endl;
+	struct sampleStruct retStruct2 = funcThatGetPointerToCppClassAndTreatItAsStrcut(&sampleClassWithVirtualPointer);
+	cout << funcName + "retStruct2 has the following values - retStruct2.x:" << retStruct2.x << ", retStruct2.y:" << retStruct2.y << ", retStruct2.c:" << retStruct2.c << endl;
 	cout << funcName + "end" << endl;	
 	return 0;
 }

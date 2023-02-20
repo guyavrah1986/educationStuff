@@ -27,7 +27,7 @@ void AsyncFileAccess::WriteFile(void* fileHandle, const char* buffToWrite, size_
 
 	// NOTE: implementation specific - cast to int
 	int handle = *(static_cast<int*>(fileHandle));
-    size_t bytesWritten = write(handle, buffToWrite, numBytesToWrite);
+	size_t bytesWritten = write(handle, buffToWrite, numBytesToWrite);
 	cout << "AsyncFileAccess::WriteFile - written successfully " << bytesWritten << " bytes into file handle:" << handle << endl;
 	callback(Result(ErrorCode::FS_SQS_ERROR_CODE_SUCCESS));
 }
@@ -41,7 +41,7 @@ void AsyncFileAccess::OpenFile(const string& fileName, const std::function<void(
 	if(fd != -1)
 	{
 		cout << "AsyncFileAccess::OpenFile - file:" << fileName << " has been created successfully" << endl;
-	    res = ErrorCode::FS_SQS_ERROR_CODE_SUCCESS;
+		res = ErrorCode::FS_SQS_ERROR_CODE_SUCCESS;
 	}
 	else
 	{

@@ -17,7 +17,7 @@ using namespace std;
 class AggregatedClass
 {
 public:
-	AggregatedClass(int a) : m_a(a)
+	explicit AggregatedClass(int a) : m_a(a)
 	{
 		cout << "AggregatedClass::AggregatedClass - set m_a:" << m_a << endl;
 	}
@@ -40,7 +40,7 @@ private:
 class MyClass
 {
 public:			
-	MyClass(AggregatedClass* obj) 
+	explicit MyClass(AggregatedClass* obj) 
 		: m_aggregatedClass(obj)
 	{
 		cout << "MyClass::MyClass(AggregatedClass* obj)" << endl;
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
 	MyClass obj(aggregatedObj);
 	obj.func1();
 
-	// now we (main program) must take care of the destruction
+	// now we (main program/"client") must take care of the destruction
 	// of the aggregated object "manually"
 	delete aggregatedObj;
 
