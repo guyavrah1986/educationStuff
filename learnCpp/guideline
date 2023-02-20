@@ -40,3 +40,11 @@ This file contains an overall guideline regarding how to go voer the topics here
 9) Aggragation and composition (chapter 10):
 - Two forms to hold ("posses") a class member. 
 - In aggragation, note that in the by reference "form", the default ctor is not applicable.
+
+10) Name hiding (chapter 10):
+- When an "entitiy" (function/object/enumeration/etc...) has the same name (not neccessarly entire signature in the case of function), in some "inner scope", it will "hide" entities in 
+a more "outer scope". 
+- An example to this, is a NON virtual function in base class, say foo(int) that is also defined in the derived class WITHOUT arguments, foo(void), and when we will perform Dervied.foo(17) for 
+some Derived object --> it will NOT compile, cause the Derived class foo(void) "hides" the Base class foo(int).
+
+

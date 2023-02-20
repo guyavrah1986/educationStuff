@@ -4,8 +4,7 @@
 // --------------
 // 1. When a class has a inner class within it, sometimes, it might indicate on "tight coupling". In the first example, the 
 //    switch is "too coupled" to the Lamp class (in other words, it is "switchable only" when it contains a Lamp - but this is
-//    NOT always the case.
-//
+//    NOT always the case).
 //
 // ==============================================================================================================================
 // ==============================================================================================================================
