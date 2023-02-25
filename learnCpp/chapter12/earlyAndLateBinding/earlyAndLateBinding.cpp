@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 
 static void print_object(const char *name, void *this_, size_t size)
@@ -25,14 +26,12 @@ void bar(int i)
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
-
 	// early (static) binding:
 	bar(15);
 
 	// late binding
 	void (*funcPointer)(int) = &foo;
 	(*funcPointer)(17);
-
 	cout << "main - end" << endl;
 	return 0;
 }

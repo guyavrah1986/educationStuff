@@ -11,7 +11,7 @@ enum ErrorCode
 class Result
 {
 public:
-	Result(const enum ErrorCode& errorCode)
+	explicit Result(const enum ErrorCode& errorCode)
 		: m_errorCode(errorCode)
 	{
 

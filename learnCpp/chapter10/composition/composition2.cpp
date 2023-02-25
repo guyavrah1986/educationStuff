@@ -21,7 +21,7 @@ using namespace std;
 class InnerClass1
 {
 public:
-	InnerClass1(int a) : m_a(a)
+	explicit InnerClass1(int a) : m_a(a)
 	{
 		cout << "InnerClass1::InnerClass1 - set m_a:" << m_a << endl;
 	}
@@ -43,18 +43,16 @@ private:
 class InnerClass2
 {
 public:
-	InnerClass2(int a) : m_a(a)
+	explicit InnerClass2(int a) : m_a(a)
 	{
 		cout << "InnerClass2::InnerClass2 - set m_a:" << m_a << endl;
 	}
 
-	
 	InnerClass2() : m_a(15)
 	{
 		cout << "InnerClass2::InnerClass2() - set m_a:" << m_a << endl;
 	}
 	
-
 	~InnerClass2()
 	{
 		cout << "InnerClass2::~InnerClass2" << endl;
@@ -97,7 +95,6 @@ private:
 	int m_b;
 };
 
-
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
 // main
@@ -106,14 +103,9 @@ private:
 
 int main(int argc, char** argv)
 {
-
 	cout << "main - start" << endl;
-	
 	MyClass obj;
-
 	cout << "main - end" << endl;
 	return 0;
 }
-
-
 

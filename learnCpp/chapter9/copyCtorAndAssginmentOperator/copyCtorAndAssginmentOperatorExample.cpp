@@ -12,7 +12,7 @@
 // 2) Assignment operator will be called upon assiging an object to AN ALREADY EXISITING OBJECT, for example:
 //    MyObj myObj1;
 //    MyObj myObj2;
-//    myObj1 = myObj2; 
+//    myObj1 = myObj2;  --> here assginment operator kicks-in
 // 
 // 
 // Some general notes:
@@ -138,12 +138,12 @@ int main(int argc, char** argv)
 
 	A a1(12, "buba");	// --> calls ctor
 	cout << "main - a1 detailes:";
-	cout << a1;
+	cout << a1 << endl;
 
 	
-	A a2 = a1;		// --> calls copy ctor
+	A a2 = a1;		// --> calls copy ctor, a2 is being created now!
 	cout << "main - a2 detailes:" << endl;
-	cout << a2;
+	cout << a2 << endl;;
 
 	cout << "main - about to assgin a1 = a1 " << endl;
 	a1 = a1;	        // --> calls assignment operator (return *this)
@@ -152,7 +152,7 @@ int main(int argc, char** argv)
 	a2 = a1;		// --> calls assignment operator
 
 	cout << "main - after assgining a2 = a1 , a2 detailes:";
-	cout << a2;
+	cout << a2 << endl;;
 
 	a2 = A(17, "calbas");	// --> calls assginment operator (after creating a temporary object with the given arguments via the ctor)
 	cout << "main - after assgining a2 = A(17,calbas), a2 detailes:";

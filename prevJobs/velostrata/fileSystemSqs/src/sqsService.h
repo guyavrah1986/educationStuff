@@ -19,6 +19,7 @@ struct MessageInfo
 			std::cout << "MessageInfo::MessageInfo - setting msgId:" << msgId << " and buff with size of:" << numBytes << std::endl;
 		}
 	}
+	
 	~MessageInfo()
 	{
 		std::cout << "MessageInfo::~MessageInfo" << std::endl;
@@ -35,12 +36,11 @@ struct MessageInfo
 
 class ISqsService 
 {
+public:
 	virtual void SendMessage(const MessageInfo& msgInfo, const std::function<void(const Result&)>& callback) = 0;
-
 	virtual ~ISqsService() {}
 
-	private:
+private:
 	std::string m_queueUrl;
 	uint64_t m_msgId;
-	
 };

@@ -3,7 +3,7 @@
 // Information hiding:
 // ==================
 // 1. Sometimes it is confused with encapsulation - which is NOT the same (encapsulation facilitates information hiding, but does
-//    NOT actually mean it is implied.
+//    NOT actually mean it is implied).
 // 2. Due to the fact that the State enumration is public and the GetState returns a value of one of the enumuration values, it
 //    implies "poor information hiding".
 // 3. The AutomaticDoorWithGoodInformationHiding illustrate a better approach for information hiding.
@@ -52,12 +52,12 @@ class AutomaticDoorWithGoodInformationHiding
 public:
 	explicit AutomaticDoor() : m_state(State::open)
 	{
-		cout << "AutomaticDoor::AutomaticDoor" << endl;
+		cout << "AutomaticDoorWithGoodInformationHiding::AutomaticDoorWithGoodInformationHiding" << endl;
 	}
 
 	virtual ~AutomaticDoor()
 	{
-		cout << "AutomaticDoor::~AutomaticDoor" << endl;
+		cout << "AutomaticDoorWithGoodInformationHiding::~AutomaticDoorWithGoodInformationHiding" << endl;
 	}
 
 	State GetState() const
@@ -87,7 +87,7 @@ int main(int argc, char** argv)
 	cout << "main - start" << endl;
 	AutomaticDoor ad;
 	
-	// 2. If the enum State will be altered within the AutomaticDoor class, then the AD class clients will hav to be altered.
+	// 2. If the enum State will be altered within the AutomaticDoor class, then the AutomaticDoor class clients will have to be altered as well.
 	if (AutomaticDoor::State::open == ad.GetState())
 	{
 		cout << "main - the door is open" << endl;

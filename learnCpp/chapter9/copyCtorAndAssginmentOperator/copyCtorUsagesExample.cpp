@@ -54,7 +54,7 @@ class MyStr
 {
 
 public:
-	MyStr(const char* str) : m_cStr(nullptr), m_b(11)
+	explicit MyStr(const char* str) : m_cStr(nullptr), m_b(11)
 	{
 		if (str != nullptr)
 		{
@@ -75,7 +75,6 @@ public:
 		}
 	}
 
-	
 	MyStr(const MyStr& other) : MyStr(other.m_cStr) //a) 
 	{
 		cout << "MyStr::MyStr& other (copy Ctor) - got other in the address of:" << &other << " ,created a copy in the address of:" << this << endl;	
