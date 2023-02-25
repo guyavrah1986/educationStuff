@@ -28,12 +28,18 @@ void structPointerExample()
 	printf("\n \n structPointerExample - end");
 }
 
+void initStructWithCurelyBraces()
+{
+	struct myStruct myStrcut = {0};
+	printf("initStructWithCurelyBraces - the = {0} struct values are - myStrcut.i:%d, myStrcut.pc:%d, myStrcut.vp\n", myStrcut.i, myStrcut.pc, myStrcut.pv);
+}
+
 void main(int argc, char** argv)
 {	
 	printf("structPointerExe - start \n \n");
 
 	structPointerExample();
-
+	initStructWithCurelyBraces();
 	printf("\n \n structPointerExe - end \n");
 	return;
 }
