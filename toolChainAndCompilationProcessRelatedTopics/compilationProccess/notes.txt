@@ -1,0 +1,83 @@
+0) Introduction:
+----------------
+In the compilation process (AKA "build" process) of a C/C++ program there are 4 stages taking place, each one has its own input and output files. This short example 
+will try to illustrate them briefly under the assumption that we are buidling the program under Windows platform using the "integral" visual C++ tools. 
+In order to invoke the different utilities we will need from the Visual C++ "tools set" we need to run the commands from the Visual Studio Command Prompt
+Go to: Start->All Programs->Visual Studio 2017->Visual Studio Tools->Visual Studio Command Prompt (2017)
+
+NOTE: In this command line prompt all the PATHs to the different visual studio tools are already configured and set properly.
+
+1) Preproccessor stage:
+-----------------------
+The first phase that take place. It does several things to the original *.cpp file:
+a) Joining continued lines (lines ending with a \) and stripping comments.
+b) Lines starting with a # character are interpreted by the preprocessor as preprocessor command. 
+This language (the commands the preprocessor interpretes) is used to reduce repetition in source code by providing functionality to inline files, define macros and
+to conditionally omit code.
+
+In order to produce the file that the preprocessor produces invoke (Visual Studio Command Prompt):
+& cl /P main.cpp
+--> This command will create a file named (in this case) main.i  
+
+NOTES:
+# This file will contain LOTS of lines which are included from other header files that the source file (for instance main.cpp file) includes.
+# This file will also include macros expansion and the replacment of #define contants.
+# This file WILL NOT include the original C++ code comments.
+
+
+2) Compilation stage:
+---------------------
+The second phse that takes place. The preprocessed code is translated to assembly instructions specific to the target processor architecture.
+The existence of this step allows for C code to contain inline assembly instructions and for different assemblers to be used (in case we wish to use a different 
+assembler than the one which is used by default by the build tools).
+
+In order to produce the file that the compilation phase produces, invoke (Visual Studio Command Prompt):
+& cl /S main.cpp
+--> This command will create a file named (in this case) main.s (OR main.o if the assembler is already integrated within the compilation phase).
+
+3) Assembly stage:
+------------------
+During the assembly stage, an assembler is used to translate the assembly instructions to machine code, or object code.
+The output consists of actual instructions to be run by the target processor.  
+
+In order to produce the file that the compilation phase produces, invoke (Visual Studio Command Prompt):
+& cl /C /P main.cpp
+--> This command will create a file named (in this case) main.s (OR main.o if the assembler is already integrated within the compilation phase).
+
+4) Linking stage:
+----------------
+The object code generated in the assembly stage is composed of machine instructions that the processor understands but some pieces of the program
+are out of order or missing.To produce an executable program, the existing pieces have to be rearranged and the missing ones filled in. This process 
+is called linking.
+The linker will arrange the pieces of object code so that functions in some pieces can successfully call functions in other pieces. It will also 
+add pieces containing the instructions for library functions used by the program. In the case of the simple “Hello, World!” program, the linker will add
+the object code for the cout function.
+The result of this stage is the final executable program. When run without options, cl will name this file a.out. To name the executable in a different name
+pass the -o option to cc: 
+
+& cl /C -o prog main.cpp
+--> Will create an exe file named prog.exe and (brfore that chronologicly, an main.obj file) from the passed main.cpp file.
+
+============================================================================================================================================================================
+============================================================================================================================================================================
+============================================================================================================================================================================
+Relevant links:
+---------------
+
+https://www.calleerlandsson.com/the-four-stages-of-compiling-a-c-program/
+
+
+
+
+
+
+
+https://stackoverflow.com/posts/8979018/edit
+
+
+For example, given a single file (for simplicity) called `main.cpp` (or `main.c`), which is the source file, invoking the following command (from the VS Developer Command Prompt):
+
+`cl /P main.cpp`
+
+will create (as **@Daniel** mentioned) a file called `main.i` (in the build directory).
+This file is the output of the preprocessor phase.

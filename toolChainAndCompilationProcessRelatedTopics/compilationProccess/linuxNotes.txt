@@ -1,0 +1,28 @@
+0) This folder holods a simple and minimal "project" to illustrate the process of the GNU compilation and linking of an executable.
+
+1) Object files:
+----------------
+1.1) An object file of some C/C++ source file, is the specific machine code (recall that C/C++ when compiled, is compiled for some architecture) for the source code of the source file (.c or .cpp).
+1.2) There are three types of object files:
+1.2.1) Relocatable object file:
+- It is being created using the command: g++ lib1.c -c  (for C++ source file)
+- Contains the object code and metadata for linking.
+- Are not ("yet") linked with other object files to create an executable program - they can NOT be executed on their own.
+
+
+1.2.2) Shared object files: 
+- Also known as dynamic link libraries (DLLs) or shared libraries.
+- These object files contain code and data that can be loaded AT RUNTIME by multiple programs. 
+- Shared object files allow multiple programs to share code and data in memory, reducing the memory footprint and increasing performance. They typically have a different format than other object files, as they contain additional metadata and relocation information needed for dynamic linking.
+- It can be built via the following commands: g++ -Wall -c -fpic -o lib2.o lib2.cpp
+-- fpic (Position Independent Code) is used cause it is a shared library.
+- g++ -shared -o lib2.so lib2.o
+
+1.3) There several types of built-in utilities which are part of the GNU toolchain to inspect the contents of an object file and or shared library:
+-- objdump -d lib1.o: Disaply the assembly code that the object file contains (offcourse, it will be in the machine code of the architecture it was compiled to).
+-- nm lib1.o: Disaply information about the symbols defined in this object file (mainly functions and global variable. Note that local variable on the stack of functions within this object file are NOT listed in this file).
+-- readelf -h lib1.o: Display information about "metadata" on this object file such as: OS/ABI (typically, UNIX - System V), type (for example, REL - Relocatable file OR DYN for shared object file), architecture built into (for example, Advanced Micro Devices X86-64)
+
+Usefull links:
+- https://stackoverflow.com/questions/7718299/whats-an-object-file-in-c/7718363#7718363
+- https://betterprogramming.pub/how-to-build-a-linux-shared-library-f5b574b0c08e
