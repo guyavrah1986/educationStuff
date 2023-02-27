@@ -1,4 +1,5 @@
 0) This folder holods a simple and minimal "project" to illustrate the process of the GNU compilation and linking of an executable.
+Along the way it also describes the concepts of object files, static and shared libraries.
 
 1) Object files:
 ----------------
@@ -26,6 +27,20 @@ The result of running the linker over multiple relocatable object files is an ex
 -- objdump -d lib1.o: Disaply the assembly code that the object file contains (offcourse, it will be in the machine code of the architecture it was compiled to).
 -- nm lib1.o: Disaply information about the symbols defined in this object file (mainly functions and global variable. Note that local variable on the stack of functions within this object file are NOT listed in this file).
 -- readelf -h lib1.o: Display information about "metadata" on this object file such as: OS/ABI (typically, UNIX - System V), type (for example, REL - Relocatable file OR DYN for shared object file), architecture built into (for example, Advanced Micro Devices X86-64)
+
+2) Static library:
+2.1) Characteristics:
+2.1.1) Is formed by "accumulating" one (or typically more) source files into one "entitiy" that will contain and "expose" the capabilities of the library.
+2.1.2) Once it is linked into an executable, it becomes "part" of this executable, among other stuff, in terms that it adds its size to the application's size.
+2.2) Creating a static library: 
+2.2.1) In order to create one such library do the following" (assuming the only source file from which the library will be built is lib1.cpp):
+$ g++ lib1.cpp -c  
+--> The artifact of this command is the lib1.o (relocatable object) file.
+$ ar rvs lib1.a lib1.o 
+NOTE: the order of the lib1.a and lib1.o is IMPORTANT and MUST bee .a BEFORE .o !!
+--> the artifact of this command is the static library lib1 named lib1.a
+
+
 
 Usefull links:
 - https://stackoverflow.com/questions/7718299/whats-an-object-file-in-c/7718363#7718363

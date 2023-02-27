@@ -13,3 +13,8 @@ CLib1::~CLib1()
 {
 	cout << "CLib1::~CLib1" << endl;
 }
+
+void CLib1::func1() const
+{
+	cout << "CLib1::func1" << endl;
+}
