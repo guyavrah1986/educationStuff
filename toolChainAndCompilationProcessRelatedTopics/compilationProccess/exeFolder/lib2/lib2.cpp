@@ -13,3 +13,8 @@ CLib2::~CLib2()
 {
 	cout << "CLib2::~CLib2" << endl;
 }
+
+void CLib2::func2() const
+{
+	cout << "CLib2::func2" << endl;
+}

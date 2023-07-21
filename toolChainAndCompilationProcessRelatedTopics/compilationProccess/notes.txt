@@ -1,7 +1,7 @@
 0) Introduction:
 ----------------
 In the compilation process (AKA "build" process) of a C/C++ program there are 4 stages taking place, each one has its own input and output files. This short example 
-will try to illustrate them briefly under the assumption that we are buidling the program under Windows platform using the "integral" visual C++ tools. 
+will illustrate them briefly under the assumption that we are buidling the program under Windows platform using the "integral" visual C++ tools. 
 In order to invoke the different utilities we will need from the Visual C++ "tools set" we need to run the commands from the Visual Studio Command Prompt
 Go to: Start->All Programs->Visual Studio 2017->Visual Studio Tools->Visual Studio Command Prompt (2017)
 

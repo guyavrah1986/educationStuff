@@ -1,4 +1,4 @@
-0) This folder holods a simple and minimal "project" to illustrate the process of the GNU compilation and linking of an executable.
+0) This folder holods a simple and minimal "project" to illustrate the process of the GNU compilation and linking of an executable (typically an ELF file).
 Along the way it also describes the concepts of object files, static and shared libraries.
 
 1) Object files:
@@ -13,11 +13,16 @@ Along the way it also describes the concepts of object files, static and shared 
 
 1.2.2) Shared object files: 
 - Also known as dynamic link libraries (DLLs) or shared libraries.
-- These object files contain code and data that can be loaded AT RUNTIME by multiple programs. 
+- These object files contain code and data that can be loaded AT RUNTIME by multiple programs, meaning, it will be loaded ONCE when the first application that
+uses it will need it, and any other application that will need it in addition, will use the same "copy" of this library just as the first application does.
 - Shared object files allow multiple programs to share code and data in memory, reducing the memory footprint and increasing performance. They typically have a different format than other object files, as they contain additional metadata and relocation information needed for dynamic linking.
-- It can be built via the following commands: g++ -Wall -c -fpic -o lib2.o lib2.cpp
+- It can be built via the following commands: 
+$ g++ -Wall -c -fpic -o lib2.o lib2.cpp
+--> the output of this command is the lib2.o object file
 -- fpic (Position Independent Code) is used cause it is a shared library.
-- g++ -shared -o lib2.so lib2.o
+$ g++ -shared -o lib2.so lib2.o
+--> the output of this command is the actuall shared library library.
+$ g++ -L <path_to_shared_library_folder> -Wall main.cpp -o myProjExeWithSharedLibrary -lshared
 
 1.2.3) Executable object file:
 Contain machine code that can be directly loaded into memory (by the loader, e.g execve) and subsequently executed.
