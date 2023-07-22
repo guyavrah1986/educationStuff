@@ -2,13 +2,14 @@
 // =================================================================================================================================
 // Threads in Linux (POSIX based):
 // -------------------------------
-// 1) All threads of a process are creating usign the pthread_create (POSIX based) pthread library call.
+// 1) All threads of a process are created using the pthread_create (POSIX based) pthread library call.
 // 2) All threads of a process, despite the fact that they are threads, have PCB (=Process Control Block) and a PID, just like
-//    any other process in the system.
+//    any other process in the system. Essentially, there is no actually thread entitiy in Linux OS, but simply put it is a process
+//    within the same tgid (= thread group ID).
 // 3) All threads of the same process are "linked" together via a concept called "thread group". Within the PCB of each thread of 
-//    the same process, the thread_group field will be the SAME. The filed tgid for ALL threads will have the value of the "first"
+//    the same process, the thread_group field will be the SAME. The field tgid for ALL threads will have the value of the "first"
 //    thread of this threads group --> which is the "main thread".
-// 4) The unique per thread ID for each thread in the process is avialble via this system call. It provides the actual 
+// 4) The unique indicator per thread ID for each thread in the process is avialble via this system call. It provides the actual 
 //    "kernel-aware" thread ID for the thread - which is in fact the kernel PID of this thread (as seen in the figure below).
 //     A potential output of the below program might be (where 14458 is the thread ID of the "main thread"):
 //     guya@guya-ubuntu:/tmp$ ps -T -p 14458
@@ -24,6 +25,7 @@
 //    system calls that deal with threads on Linux machines.
 // 8) It is possible to terminate the run of the thread, usually when it is done with the execution of its function, with 
 //    the pthread_exit API.
+// 9) NOTE: This program needs to be linked against the pthread library (i.e. - $ gcc sourceFileName.c -o prog -lpthread)
 //
 //
 // Usefull links:
