@@ -72,12 +72,20 @@
 //   text	   data	    bss	    dec	    hex	filename
 //   340	    230	      8	    578	    242	memoryLayoutOfProgram
 //
+// 1.11 Same as 1.9 and global const char* string initialized
+//   size memoryLayoutOfProgram
+//   text	   data	    bss	    dec	    hex	filename
+//   372	    288	      8	    668	    29c	memoryLayoutOfProgram
+//
+//
 // IMPORTANT NOTES: The size of the data increased by 2 - which is the size of the globalStaticInitialized (short) --> which is fine!
 //                  But also, the size of the bss decreased from 12 --> 8, this is becasue (again) the sum of: bss + data MUST be divided by 8
 //
 // 2. Summary/points to think of:
 //    - The size of the executable on the disk is defined by the text + data segment, i.e. - the bss segment is only created when the program is
 //      loaded into main memory and all of it is "easily" set to 0 by memset.
+//    - The stack of a program, is only relevant once it is running. It allocates and de-allocates "itself" without any intervention from the 
+//      programmer.
 //
 // Good links:
 // -----------
@@ -92,7 +100,7 @@ int globalIntVarNotInitialized;
 int globalIntVarInitialized = 17;
 static short globalStaticNotInitialized;
 static short globalStaticInitialized = 15;
-
+const char* str1 = "string1";
 
 void func1()
 {
