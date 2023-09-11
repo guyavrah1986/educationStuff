@@ -39,6 +39,48 @@ void findTwoNumsInArrThatSumsUpToVal(const int* arr, const size_t arrLen, const 
     printf("%s end\n", funcName);
 }
 
+void buildRandomArray(int* arr, const size_t arrLen, int maxVal)
+{
+    const char funcName [] = "buildRandomArray - ";
+    printf("%s about to build random array with maximum value of:\n", funcName);
+    // first set the array with values from 0-(maxVal -1)
+    for (size_t i = 0; i < arrLen; ++i)
+    {
+        arr[i] = i;
+    }
+    
+    printf("%s before randomizing the array it is:\n", funcName);
+    for (size_t i = 0; i < arrLen; ++i)
+    {
+        printf("%d\t", arr[i]);
+    }
+    
+    printf("\n");
+    srand(time(NULL));   // Initialization, should only be called once.
+    
+    // now randomize the array
+    for (size_t i = 0; i < arrLen - 1; ++i)
+    {
+        int randomNumber = rand() % maxVal;;      // Returns a pseudo-random integer between 0 and maxVal-1
+        printf("%s on iteration:%lu, the random number is:%d from the rang:0-%d\n", funcName, i, randomNumber, maxVal);
+        // use the random number to take the current value from the respective index
+        int tmp = arr[randomNumber];
+        arr[randomNumber] = arr[maxVal - 1];
+        arr[maxVal - 1] = tmp;
+        
+        // decrease the range by 1
+        maxVal--;
+    }
+
+    printf("%s AFTER randomizing the array it is:\n", funcName);
+    for (size_t i = 0; i < arrLen; ++i)
+    {
+        printf("%d\t", arr[i]);
+    }
+    
+    printf("\n");
+    printf("%s end\n", funcName);
+}
  
 int main()
 {
