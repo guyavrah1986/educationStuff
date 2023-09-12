@@ -56,3 +56,57 @@ int main(int argc, char** argv)
   printf("%s end\n");
 }
 }
+
+/* MY interview final notes for question 9:
+
+sdafl d
+sddaf
+
+use cases:
+sddkli --> sddddk
+
+seddu --> seddd
+
+qwertd --> qwertd
+
+						
+void shiftBytesOnePlace(uint8_t *buff, uint8_t startIndex)
+{
+	buff[startIndex] = ch;
+	memmove((void *)buff + 1, const void *str2, size_t n)
+}
+
+void LetsDuplicate(uint8_t *buff, uint8_t ch) {
+	size_t strLen = strlen(buff);
+	for (size_t i = 0; i < strLen; ++i)
+    {
+    	if (buff[i] != ch)
+        {
+        	continue;
+        }
+        
+        // if applicable, do the duplication:
+        if (i == strLen - 1)
+        {
+        	return;
+        }
+      
+      	// save curr value of the current bytes
+        uint8_t tmp = buff[++i];
+        
+        // sdafl --> sdafl 
+        // tmp = a , i = 2
+      	buff[i] = ch;
+        // sddfl
+        
+        // how many bytes are there till the end of the string
+        //size_t bytesLeft = strLen - i;
+        for (size_t j = i + 1; j < strLen - 1; ++j, ++i)
+        {
+        	buff[i] = tmp;
+            tmp = buff[i];
+        }
+        
+    }
+}
+*/
