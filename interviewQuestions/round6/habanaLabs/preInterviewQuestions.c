@@ -146,6 +146,16 @@ void myAlignedMallocAndFreeUsageExample()
     printf("%s end\n", funcName);
 }
 
+void twoThreadsGlobalVar()
+{
+    const char funcName [] = "twoThreadsGlobalVar - ";
+    const uint8_t numOfThreads = 2;
+    printf("%s about to initiate %u threads that each will increment the global variable which is initially:%d\n", funcName, numOfThreads, globalInt);
+    
+    pid_t threads [2] = {0};
+    printf("%s eventually the global variable has the value of:%d\n", funcName, globalInt);
+}
+
 int main(int argc, char** argv)
 {
     printf("main - start\n");
