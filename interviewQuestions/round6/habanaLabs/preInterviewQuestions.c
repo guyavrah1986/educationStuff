@@ -70,16 +70,10 @@ void reverseStringWithSeveralWords(char* origStr)
     
     printf("%s the original string is:%s with length of:%lu characters\n", funcName, origStr, strLen);
     
-    // iterate over the string, and parse each word by hitting the space char
-    // or the '\0' that indicates that it is the last word in the string
-    char* reversedStringWithWords = (char*)malloc((sizeof(char) * strLen) + 1);
-    printf("%s allocated %lu bytes for the reversed string\n", funcName, strLen + 1);
-    
     // first reverse the entire string as a whole
+    // ab cd --> dc ba
     reverseWord(origStr, strLen);
     printf("%s after reversing the entire string as a whole it is:%s\n", funcName, origStr);
-    
-    
     while (*origStr != '\0')
     {
         size_t currWordLen = extractWordFromString(origStr);
@@ -92,20 +86,76 @@ void reverseStringWithSeveralWords(char* origStr)
     }
 }
 
-int main()
+
+
+/*Write an aligned malloc & free function. Which takes number of bytes and aligned byte (which is always power of 2)
+
+Ex. align_malloc (1000,128);
+
+it will return memory address which is a multiple of 128 and have the size of 1000.
+(at least this is how it will appear to the user)
+aligned_free(); 
+
+it will free memory allocated by align_malloc.*/
+void* align_malloc(size_t numBytesToAllocate, const uint8_t alignedFactor)
+{
+    const char funcName [] = "align_malloc - ";
+    printf("%s requested:%lu bytes to allocated which will be in an address which is a multiple of:%u\n", funcName, numBytesToAllocate, alignedFactor);
+    // Assumptions: 
+    // 1. The number of "offset bytes" from the actual starting location given
+    // by the original malloc will always fit into one byte
+    // 2. numBytesToAllocate + alignedFactor --> can fit into size_t
+    // 3. numBytesToAllocate % alignedFactor --> can fit into uint8_t
+
+    uint8_t* p = (uint8_t*)malloc(numBytesToAllocate + alignedFactor);
+    printf("%s the ORIGINAL address (that points to the entire capacity of bytes allocated) is:%p (in decimal:%lu)\n", funcName, p, (unsigned long)p);
+    uint8_t residue = (unsigned long)p % alignedFactor;
+    printf("%s the residue is:%u\n", funcName, residue);
+    uint8_t numBytesToMoveForward = alignedFactor - residue;
+    p += numBytesToMoveForward - 1;
+    *p = numBytesToMoveForward;
+    printf("%s placed the value of:%u at address:%p\n", funcName, numBytesToMoveForward, p);
+    ++p;
+    printf("%s after moving forward:%u bytes, now p points to memory address:%p (in decimal:%lu)\n", funcName, numBytesToMoveForward, p, (unsigned long)p);
+    
+    return (void*)p;
+}
+
+void aligned_free(void* ptrToFree)
+{
+    const char funcName [] = "aligned_free - ";
+    uint8_t* p = (uint8_t*)ptrToFree;
+    printf("%s got the ORIGINAL address from the user to free:%p\n", funcName, ptrToFree);
+    uint8_t numOfBytesToGoBackwards = *(--p);
+    printf("%s the number of bytes extracted that need to traverse backwards is:%u\n", funcName, numOfBytesToGoBackwards);
+    p -= numOfBytesToGoBackwards - 1;
+    printf("%s the actuall address that is about to be de-allocated is:%p\n", funcName, p);
+    free((void *)p);
+}
+
+void myAlignedMallocAndFreeUsageExample()
+{
+    const char funcName [] = "myAlignedMallocAndFreeUsageExample - ";
+    printf("%s start\n", funcName);
+    uint8_t alignedNum = 4;
+    size_t numBytesToAllocate = 11;
+    void* ret = align_malloc(numBytesToAllocate, alignedNum);
+    printf("%s got the address of:%p\n", funcName, ret);
+    printf("%s about to call the free on this pointer\n \n \n", funcName);
+    aligned_free(ret);
+    printf("%s end\n", funcName);
+}
+
+int main(int argc, char** argv)
 {
     printf("main - start\n");
-    
-    /*
-    char str [] = "abcd";
-    size_t len = strlen(str);
-    printf("main - str at the begining is:%s, with length of:%lu, located at address:%p\n", str, len, str);
-    reverseWord(str, len);
-    printf("main - after reversing the string is:%s\n", str);
-    */
-    
+
+    // 1)
     char strWithSeveralWords [] = "ab cd";
     reverseStringWithSeveralWords(strWithSeveralWords);
     printf("main - after reversing the entire word, it is now:%s\n", strWithSeveralWords);
+
+    // 2)
+    myAlignedMallocAndFreeUsageExample();
     return 0;
 }
