@@ -145,7 +145,22 @@ void myAlignedMallocAndFreeUsageExample()
     aligned_free(ret);
     printf("%s end\n", funcName);
 }
-
+/*
+* The answer:
+* - Academic: 
+* Minimum value is the number of times each thread increments the global variable.
+* For example, if each thread increments the global variable by 20, then the minimum value is 20:
+* thread1 reads 0 
+* thread2 reads 0
+* thread1 writes 1
+* thread2 writes 1
+* ....
+* Maximum value is when the threads work "propely" by magic (as if the global variable is indeed synchronized) and it is
+* the number of threads that increment the global variable multiple the number of increments each thread does.
+* Also note that the number threads does NOT effect the MINIMUM value in the "wrost" case scenarion.
+*    relevant link: https://stackoverflow.com/questions/47988994/final-value-of-a-global-variable-which-is-being-incremented-via-two-threads
+* - Practical answer: It is, by definition, due to the fact that it has an inherent race condition, a case of undefined
+* behaviour. 
 void twoThreadsGlobalVar()
 {
     const char funcName [] = "twoThreadsGlobalVar - ";
