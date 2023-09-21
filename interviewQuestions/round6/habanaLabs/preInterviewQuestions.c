@@ -3,6 +3,45 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define LEN 2
+
+int* multipleTwoMatrix(const int mat1[][LEN], const int mat2[][LEN])
+{
+    const char funcName [] = "multipleTwoMatrix - ";
+    printf("%s got matrix is at address:%p, matrix2 at address:%p with size(NxN):%u\n", funcName, mat1, mat2, LEN);
+    
+    // first, allocate the resulting matrix:
+    int* retMat = (int *)malloc(sizeof(int) * LEN * LEN);
+    
+    // traversing a two dimensional array is essentially like "stretching it" into
+    // a single dimensional array and by simply incrementing the indices by one each 
+    // time
+    
+    for (int row = 0; row < LEN; ++row)
+    {
+        for (int col = 0; col < LEN; ++col)
+        {
+            *(retMat + row*LEN + col*LEN) = mat1[row][col] * mat2[row][col];
+        }
+    }
+    
+    printf("%s returning resulting matrix at address:%p\n", funcName, retMat);
+    return retMat;
+}
+
+void printTwoDimMat(int* mat)
+{
+    for (uint8_t row = 0; row < LEN; ++row)
+    {
+        for (uint8_t col = 0; col < LEN; ++col)
+        {
+            
+            printf("%d\t", *(mat + row*LEN + col*LEN));
+        }
+        
+        printf("\n");
+    }
+}
 
 /*
 Currently the assumption is that every word is separated from the next one by exactly
