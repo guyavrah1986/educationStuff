@@ -267,16 +267,51 @@ void hilazonStairs()
     printf("%s the dynamic programming (loop) approach function returned:%lu for %lu staris to climb\n", funcName, numOfOptionsToClimbStairs, numOfStairsToClimb);
 }
 
+int maxProfit(int* prices, int pricesSize)
+{
+    const char funcName [] = "maxProfit - ";
+    int ans = 0;
+    for (int i = 0; i < pricesSize - 1; ++i)
+    {
+        if (prices[i] < prices[i + 1])
+        {
+            ans += prices[i + 1] - prices[i];
+        }
+    }
+
+    
+    printf("%s for the array of prices\n", funcName);
+    for (int i = 0; i < pricesSize; ++i)
+    {
+        printf("%d\t", prices[i]);
+    }
+    
+    printf("\n%s about to return the answer:%d\n", funcName, ans);
+    return ans; 
+}
+
+void buyLowSellHigh()
+{
+    int prices [] = { 7, 1, 5, 3, 6, 4 };
+    int n = sizeof(prices)/sizeof(prices[0]);
+    int ans = maxProfit(prices, n);
+}
+
 int main(int argc, char** argv)
 {
     printf("main - start\n");
 
     // 1)
-    char strWithSeveralWords [] = "ab cd";
-    reverseStringWithSeveralWords(strWithSeveralWords);
-    printf("main - after reversing the entire word, it is now:%s\n", strWithSeveralWords);
+    //char strWithSeveralWords [] = "ab cd";
+    //reverseStringWithSeveralWords(strWithSeveralWords);
+    //printf("main - after reversing the entire word, it is now:%s\n", strWithSeveralWords);
 
     // 2)
-    myAlignedMallocAndFreeUsageExample();
+    //myAlignedMallocAndFreeUsageExample();
+    
+    // 5)
+    buyLowSellHigh();
+    
+    printf("main - end\n");
     return 0;
 }
