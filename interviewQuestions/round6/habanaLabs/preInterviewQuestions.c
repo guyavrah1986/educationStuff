@@ -210,6 +210,63 @@ void twoThreadsGlobalVar()
     printf("%s eventually the global variable has the value of:%d\n", funcName, globalInt);
 }
 
+/*
+* Given n=2: {1,1} {2} --> return 2
+* Given n=3: {1,1,1}, {1,2}, {2,1} --> return int3 
+* Given n=4: {1,1,1,1}, {1,1,2}, {1,2,1}, {2,1,1}, {2,2} --> return 5 
+* Given n=5: {1,1,1,1,1}, {1,1,1,2}, {1,1,2,1}, {1,2,1,1}, {2,1,1,1}, {1,2,2}, {2,1,2}, {2,2,1} --> return 5 
+*
+*
+*/
+size_t getNumOfOptionsToClimb(size_t n)
+{
+    if (1 == n)
+    {
+        return 1;
+    }
+    
+    if (2 == n)
+    {
+        return 2;
+    }
+    
+    return getNumOfOptionsToClimb(n - 1) + getNumOfOptionsToClimb(n - 2);
+}
+
+int climbStairs(const size_t numOfStairsToClimb)
+{
+    uint32_t* dp = (uint32_t *)malloc(sizeof(uint32_t) * (numOfStairsToClimb + 1));
+    dp[0] = 1;
+    dp[1] = 1;
+    for (size_t i = 2; i <= numOfStairsToClimb; ++i)
+    {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    
+    uint32_t retVal = dp[numOfStairsToClimb];
+    free(dp);
+    return retVal;
+}
+
+void hilazonStairs()
+{
+    const char funcName [] = "hilazonStairs - ";
+    size_t numOfStairsToClimb = 5;
+    printf("%s got number of stairs to climb:%lu\n", funcName, numOfStairsToClimb);
+    
+    // recursion approach
+    // ------------------
+    // let's break the problem to a "smaller" one each time, so upon having N 
+    // stairs to climb, climb one OR two and then calculate the number 
+    size_t numOfOptionsToClimbStairs = getNumOfOptionsToClimb(numOfStairsToClimb);
+    printf("%s the recursion function returned:%lu for %lu staris to climb\n", funcName, numOfOptionsToClimbStairs, numOfStairsToClimb);
+    
+    // loop approach:
+    // --------------
+    numOfOptionsToClimbStairs = climbStairs(numOfStairsToClimb);
+    printf("%s the dynamic programming (loop) approach function returned:%lu for %lu staris to climb\n", funcName, numOfOptionsToClimbStairs, numOfStairsToClimb);
+}
+
 int main(int argc, char** argv)
 {
     printf("main - start\n");
