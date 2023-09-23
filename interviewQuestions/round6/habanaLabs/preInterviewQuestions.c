@@ -5,38 +5,32 @@
 
 #define LEN 2
 
-int* multipleTwoMatrix(const int mat1[][LEN], const int mat2[][LEN])
+void multipleTwoMatrix(const int mat1[][LEN], const int mat2[][LEN], int resMat[][LEN])
 {
     const char funcName [] = "multipleTwoMatrix - ";
-    printf("%s got matrix is at address:%p, matrix2 at address:%p with size(NxN):%u\n", funcName, mat1, mat2, LEN);
-    
-    // first, allocate the resulting matrix:
-    int* retMat = (int *)malloc(sizeof(int) * LEN * LEN);
-    
-    // traversing a two dimensional array is essentially like "stretching it" into
-    // a single dimensional array and by simply incrementing the indices by one each 
-    // time
-    
+    printf("%s got matrix1 is at address:%p, matrix2 at address:%p with size(NxN):%u\n", funcName, mat1, mat2, LEN);
+
     for (int row = 0; row < LEN; ++row)
     {
         for (int col = 0; col < LEN; ++col)
         {
-            *(retMat + row*LEN + col*LEN) = mat1[row][col] * mat2[row][col];
+            resMat[row][col] = 0;
+            for (int k = 0; k < LEN; ++k)
+            {
+                resMat[row][col] += mat1[row][k] * mat2[k][col];
+            }
         }
     }
-    
-    printf("%s returning resulting matrix at address:%p\n", funcName, retMat);
-    return retMat;
 }
 
-void printTwoDimMat(int* mat)
+void printTwoDimMat(const int* mat, const size_t numRows, const size_t numCols)
 {
-    for (uint8_t row = 0; row < LEN; ++row)
+    for (uint8_t row = 0; row < numRows; ++row)
     {
-        for (uint8_t col = 0; col < LEN; ++col)
+        for (uint8_t col = 0; col < numCols; ++col)
         {
             
-            printf("%d\t", *(mat + row*LEN + col*LEN));
+            printf("%d\t", *(mat + row* numCols + col));
         }
         
         printf("\n");
@@ -124,8 +118,6 @@ void reverseStringWithSeveralWords(char* origStr)
         origStr = forwardStringPointerToNextWord(origStr);    
     }
 }
-
-
 
 /*Write an aligned malloc & free function. Which takes number of bytes and aligned byte (which is always power of 2)
 
@@ -297,6 +289,49 @@ void buyLowSellHigh()
     int ans = maxProfit(prices, n);
 }
 
+void multipleTwoMatrixExample()
+{
+    const char funcName [] = "multipleTwoMatrixExample - ";
+    int mat1[][LEN] = {{1,1},
+                      {1,1}};
+    int mat2[][LEN] = {{1,2},
+                      {3,4}};
+    int resMat [][LEN] = {{0, 0},
+                         {0, 0}};
+    printf("%s about to mutiple mat1 with mat2\n", funcName);
+    printf("%s mat1 is:\n", funcName);
+    printTwoDimMat(&mat1[0][0], LEN, LEN);
+    printf("%s mat2 is:\n", funcName);
+    printTwoDimMat(mat2[0], LEN, LEN);
+    multipleTwoMatrix(mat1, mat2, resMat);
+    printf("%s the resulting matrix is:\n", funcName);
+    printTwoDimMat(resMat[0], LEN, LEN);
+}
+
+void multipleThreeDimensionalArrayWithThreeDimensionalVector()
+{
+    const char funcName [] = "multipleThreeDimensionalArrayWithThreeDimensionalVector - ";
+    #define DIM1 2
+    
+    int threeDimArr[][3][4] = 
+    { 
+        { {0,1,2,3}, {4,5,6,7}, {8,9,10,11} },
+        { {12,13,14,15}, {16,17,18,19}, {20,21,22,23} }
+    };
+    
+    printf("%s about to display the THREE dimensional array as a collection of two dimensional arrays\n", funcName);
+    for (uint8_t i = 0; i < DIM1; ++ i)
+    {
+        printTwoDimMat(threeDimArr[i], 3 ,4);
+        printf("\n\n");
+    }
+}
+
+// =======================================================================================================
+// =======================================================================================================
+// main program 
+// =======================================================================================================
+// =======================================================================================================
 int main(int argc, char** argv)
 {
     printf("main - start\n");
@@ -310,7 +345,13 @@ int main(int argc, char** argv)
     //myAlignedMallocAndFreeUsageExample();
     
     // 5)
-    buyLowSellHigh();
+    //buyLowSellHigh();
+    
+    // 6)
+    //multipleTwoMatrixExample();
+    
+    // 7) 
+    multipleThreeDimensionalArrayWithThreeDimensionalVector();
     
     printf("main - end\n");
     return 0;
