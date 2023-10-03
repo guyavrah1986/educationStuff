@@ -1,3 +1,31 @@
+
+def randomize_songs(songs_arr: list) -> None:
+    func_name = "randomize_songs - "
+    list_size = len(songs_arr)
+    print(func_name + "about to randomize the list of:" + str(list_size) + " songs")
+    iteration_num = 1
+    while iteration_num < list_size:
+        
+        rand_num = random.randrange(0, list_size - iteration_num)
+        print(func_name + "on iteration:" + str(iteration_num) + " randomized the number:" + str(rand_num))
+        tmp = songs_arr[rand_num]
+        songs_arr[rand_num] = songs_arr[list_size - iteration_num]
+        songs_arr[list_size - iteration_num] = tmp
+        print(func_name + "after iteration:" + str(iteration_num) + " the songs array is:" + str(songs_arr))
+        iteration_num += 1
+    
+
+def randomize_songe_usage_example():
+    func_name = "randomize_songe_usage_example - "
+    songs_arr = []
+    num_of_songs = 10
+    for i in range(num_of_songs):
+        songs_arr.append(i)
+        
+    print(func_name + "initially, the songs array is:" + str(songs_arr))
+    randomize_songs(songs_arr)
+
+
 # utility function: if num is a power of two, it has exactly one bit set
 # so n - 1 has this one bit flipped to zero, and all of the bits after it 
 # set to one --> so "and"-ing them will give zero
