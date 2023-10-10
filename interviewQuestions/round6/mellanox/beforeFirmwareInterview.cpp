@@ -21,6 +21,45 @@ LABLE END_BOTH_LOOPS:
 	HLT (end of the program)
 */
 
+void findTwoNumsInArrayThatEqualValue()
+{
+    const char funcName [] = "findTwoNumsInArrayThatEqualValue - ";
+    int valToFind = 17;
+    printf("%s about to find two array elements that thier sum equals to:%d\n", funcName, valToFind);
+    
+    // we will assume the array is sorted
+    int arr [] = {0, 1, 3, 4, 5, 6 ,8 , 9, 18, 76, 99};
+    size_t arrLen = sizeof(arr)/sizeof(int);
+    
+    // go over the original array and "map" every number in it in its "complementry" 
+    // number to valToFind. For example, given arr[0] = 9, it will be "mapped" to the
+    // value 17-9=8 
+    // NOTE: In case any number in the original array is greater than the valToFind
+    // we will NOT map it (casue its index will be a negative value) --> meaning, For
+    // simplicity we assume all the numbers in the array are positive and smaller than 
+    // the valToFind
+    int* start = arr;
+    int* end = &(arr[arrLen - 1]);
+    printf("%s about to iterate over the array with start pointer at:%p with value of:%d, and end pointer at:%p, with value of:%d\n", funcName, start, *start, end, *end);    
+    while (start < end)
+    {
+        printf("%s start points at:%d, end points at:%d\n", funcName, *start, *end);
+        if (*start + *end == valToFind)
+        {
+            printf("%s found two numbers equls to:%d\n", funcName, valToFind);
+            return;
+        }
+        else if (*start + *end > valToFind)
+        {
+            end--;
+        }
+        else
+        {
+            start++;
+        }
+    }
+}
+
 struct item
 {
   int val;
