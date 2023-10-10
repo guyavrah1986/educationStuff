@@ -48,14 +48,75 @@ void question8()
 // 9. Given a string and a char, duplicate all the occurences of the special string if/wehn applicable.
 // For example: 
 // string = sedfrt  and ch = d --> seddfr
-
+void duplicateCharAppearences(const char charToDuplicate, char* str)
+{
+    const char funcName [] = "duplicateCharAppearences - ";
+    if (NULL == str)
+    {
+        printf("%s got a NULL string, terminating\n", funcName);
+        return;
+    }
+    
+    printf("%s got the string:%s and the char:%c\n", funcName, str, charToDuplicate);
+    
+    // create a new array of characters with the same size of the original string
+    size_t strLen = 0;
+    char* tmp = str;
+    while (*tmp != '\0')
+    {
+        ++strLen;
+        ++tmp;
+    }
+    
+    printf("%s the length of the original string is:%lu\n", funcName, strLen);
+    
+    // first iteration, go over the original string and "mark every place that has duplicate char"
+    char* retStr = (char*)malloc(sizeof(char) * (strLen + 1));
+    char indicationChar = '_';
+    
+    // we iterate untill the character which is one BEFORE the last one, cause if the very last
+    // character is the one to duplicate, there is no point of that...
+    for (unsigned char i = 0; i < strLen - 1; ++i)
+    {
+        if (str[i] == charToDuplicate)
+        {
+            retStr[i + 1] = indicationChar;
+        }
+    }
+    
+    printf("%s after only filling the duplicated chars, the temporary string to return is:\n", funcName);
+    for (unsigned char i = 0; i < strLen; ++i)
+    {
+        printf("retStr[%u]:%c\n", i, retStr[i]);
+    }
+    
+    // now fill the rest of the characters which are NOT the charToDuplicate
+    for (unsigned char i = 0; i < strLen; ++i)
+    {
+        if (retStr[i] == indicationChar)
+        {
+            retStr[i] = charToDuplicate;
+        }
+        else
+        {
+            retStr[i] = str[i];
+        }
+    }
+    
+    printf("%s after filling also the NON duplicated chars of the original string, the return string is:\n", funcName);
+    for (unsigned char i = 0; i < strLen; ++i)
+    {
+        printf("retStr[%u]:%c\n", i, retStr[i]);
+    }
+    
+    
 int main(int argc, char** argv)
 {
   const char funcName = "main - ";
   printf("%s start\n");
   printf("%s end\n");
 }
-}
+
 
 /* MY interview final notes for question 9:
 
