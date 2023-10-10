@@ -1,6 +1,120 @@
 #include <iostream>
 #include <map>
- 
+
+#define MAX_LEN_OF_LIST 10
+
+struct node
+{
+    int val;
+    struct node* next;
+};
+
+/*
+* Use cases: 
+* 1. Single element linked list
+* 2. Two elements, no duplications
+* 3. Two elements, duplicated
+* 4. Three element, first and second duplicated
+* 5. Three element, first and third duplicated
+* 6. Three element, first and last duplicated
+* 7. Three element, second and last duplicated
+
+*/
+void removeDuplicatesFromUnSortedLinkedList(struct node* head)
+{
+    const char funcName [] = "removeDuplicatesFromUnSortedLinkedList - ";
+    printf("%s about to remove duplications from the list that starts at address:%p\n", funcName, head);
+    unsigned char map [MAX_LEN_OF_LIST] = {0};
+    
+    // edge cases
+    if (head == NULL || head->next == NULL)
+    {
+        printf("%s empty or single element list, terminating\n", funcName);
+        return;
+    }
+    
+    // first traverse over the list to "count" how many times each number appears
+    struct node* prev = NULL;
+    struct node* curr = head;
+    while (curr != NULL)
+    {
+        // value was already encountered, remove the current appearence of it
+        if (map[curr->val] != 0)
+        {
+            // a duplicate was reached, remove it
+            // no need  to forward prev afterwards!
+            prev->next = curr->next;
+        }
+        else
+        {
+            map[curr->val]++;
+            prev = curr;
+        }
+
+        curr = curr->next;
+    }
+    
+    // for debug: disaply the list of appearences:
+    for(unsigned char i = 0; i < MAX_LEN_OF_LIST; ++i)
+    {
+        printf("map[%u]:%u\n", i, map[i]);
+    }
+    
+    printf("\n");
+}
+
+void displayList(const struct node* p)
+{
+    const char funcName [] = "displayList - ";
+    printf("%s about to display list that its head is at address:%p\n", funcName, p);
+    while (p != NULL)
+    {
+        printf("%d-->", p->val);
+        p = p->next;
+    }
+    
+    printf("NULL\n");
+}
+
+void createListWithSomeDuplicates()
+{
+    const char funcName [] = "createListWithSomeDuplicates - ";
+    printf("%s about tp create linked list\n", funcName);
+    struct node n1 = {1, NULL};
+    struct node n2 = {2, NULL};
+    n1.next = &n2;
+    
+    struct node n3 = {1, NULL};
+    n2.next = &n3;
+    
+    n3.next = NULL;
+    
+    
+    struct node n4 = {2, NULL};
+    n3.next = &n4;
+    n4.next = NULL;
+    /*
+    struct node n5 = {2, NULL};
+    n4.next = &n5;
+    
+    struct node n6 = {6, NULL};
+    n5.next = &n6;
+    
+    struct node n7 = {3, NULL};
+    n6.next = &n7;
+    
+    struct node n8 = {8, NULL};
+    n7.next = &n8;
+    */
+    printf("%s done creating the linked list, which is now:\n", funcName);
+    displayList(&n1);
+    
+    removeDuplicatesFromUnSortedLinkedList(&n1);
+    
+    printf("%s AFTER removing duplications from the linked list, it is now:\n", funcName);
+    displayList(&n1);
+}
+
 // Implementation assumptions:
 // 1.In case there are three elements (or more) that their sum equals to 
 //   val --> the first pair of numbers will be returned.
