@@ -21,6 +21,65 @@ LABLE END_BOTH_LOOPS:
 	HLT (end of the program)
 */
 
+struct item
+{
+  int val;
+  unsigned long long indicator;
+};
+
+/*
+* Some notes:
+* 1. It is important to note that the setAll method needs to be thread safe
+* 2. It is important to make sure that the global indicator does not reach beyond its max value
+* 3. It is important to note that the get and setAll will be synchronized
+*/
+
+#define ITEMS_ARR_SIZE 10
+struct item arr [ITEMS_ARR_SIZE];
+
+int commonValue = 0;
+unsigned long long numOfSetAll = 0;
+
+int getItemVal(unsigned int index)
+{
+    if (numOfSetAll > arr[index].indicator)
+    {
+        return commonValue;
+    }
+    else
+    {
+        return arr[index].val;
+    }
+}
+
+void setItemVal(unsigned int index, int valToSet)
+{
+    arr[index].val = valToSet;
+    arr[index].indicator = numOfSetAll;
+}
+
+void setAll(int commonVal)
+{
+    commonValue = commonVal;
+    if (numOfSetAll++ == MAX_LONG_VAL)
+    {
+        numOfSetAll = 0;
+        // go over all the array of items and "reset" thier indicator value - this is O(n)
+    }
+}
+
+void getSetAndResetProblem()
+{
+    const char funcName [] = "getSetAndResetProblem - ";
+    printf("%s start\n", funcName);
+    for (unsigned char i = 0; i < ITEMS_ARR_SIZE; ++i)
+    {
+        printf("arr[%u].val is:%d, arr[%u].indicator:%lu\n", i, arr[i].val, i, arr[i].indicator);
+    }
+    
+}
+
+
 #define MAX_LEN_OF_LIST 10
 
 struct node
