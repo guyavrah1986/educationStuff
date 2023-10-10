@@ -1,6 +1,26 @@
 #include <iostream>
 #include <map>
 
+/*
+mov a, 0  // this is the place holder for the final result
+mov c, X
+
+LABEL LOOP_1:
+	dec c (X--)
+	mov b, Y  // keep it for later
+	jnz c LOOP_2
+	goto END_BOTH_LOOPS
+	
+LABEL LOOP_2:
+	inc a (a++)
+	dec b (Y--)
+	jnz b LOOP_2
+	goto LOOP_1
+	
+LABLE END_BOTH_LOOPS:
+	HLT (end of the program)
+*/
+
 #define MAX_LEN_OF_LIST 10
 
 struct node
