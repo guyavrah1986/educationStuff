@@ -81,6 +81,10 @@ void buildRandomArray(int* arr, const size_t arrLen, int maxVal)
     printf("\n");
     printf("%s end\n", funcName);
 }
+
+// TODO: 
+// 1. Find a circle in a list
+// 2. Given a list, write a function to remove duplicates
  
 int main()
 {
