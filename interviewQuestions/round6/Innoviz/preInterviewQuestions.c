@@ -166,6 +166,103 @@ void funcFixed()
 
 // =============================================================================
 // =============================================================================
+// 3) Matrix max sum path:
+#define NUM_ROWS 5
+#define NUM_COLS 6
+#define FALSE 0
+#define TRUE 1
+
+// return whether or not the given cell is in a legitiamte loccation 
+// on the matrix grid
+int isValidCell(uint8_t row, uint8_t col)
+{
+    if ((row >= 0 && row < NUM_ROWS) && (col >= 0 && col < NUM_COLS))
+    {
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+size_t findMaxOfThreeNumbers(size_t a, size_t b, size_t c)
+{
+    if (a > b)
+    {
+        if (a > c)
+        {
+            return a;
+        }
+    }
+    else
+    {
+        if (b > c)
+        {
+            return b;
+        }
+    }
+    
+    return c;
+}
+
+size_t findMaxPathSum(int mat [NUM_ROWS][NUM_COLS], size_t currRow, size_t currCol) //[NUM_ROWS][NUM_COLS]
+{
+    const char funcName [] = "findMaxPathSum - ";
+    printf("%s got row:%lu, col:%lu\n", funcName, currRow, currCol);
+    if (FALSE == isValidCell(currRow, currCol))
+    {
+        printf("%s out of bound cell, returning 0\n", funcName);
+        return 0;
+    }
+    
+    if (currRow == NUM_ROWS - 1)
+    {
+        printf("%s got to the last row, terminating recursive call flow and returning:%d\n", funcName, mat[currRow][currCol]);
+        return mat[currRow][currCol];
+    }
+    
+    size_t sumDown = mat[currRow][currCol] + findMaxPathSum(mat, currRow + 1, currCol);
+    size_t sumDownLeft = mat[currRow][currCol] + findMaxPathSum(mat, currRow + 1, currCol - 1);
+    size_t sumDownRight = mat[currRow][currCol] + findMaxPathSum(mat, currRow + 1, currCol + 1);
+    
+    // find the maximum among the 3 sums
+    return findMaxOfThreeNumbers(sumDown, sumDownLeft, sumDownRight);
+}
+
+// Iterates every cell in the first row and checks returns the max sum 
+// path from it - eventually decides from which cell in the first row
+// the absoulte max path in the entire matrix exists
+void findMaxSumPathOnAllMatrix()
+{
+    const char funcName [] = "findMaxSumPathOnAllMatrix - ";
+    int rowPathsSumsArr [NUM_ROWS] = {0}; 
+    printf("%s initially set all paths sums to zero\n", funcName);
+    int mat [NUM_ROWS][NUM_COLS] = {{10, 10, 2, 0, 20, 4}, 
+                                          {1, 0, 0, 30, 2, 5},
+                                          {0, 10, 4, 0, 2, 0},
+                                          {1, 0, 2, 20, 0, 4},
+                                         };
+    printf("%s allocated the matrix with values\n", funcName);
+    
+    // call the findMaxPathSum for the first cell in the first row
+    size_t maxSum = findMaxPathSum(mat, 0, 0);
+    for (uint8_t col = 1; col < NUM_COLS; ++col)
+    {    
+        size_t sum =  findMaxPathSum(mat, 0, col);
+        printf("%s the sum of the max path from:[0][%u] is:%lu\n", funcName, col, sum); 
+        if (sum > maxSum)
+        {
+            maxSum = sum;
+        }
+        
+    }
+
+    printf("===========================================\n");
+    printf("%s the MAX sum of the entire array is:%lu\n", funcName, maxSum); 
+    printf("===========================================\n");
+}
+
+// =============================================================================
+// =============================================================================
 
 int main()
 {
