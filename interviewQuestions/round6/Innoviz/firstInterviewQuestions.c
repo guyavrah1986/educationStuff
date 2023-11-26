@@ -4,7 +4,18 @@
 #define PUBLIC extern
 #define NUM_ROWS 5
 #define NUM_COLS 6
-uint8_t pixelMatrix [NUM_ROWS * NUM_COLS] = {0};
+typedef uint8_t pixelMatrix [NUM_ROWS * NUM_COLS];
+
+struct matrixObject
+{
+    size_t rows;
+    size_t cols;
+    pixelMatrix samplePixelMatrix;
+};
+
+struct matrixObject sampleMatrixObject = {NUM_ROWS, NUM_COLS};
+//pixelMatrix samplePixelMatrix;
+
 
 // Public APIs
 PUBLIC int GetByte(int row, int col)
@@ -16,8 +27,10 @@ PUBLIC int GetByte(int row, int col)
         return -1;
     }
     
-    return pixelMatrix[row * sizeof(uint8_t) + col];
+    return sampleMatrixObject.samplePixelMatrix[row * sizeof(uint8_t) + col];
 }
+
+PUBLIC 
 
 void matrixExample()
 {
@@ -28,7 +41,7 @@ void matrixExample()
     {
         for (uint8_t j = 0; j < NUM_COLS; ++j)
         {
-            pixelMatrix[(sizeof(uint8_t) * i) + j] = counter++;
+            sampleMatrixObject.samplePixelMatrix[(sizeof(uint8_t) * i) + j] = counter++;
         }
     }
     
@@ -42,6 +55,8 @@ void matrixExample()
     
     printf("%s - end\n", funcName);
 }
+
+
 
 int main()
 {
