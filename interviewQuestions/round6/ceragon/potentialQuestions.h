@@ -1,6 +1,6 @@
 // ================================================================================================
 // ================================================================================================
-// 1. Implement a queue (I chose to do it in C++):
+// 1. Question: Implement a queue (I chose to do it in C++):
 // Implementation notes:
 // a) When initializing the queue, the maximum size of the queue is allocated. If the code was
 //    unable to allocate all the requiered space, FALSE is returned.
@@ -67,6 +67,8 @@ public:
     explicit MyQueue(const size_t queueSize)
         : m_maxSize(queueSize)
         , m_currSize(0)
+        , m_currFrontQueueIndex(0)
+        , m_currFreeQueueIndex(0)
         , m_queueArr(nullptr)
     {
         cout << "MyQueue::MyQueue - created queue with MAX size of:" << m_maxSize << endl;
@@ -123,13 +125,61 @@ public:
             return false;
         }
 
-        m_queueArr[m_currSize + 1] = val;
+        m_queueArr[m_currFreeQueueIndex] = val;
         ++m_currSize;
-        // TODO: guard with mutex --> end
+        if (m_currSize < m_maxSize)
+        {
+            m_currFreeQueueIndex = ++m_currFreeQueueIndex % m_maxSize;
+        }
+        else
+        {
+            m_currFreeQueueIndex = m_currFrontQueueIndex;
+        }
+        
+        // TODO: guard with mutex --> END
         return true;
     }
 
-    T PopFromQueue();
+    T& PopFromQueue()
+    {
+        const string funcName = "MyQueue::PopFromQueue - ";
+        if (nullptr == m_queueArr)
+        {
+            const string errorMsg = "the queue array is NULL, aborting";
+            cout << funcName + errorMsg << endl;
+            throw logic_error(errorMsg);
+        }
+
+        if (true == this->IsEmmpty())
+        {
+            const string errorMsg = "trying to pop from an empty queue, next time call IsEmpty() before";
+            cout << funcName +  errorMsg << endl;
+            throw logic_error(errorMsg);
+        }
+
+        --m_currSize;
+
+        // The m_currFrontQueueIndex points to the 
+        // current element to pop (remove) from the 
+        // queue at any given time
+        size_t indexToRemoveFrom = m_currFrontQueueIndex;
+        if (0 == m_currSize)
+        {
+            m_currFrontQueueIndex = 0;
+        }
+        else
+        {
+            m_currFrontQueueIndex = ++m_currFrontQueueIndex % m_maxSize;
+        }
+
+        return m_queueArr[indexToRemoveFrom];
+    }
+
+    bool IsEmmpty() const
+    {
+        // TODO: guard with mutex
+        return 0 == m_currSize;
+    }
 
     // Getters & setters:
     size_t GetNumOfItemsInQueue() const
@@ -141,6 +191,8 @@ public:
 private:
     size_t m_maxSize;
     size_t m_currSize;
+    size_t m_currFrontQueueIndex;
+    size_t m_currFreeQueueIndex;
     T* m_queueArr;
 };
 
