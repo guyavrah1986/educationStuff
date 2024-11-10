@@ -65,3 +65,83 @@ public:
         return attemptAllJumpsFromGivenIndex(0, nums);
     }
 };
+
+
+//==============================================================================================================================================================
+//==============================================================================================================================================================
+
+/*
+Given an input string s, reverse the order of the words.
+
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+
+Return a string of the words in reverse order concatenated by a single space.
+
+Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+ 
+
+Example 1:
+
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+Example 2:
+
+Input: s = "  hello world  "
+Output: "world hello"
+Explanation: Your reversed string should not contain leading or trailing spaces.
+Example 3:
+
+Input: s = "a good   example"
+Output: "example good a"
+Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+ */
+class Solution 
+{
+private:
+    short moveToNextNonWhiteSpaceChar(string s, short currIndex)
+    {
+        while (currIndex >= 0 && ' ' == s[currIndex])
+        {
+            --currIndex;
+        }
+
+        return currIndex;
+    }
+
+public:
+    string reverseWords(string s)
+    {
+        cout << "got sentance with total length of:" << s.length() << " characters" << endl;
+        string retStr = "";
+        char endCurrWord;
+        short currIndex = s.length() - 1;
+        while (currIndex >= 0)
+        {
+            // pass all whitespace, when you are done, this marks the 
+            // end of the current word
+            currIndex = moveToNextNonWhiteSpaceChar(s, currIndex);
+            if (currIndex < 0)
+            {
+                break;
+            }
+            
+            short endOfCurrWord = currIndex;
+
+            // move on as long as the current char is not " "
+            while (currIndex >= 0 && ' ' != s[currIndex])
+            {
+                --currIndex;
+            }
+
+            // compose/extract the word: it begins in currIndex + 1 and ends
+            // at endOfCurrWord
+            retStr += s.substr(currIndex + 1, endOfCurrWord - currIndex) + " ";
+        }
+
+        // remove the extra white space from the last word - it is fine, cause
+        // it is guaranteed that there will be at least one word
+        retStr.pop_back();
+        return retStr;    
+    }
+};
