@@ -8,8 +8,6 @@
 // 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
-
-
 #include <iostream>
 #include <vector>
 
@@ -60,7 +58,7 @@ public:
 
 	MyObj(MyObj&& other): m_a(0)
 	{
-		this->m_a = other.m_a;
+		this->m_a = move(other.m_a);
 		cout << "MyObj::(MyObj&&) - setting m_a to:" << m_a << " for object with address:" << this << endl;
 	}
 
@@ -84,6 +82,22 @@ public:
 		return *this;
 	}
 
+	MyObj& operator=(MyObj&& rhs)
+	{
+		std::cout << "MyObj::operator(&&)=" << std::endl; 
+		if (this == &rhs)
+		{
+			return *this;
+		}
+
+		std::cout << "setting m_a to:" << rhs.m_a << std::endl;
+		
+		this->m_a = rhs.m_a;
+
+		return *this;
+	}
+
+
 	friend std::ostream& operator<<(const std::ostream& out, const MyObj& obj);
 	
 	int m_a;
@@ -100,7 +114,6 @@ ostream& operator<<(ostream& out, const MyObjNoDefualtCtor& obj)
 	cout << "MyObjNoDefualtCtor (" << &obj << "," << obj.m_a << ")" << endl;
 	return out;
 }
-
 
 // ===================================================================================================================================================================
 // ===================================================================================================================================================================
@@ -262,7 +275,7 @@ void illustrateFillVectorWithObjects()
  *    of the "original" (temporary) object into the vector.
  * b) Same thing goes here as well: When adding the fourth element, two ctor's will be called.The more important notation here, is that due to the
  *    fact that we reached the vector capacity --> we will have to increase the vector size (the vector will do it for us off course), causing
- *    the capacity of the vector to increase by a factor of two (3 X 2 = 6) --> YET the last two elements WONT be initialized
+ *    the capacity of the vector to increase by a factor of two (3 X 2 = 6) --> YET the last two elements WON'T be initialized
  *    Implicitly using the copy ctor --> so accessing them is undefined !!
  * c) In this example we use the C++11 feature of "move semantics" by inserting (adding) the elements to the vector using the emplace_back() method.
  *    In this case, the "flow" is as follows:
@@ -334,21 +347,31 @@ void illustrateVectorGrowth()
 
 int main(int argc, char** argv)
 {
-	std::cout << "vectorExplained - start" << std::endl;
+	cout << "main - start" << endl;
 
+	int i;
+	cout << "main - please insert number according to the function you wish to run:" << endl;
+	cin >> i;
 
-	// 1)
-	// illustrateVectorDeclerationAndElementsAccess();
+	switch (i)
+	{
+		case 1: illustrateVectorDeclerationAndElementsAccess();
+				break;
 
-	// 2)
-	illustrateFillVectorWithObjects();
+		case 2: illustrateFillVectorWithObjects();
+				break;
 
-	// 3)
-	illustrateVectorGrowth();
-	
-	//fillVectorWithObjects();
-	
-	std::cout << "vectorExplained - end" << std::endl;
+		case 3: illustrateVectorGrowth();
+				break;
+
+		case 4: //fillVectorWithObjects();
+				break;
+
+		default: cout << "main - you have inserted an invalid number, aborting" << endl;
+				 return 1;
+	}
+
+	cout << "main - end" << endl;
 	return 0;
 }
 
