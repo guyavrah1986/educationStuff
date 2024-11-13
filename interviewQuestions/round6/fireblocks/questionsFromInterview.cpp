@@ -30,6 +30,11 @@ public:
 		cout << "A::f1()" << endl; 
 	}
 
+	virtual void f2()
+	{ 
+		cout << "A::f2()" << endl; 
+	}
+
 	int a;
 };
 
@@ -102,13 +107,14 @@ int main(int argc, char** argv)
 	cout << "main - calling the f1() function of the B object via the A*" << endl;
 	pa->f1();
 	
-	/*
 	cout << "main - creating C on the stack" << endl;	
 	C c;
-	A* pc = &c;
-	cout << "main - calling the g1() function of the C object" << endl;
-	pc->
-	*/
+	A* pc = (A*)&c;
+	cout << "main - calling the (non existing) f1() function of the C object which is pointed by A*" << endl;
+	pc->f1();
+
+	cout << "main - calling the (non existing) f2() function of the C object which is pointed by A*" << endl;
+	pc->f2();
 	
 	cout << "main - creating D on the stack" << endl;
 	D d;

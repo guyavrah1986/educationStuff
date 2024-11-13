@@ -86,6 +86,10 @@ public:
 		cout << "InnerObjectWithPrivateDefaultCtor::InnerObjectWithPrivateDefaultCtor - setting m_x to:" << m_x << endl;
 	}
 
+	// due to the fact that the above ctor is defined, it is effectively means that there is a defualt ctor, but it is private:
+	// private: 
+	//         InnerObjectWithPrivateDefaultCtor() {} 
+
 private:
 	int m_x;
 
