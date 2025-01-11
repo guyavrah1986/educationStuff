@@ -1,1 +1,0 @@
-This folder contain a basic examples for the usage in the Catch C++ unit-testing framework.
