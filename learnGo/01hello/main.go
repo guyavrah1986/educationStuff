@@ -6,6 +6,7 @@
 //  2. main is the SOLE entry point for the entire project (just
 //     like C/C++/Java) and in CONTRAST to how you can start Python script from
 //     "anywhere you wish".
+//  3. By defualt go is installed (on Linux) under $USER/go folder.
 //
 // ============================================================================
 // ============================================================================
