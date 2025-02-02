@@ -7,6 +7,8 @@
 //  2. The & unary operator takes the address of a variable in memory.
 //  3. The * unary operator is used to de-reference the pointer in order to
 //     get the value it is pointing to.
+//  4. It is possible to set a pointer variable directly using the `&` unary
+//     operator.
 //
 // ============================================================================
 // ============================================================================
@@ -36,6 +38,13 @@ func basicPointersDefinitions() {
 	// 3)
 	fmt.Println(funcName+"ptr1 points to value of:", *ptr1)
 	fmt.Println(funcName+"address of ptr1 is:", ptr1)
+
+	// 4)
+	num2 := 15
+	var ptr2 = &num2
+	fmt.Println(funcName+"ptr2 points to value of:", *ptr2)
+	fmt.Println(funcName+"address of ptr2 is:", ptr2)
+
 	fmt.Println(funcName + "end")
 }
 
