@@ -10,8 +10,14 @@
 // 1.This is the format to declare a method of some struct ("object").
 // 2.When passing an object (struct) to some function, it passes it by value,
 //
-//	  so actually a copy of it is being sent, thus the original instance is NOT
-//		 being modified.
+//	so actually a copy of it is being sent, thus the original instance is NOT
+//	being modified eventually.
+//
+// 3.In order to actually effect a modification on some property of a struct
+//
+//	via some function (i.e. - a "setter" function), one needs to define the
+//	method in a way that the object is "passed" by pointer (thus mimicking
+//	the "this pointer" in C++).
 //
 // ============================================================================
 // ============================================================================
@@ -33,6 +39,7 @@ func (c MyClass) SetVal1(val int) {
 	c.Val1 = val
 }
 
+// 3)
 func (c *MyClass) SetVal2(val int) {
 	c.Val2 = val
 }
